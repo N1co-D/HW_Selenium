@@ -26,8 +26,8 @@ public class HW1 {
 //                           размер окна браузера, управление куками и т.д.
 
         System.out.println();
-        System.out.println("driver2.findElement(By.id(\"language_pulldown\")) = " + driver2.findElement(By.id("language_pulldown"))); // Получение ссылки элемента
-        System.out.println("driver2.findElements(By.className(\"menuitem supernav\")) = " + driver2.findElements(By.tagName("link"))); // Получение идентификатора открытого окна браузера
+        System.out.println("driver2.findElement(By.id(\"language_pulldown\")) = " + driver2.findElement(By.id("language_pulldown"))); // Получение одного элемента (по идентификатору)
+        System.out.println("driver2.findElements(By.className(\"menuitem supernav\")) = " + driver2.findElements(By.tagName("link"))); // Получение всех элементов согласно условию
 
         System.out.println();
         System.out.println("driver1.getCurrentUrl() = " + driver1.getCurrentUrl()); // Получение текущего URL страницы
