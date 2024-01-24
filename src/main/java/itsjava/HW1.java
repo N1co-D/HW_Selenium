@@ -22,8 +22,15 @@ public class HW1 {
         System.out.println("driver1.getWindowHandles() = " + driver1.getWindowHandles()); // Получение идентификаторов всех открытых окон браузера
         System.out.println("driver2.getWindowHandles() = " + driver2.getWindowHandles());
 
-        driver1.manage(); // Возвращает объект Options, который предоставляет доступ к различным настройкам браузера:
-//                           размер окна браузера, управление куками и т.д.
+//      driver1.manage(); // Возвращает объект Options, который предоставляет доступ к различным настройкам браузера
+//      driver1.manage().addCookie(); // Добавление куки в текущий сеанс браузера
+//      driver1.manage().deleteAllCookies(); // Удаление всех куки из текущего сеанса браузера
+//      driver1.manage().deleteCookie(); // Удаление куки из текущего сеанса браузера
+//      driver1.manage().deleteCookieNamed(); // Удаление куки по указанному имени из текущего сеанса браузера
+//      driver1.manage().getCookieNamed() // Получение куки по указанному имени из текущего сеанса браузера
+//      driver1.manage().getCookies() // Получение всех куки из текущего сеанса браузера
+//      driver1.manage().logs() // Получение логов браузера
+//      driver1.manage().timeouts() // Установление таймауты для различных операций (например, ожидание загрузки страницы)
 
         System.out.println();
         System.out.println("driver2.findElement(By.id(\"language_pulldown\")) = " + driver2.findElement(By.id("language_pulldown"))); // Получение одного элемента (по идентификатору)
@@ -40,6 +47,9 @@ public class HW1 {
         System.out.println("driver2.getTitle() = " + driver2.getTitle());
 
         driver2.navigate().to("https://www.youtube.com/"); // Переход на страницу по указанному URL
+        driver2.navigate().back(); // Переход на страницу назад (кнопка "Назад")
+        driver2.navigate().forward(); // Переход на страницу вперед (кнопка "Вперед")
+        driver2.navigate().refresh(); // Обновление текущей страницы браузера
 
 //      driver1.switchTo().window(driver2.getWindowHandle()); // Переключение на другое окно или на другой элемент внутри страницы
 
