@@ -40,6 +40,7 @@ public class HW2 {
         driver2.get("https://store.steampowered.com/?l=russian");
 
         driver1.quit();
+        driver2.quit();
 
     }
 }
