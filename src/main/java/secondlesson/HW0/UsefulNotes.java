@@ -1,6 +1,6 @@
-package secondlesson;
+package secondlesson.HW0;
 
-public class HW0 {
+public class UsefulNotes {
     public static void main(String[] args) {
 
 //        /     Выбирает от корневого узла
