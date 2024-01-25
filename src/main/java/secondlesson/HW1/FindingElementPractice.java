@@ -23,9 +23,9 @@ public class FindingElementPractice {
         driver.get("https://store.steampowered.com/?l=russian");
 
         WebElement element1 = driver.findElement(By.xpath("//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")); // Кнопка "Категории" в верхней строке
-        WebElement element2 = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));
-        WebElement element3 = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']"));
-        WebElement element4 = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']"));
+        WebElement element2 = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));  // Не отображается
+        WebElement element3 = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']")); // Раздел "Категория" в боковом меню
+        WebElement element4 = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']")); // Раздел "Категория" в середине страницы
 
         System.out.println("element1.isDisplayed() = " + element1.isDisplayed());
         System.out.println("element2.isDisplayed() = " + element2.isDisplayed());
