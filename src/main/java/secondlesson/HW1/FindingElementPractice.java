@@ -24,13 +24,13 @@ public class FindingElementPractice {
 
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")); // Кнопка "Категории" в верхней строке
         WebElement categoriesButtonTopMenuMobile = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));  // Кнопка "Категории" в верхней строке (мобильная версия)
-        WebElement CategorySectionSideMenu = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']")); // Раздел "Категория" в боковом меню
-        WebElement CategorySectionCenterPage = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']")); // Раздел "Категория" в середине страницы
+        WebElement categorySectionSideMenu = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']")); // Раздел "Категория" в боковом меню
+        WebElement categorySectionCenterPage = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']")); // Раздел "Категория" в середине страницы
 
         System.out.println("categoriesButtonTopMenuDesktop.isDisplayed() = " + categoriesButtonTopMenuDesktop.isDisplayed());
         System.out.println("categoriesButtonTopMenuMobile.isDisplayed() = " + categoriesButtonTopMenuMobile.isDisplayed());
-        System.out.println("CategorySectionSideMenu.isDisplayed() = " + CategorySectionSideMenu.isDisplayed());
-        System.out.println("CategorySectionCenterPage.isDisplayed() = " + CategorySectionCenterPage.isDisplayed());
+        System.out.println("categorySectionSideMenu.isDisplayed() = " + categorySectionSideMenu.isDisplayed());
+        System.out.println("categorySectionCenterPage.isDisplayed() = " + categorySectionCenterPage.isDisplayed());
 
         driver.quit();
 
