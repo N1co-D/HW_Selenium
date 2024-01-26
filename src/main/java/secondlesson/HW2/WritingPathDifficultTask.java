@@ -21,11 +21,14 @@ public class WritingPathDifficultTask {
 
         driver.get("https://store.steampowered.com/?l=russian");
 
-        WebElement element = driver.findElement(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']"));
-        element.click();
-        WebElement element2 = driver.findElement(By.xpath("//div[@class = 'popup_menu popup_menu_browse leftborder']//div[@class = 'popup_genre_expand_content responsive_hidden'] //a[@class = 'popup_menu_item' and text() = 'Приключенческая ролевая игра']"));
+        WebElement element1 = driver.findElement(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']"));
+        element1.click();
+        WebElement element2 = driver.findElement(By.xpath("//div[@class = 'popup_menu_subheader popup_genre_expand_header responsive_hidden' and @data-genre-group = 'adventure']/descendant::a"));
         element2.click();
 
+//        WebElement element = driver.findElement(By.xpath("//div[@class = 'popup_menu popup_menu_browse leftborder']//div[@class = 'popup_genre_expand_content responsive_hidden'] //a[@class = 'popup_menu_item' and text() = 'Приключенческая ролевая игра']"));
+
         driver.quit();
+
     }
 }
