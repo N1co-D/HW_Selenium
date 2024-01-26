@@ -22,16 +22,17 @@ public class FindingElementPractice {
 
         driver.get("https://store.steampowered.com/?l=russian");
 
-        WebElement element1 = driver.findElement(By.xpath("//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")); // Кнопка "Категории" в верхней строке
-        WebElement element2 = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));  // Не отображается
-        WebElement element3 = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']")); // Раздел "Категория" в боковом меню
-        WebElement element4 = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']")); // Раздел "Категория" в середине страницы
+        WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")); // Кнопка "Категории" в верхней строке
+        WebElement categoriesButtonTopMenuMobile = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));  // Кнопка "Категории" в верхней строке (мобильная версия)
+        WebElement CategorySectionSideMenu = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']")); // Раздел "Категория" в боковом меню
+        WebElement CategorySectionCenterPage = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']")); // Раздел "Категория" в середине страницы
 
-        System.out.println("element1.isDisplayed() = " + element1.isDisplayed());
-        System.out.println("element2.isDisplayed() = " + element2.isDisplayed());
-        System.out.println("element3.isDisplayed() = " + element3.isDisplayed());
-        System.out.println("element4.isDisplayed() = " + element4.isDisplayed());
+        System.out.println("categoriesButtonTopMenuDesktop.isDisplayed() = " + categoriesButtonTopMenuDesktop.isDisplayed());
+        System.out.println("categoriesButtonTopMenuMobile.isDisplayed() = " + categoriesButtonTopMenuMobile.isDisplayed());
+        System.out.println("CategorySectionSideMenu.isDisplayed() = " + CategorySectionSideMenu.isDisplayed());
+        System.out.println("CategorySectionCenterPage.isDisplayed() = " + CategorySectionCenterPage.isDisplayed());
 
         driver.quit();
+
     }
 }
