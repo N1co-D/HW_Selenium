@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class WritingPathDifficultTask {
+public class XPathDifficultElement {
     public static void main(String[] args) throws IOException {
         File file = new File("src/main/resources/config.properties");
         Properties props = new Properties();
@@ -23,10 +23,8 @@ public class WritingPathDifficultTask {
 
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']"));
         categoriesButtonTopMenuDesktop.click();
-        WebElement adventureGameButton = driver.findElement(By.xpath("//div[@class = 'popup_menu_subheader popup_genre_expand_header responsive_hidden' and @data-genre-group = 'adventure']/descendant::a"));
+        WebElement adventureGameButton = driver.findElement(By.xpath("//a[@class = 'popup_menu_item' and contains(text(), 'Приключенческая игра')]"));
         adventureGameButton.click();
-
-//        WebElement adventureRolePlayingGameButton = driver.findElement(By.xpath("//div[@class = 'popup_menu popup_menu_browse leftborder']//div[@class = 'popup_genre_expand_content responsive_hidden'] //a[@class = 'popup_menu_item' and text() = 'Приключенческая ролевая игра']"));
 
         driver.quit();
 
