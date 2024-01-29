@@ -122,7 +122,7 @@ public class DifferentXPathTest {
         WebDriver driver = browserDefinition();
         driver.get("https://store.steampowered.com/");
         WebElement allButtonsBottomMenu = driver.findElement(By.xpath("//div[@class = 'valve_links']//following::a[@target = '_blank']")); // Все кнопки в нижней строки страницы
-        Assert.assertEquals(allButtonsBottomMenu.isEnabled(), true);
+        Assert.assertTrue(allButtonsBottomMenu.isEnabled());
         driver.quit();
     }
 
