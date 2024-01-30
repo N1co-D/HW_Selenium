@@ -11,6 +11,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -23,11 +24,16 @@ public class ClickingDifficultElementTest {
     private WebDriver driver;
 
     @BeforeClass
-    public WebDriver browserDefinition() throws IOException {
+    public WebDriver browserDefinition() {
         File file = new File("src/main/resources/config.properties");
         Properties props = new Properties();
-        props.load(new FileInputStream(file));
 
+        try {
+            props.load(new FileInputStream(file));
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке файла!");
+            throw new RuntimeException(e);
+        }
         if (props.getProperty("browser").equals("chrome")) {
             System.out.println("Определен браузер: Google Chrome");
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -54,14 +60,17 @@ public class ClickingDifficultElementTest {
     }
 
     @Test
-    public void clickingAdventureGameButtonTest() throws IOException {
-        WebDriver driver = browserDefinition();
+    public void clickingAdventureGameButtonTest() {
         driver.get("https://store.steampowered.com/");
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']"));
         categoriesButtonTopMenuDesktop.click();
         WebElement adventureGameButton = driver.findElement(By.xpath("//a[@class = 'popup_menu_item' and contains(text(), 'Приключенческая игра')]"));
         adventureGameButton.click();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://store.steampowered.com/category/adventure/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://store.steampowered.com/category/adventure/", "Переход на ожидаемую страницу не произошел.");
+    }
+
+    @AfterTest
+    public void afterTest(){
         driver.quit();
     }
 
