@@ -23,7 +23,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 public class MakingTestByTestCase {
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
     public WebDriver browserDefinition() {

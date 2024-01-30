@@ -19,7 +19,7 @@ import java.time.Duration;
 import java.util.*;
 
 public class FindingElementPracticeTest {
-    WebDriver driver;
+    private WebDriver driver;
 
     @DataProvider(name = "devicesData")
     public static Object[][] devicesData() {
@@ -70,7 +70,7 @@ public class FindingElementPracticeTest {
         return driver;
     }
 
-    @Test (priority = 1)
+    @Test(priority = 1)
     public void categoriesButtonTopMenuDesktopDisplayingTest() {
         driver.get("https://store.steampowered.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -78,7 +78,7 @@ public class FindingElementPracticeTest {
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "[Десктопная версия] Кнопка \"Категории\" в верхнем меню страницы не отображается.");
     }
 
-    @Test (priority = 2)
+    @Test(priority = 2)
     public void categorySectionSideMenuDisplayingTest() {
         driver.get("https://store.steampowered.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -86,7 +86,7 @@ public class FindingElementPracticeTest {
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Заголовок раздела \"Категории\" в боковом меню страницы не отображается.");
     }
 
-    @Test (priority = 3)
+    @Test(priority = 3)
     public void categorySectionCenterPageDisplayingTest() {
         driver.get("https://store.steampowered.com/");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
