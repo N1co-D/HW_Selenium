@@ -73,7 +73,7 @@ public class FindingElementPracticeTest {
     @Test (priority = 1)
     public void categoriesButtonTopMenuDesktopDisplayingTest() {
         driver.get("https://store.steampowered.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//span//a[@class = 'pulldown_desktop' and text() = 'Категории']"));
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "[Десктопная версия] Кнопка \"Категории\" в верхнем меню страницы не отображается.");
     }
@@ -81,7 +81,7 @@ public class FindingElementPracticeTest {
     @Test (priority = 2)
     public void categorySectionSideMenuDisplayingTest() {
         driver.get("https://store.steampowered.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//div[@class = 'gutter_header pad' and text() = 'Категории']"));
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Заголовок раздела \"Категории\" в боковом меню страницы не отображается.");
     }
@@ -89,7 +89,7 @@ public class FindingElementPracticeTest {
     @Test (priority = 3)
     public void categorySectionCenterPageDisplayingTest() {
         driver.get("https://store.steampowered.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//div[@class = 'title' and text() = 'Категории']"));
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Заголовок раздела \"Категории\" в центре страницы не отображается.");
     }
@@ -98,7 +98,7 @@ public class FindingElementPracticeTest {
     public void categoriesButtonTopMenuMobileDisplayingTest(String deviceName, int width, int height) {
         driver.manage().window().setSize(new Dimension(width, height));
         driver.get("https://store.steampowered.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5000));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         WebElement categoriesButtonTopMenuMobile = driver.findElement(By.xpath("//span//a[@class = 'pulldown_mobile' and text() = 'Категории']"));
         Assert.assertTrue(categoriesButtonTopMenuMobile.isDisplayed(), "[Мобильная версия] Кнопка \"Категории\" в верхнем меню страницы не отображается.");
     }

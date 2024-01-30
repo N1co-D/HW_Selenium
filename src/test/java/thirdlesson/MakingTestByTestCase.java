@@ -2,6 +2,7 @@ package thirdlesson;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,10 +26,16 @@ public class MakingTestByTestCase {
     WebDriver driver;
 
     @BeforeClass
-    public WebDriver browserDefinition() throws IOException {
+    public WebDriver browserDefinition() {
         File file = new File("src/main/resources/config.properties");
         Properties props = new Properties();
-        props.load(new FileInputStream(file));
+
+        try {
+            props.load(new FileInputStream(file));
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке файла!");
+            throw new RuntimeException(e);
+        }
 
         if (props.getProperty("browser").equals("chrome")) {
             System.out.println("Определен браузер: Google Chrome");
@@ -56,23 +63,22 @@ public class MakingTestByTestCase {
     }
 
     @Test
-    public void CheckingCorrectnessOfPriceAndCurrencyTest() throws IOException, InterruptedException {
-        WebDriver driver = browserDefinition();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    public void checkingCorrectnessOfPriceAndCurrencyTest() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://store.steampowered.com/");
-        // Thread.sleep(7000);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("window.scrollBy(0, " + 2250 + ");");
         WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//img[@alt = 'TEKKEN 8']/ancestor::a[contains(@class,'app_impression_tracked')]//div[@class = 'discount_final_price']"));
-        Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed());
-//        Assert.assertTrue(categoriesButtonTopMenuDesktop.getText().contains("4199")); // изменить
-//        Assert.assertTrue(categoriesButtonTopMenuDesktop.getText().contains("руб."));
+        Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Игра по указанному XPath не найдена.");
+        String priceText = categoriesButtonTopMenuDesktop.getText();
+        String[] parts = priceText.split(" ");
+        Assert.assertEquals(parts[0], "4199", "Указана некорректная цена товара");
+        Assert.assertEquals(parts[1], "pуб.", "Указана некорректная валюта в стоимости");
     }
 
-    @AfterClass
-    public void afterTests(){
+    @AfterTest
+    public void afterTests() {
         driver.quit();
     }
-
-
-
 
 }
