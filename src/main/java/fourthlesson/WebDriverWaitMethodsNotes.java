@@ -2,9 +2,7 @@ package fourthlesson;
 
 public class WebDriverWaitMethodsNotes {
     public static void main(String[] args) {
-
         /*
-
         timeoutException(String message, Throwable lastException):  Этот метод выбрасывает исключение по таймауту1.
 
         ignoreAll(Collection types):                                Игнорирует все исключения, которые содержатся в переданной коллекции1.
@@ -38,8 +36,6 @@ public class WebDriverWaitMethodsNotes {
         withTimeout(Duration duration):
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.withTimeout(Duration.ofSeconds(30));
-
          */
-
     }
 }
