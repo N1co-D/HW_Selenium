@@ -3,9 +3,7 @@ package fourthlesson;
 public class TestNGAnnotationsNotes {
 
     public static void main(String[] args) {
-
         /*
-
         @Test:          Определяет, что метод является тестовым методом.
         @BeforeSuite:   Обозначает метод, который будет выполняться перед запуском всех тестов внутри тестового набора.
         @AfterSuite:    Обозначает метод, который будет выполняться после выполнения всех тестов внутри тестового набора.
@@ -22,7 +20,6 @@ public class TestNGAnnotationsNotes {
         @Factory:       Позволяет создавать экземпляры тестового класса с различными наборами данных.
         @Listeners:     Позволяет подключать слушателей для отслеживания событий во время выполнения тестов.
         @TestInstance:  Указывает на то, каким образом TestNG должен создавать экземпляры тестового класса.
-
 
 
         @BeforeSuite
@@ -107,7 +104,5 @@ public class TestNGAnnotationsNotes {
         }
 
          */
-
     }
-
 }
