@@ -16,9 +16,7 @@ import java.util.Properties;
 
 public class ActionsClassNotes {
     public static void main(String[] args) {
-
         /*
-
         build():                                                        Метод создает и возвращает действие (Action), которое можно использовать для построения последовательности действий.
         click():                                                        Выполняет клик левой кнопкой мыши в текущей позиции указателя.
         click(WebElement target):                                       Выполняет клик левой кнопкой мыши по указанному элементу.
@@ -212,7 +210,5 @@ public class ActionsClassNotes {
 
         // setActiveWheel(String name): Устанавливает активное колесо по имени.
         actions.setActiveWheel("scroll_wheel");
-
     }
-
 }
