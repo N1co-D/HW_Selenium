@@ -3,13 +3,13 @@ package fourthlesson;
 public class WebDriverWaitMethodsNotes {
     public static void main(String[] args) {
         /*
-        timeoutException(String message, Throwable lastException):  Этот метод выбрасывает исключение по таймауту1.
+        timeoutException(String message, Throwable lastException):  Этот метод выбрасывает исключение по таймауту.
 
-        ignoreAll(Collection types):                                Игнорирует все исключения, которые содержатся в переданной коллекции1.
-        ignoring(Class exceptionType):                              Игнорирует конкретный тип исключения1.
-        pollingEvery(Duration duration):                            Определяет частоту, с которой FluentWait должен проверять условия1.
-        until(Function condition):                                  Повторяет проверку условия, пока оно не станет истинным или пока не истечет время ожидания1.
-        withMessage(String message):                                Определяет сообщение, которое должно быть включено в исключение, если время ожидания истекло1.
+        ignoreAll(Collection types):                                Игнорирует все исключения, которые содержатся в переданной коллекции.
+        ignoring(Class exceptionType):                              Игнорирует конкретный тип исключения.
+        pollingEvery(Duration duration):                            Определяет частоту, с которой FluentWait должен проверять условия.
+        until(Function condition):                                  Повторяет проверку условия, пока оно не станет истинным или пока не истечет время ожидания.
+        withMessage(String message):                                Определяет сообщение, которое должно быть включено в исключение, если время ожидания истекло.
         withTimeout(Duration duration):                             Определяет максимальное время ожидания
 
 
