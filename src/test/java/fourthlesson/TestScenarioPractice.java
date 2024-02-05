@@ -12,12 +12,12 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.io.File;
@@ -74,36 +74,35 @@ public class TestScenarioPractice {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://store.steampowered.com/");
         Actions actions = new Actions(driver);
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-        WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
+        WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
         categoriesButtonTopMenuDesktop.click();
 
-        WebElement cooperativesCategoryButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']")));
+        WebElement cooperativesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']")));
         cooperativesCategoryButton.click();
         actions.scrollByAmount(0, 1850).perform();
 
-        WebElement witTheHighestRatingParameterButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
-        jsExecutor.executeScript("arguments[0].click()", witTheHighestRatingParameterButton);
+        WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
+        clickByJs(witTheHighestRatingParameterButton);
 
-        WebElement casualGameParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
-        jsExecutor.executeScript("arguments[0].click()", casualGameParameter);
+        WebElement casualGameParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
+        clickByJs(casualGameParameter);
 
-        WebElement playersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
-        jsExecutor.executeScript("arguments[0].click()", playersParameter);
+        WebElement playersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
+        clickByJs(playersParameter);
 
-        WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
-        String resultsText = results.getText();
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        String resultsText = fieldWithSearchResults.getText();
 
-        WebElement cooperativeParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']")));
-        jsExecutor.executeScript("arguments[0].click()", cooperativeParameter);
+        WebElement cooperativeParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']")));
+        clickByJs(cooperativeParameter);
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
         if (!resultsText.equals(resultsTextForComparing)) {
-            WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
+            WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
             driver.get(gameLink);
             Assert.assertEquals(driver.getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
@@ -115,43 +114,42 @@ public class TestScenarioPractice {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://store.steampowered.com/");
         Actions actions = new Actions(driver);
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-        WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
+        WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
         categoriesButtonTopMenuDesktop.click();
 
-        WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']")));
+        WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']")));
         mysteriesAndDetectivesCategoryButton.click();
         actions.scrollByAmount(0, 1850).perform();
 
-        WebElement salesLeadersParameterButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text() = 'Лидеры продаж']")));
-        jsExecutor.executeScript("arguments[0].click()", salesLeadersParameterButton);
+        WebElement salesLeadersParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'Лидеры продаж']")));
+        clickByJs(salesLeadersParameterButton);
 
-        WebElement showMoreButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetValueShowMore') and text() = 'Показать больше']")));
-        jsExecutor.executeScript("arguments[0].click()", showMoreButton);
+        WebElement showMoreButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetValueShowMore') and text() = 'Показать больше']")));
+        clickByJs(showMoreButton);
 
-        WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
-        String resultsText = results.getText();
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        String resultsText = fieldWithSearchResults.getText();
 
-        WebElement strategyParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Стратегия']")));
-        jsExecutor.executeScript("arguments[0].click()", strategyParameter);
+        WebElement strategyParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Стратегия']")));
+        clickByJs(strategyParameter);
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        WebElement playersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
-        jsExecutor.executeScript("arguments[0].click()", playersParameter);
+        WebElement playersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
+        clickByJs(playersParameter);
 
-        WebElement forMultiplePlayersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Для нескольких игроков']")));
-        jsExecutor.executeScript("arguments[0].click()", forMultiplePlayersParameter);
+        WebElement forMultiplePlayersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Для нескольких игроков']")));
+        clickByJs(forMultiplePlayersParameter);
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
-        WebElement resultsForComparing2 = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
-            WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
+            WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
             driver.get(gameLink);
             Assert.assertEquals(driver.getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
@@ -163,38 +161,37 @@ public class TestScenarioPractice {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://store.steampowered.com/");
         Actions actions = new Actions(driver);
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-        WebElement inputBox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
-        jsExecutor.executeScript("arguments[0].click()", inputBox);
+        WebElement inputBox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
+        clickByJs(inputBox);
         actions.sendKeys(inputBox, "Oxygen Not Included").perform();
 
-        WebElement inputBoxConfirm = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
-        jsExecutor.executeScript("arguments[0].click()", inputBoxConfirm);
+        WebElement inputBoxConfirm = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
+        clickByJs(inputBoxConfirm);
         Assert.assertEquals(driver.getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
-        WebElement sortingParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'sort_by_trigger']")));
-        jsExecutor.executeScript("arguments[0].click()", sortingParameters);
+        WebElement sortingParameters = webDriverWait.until(visibilityOfElementLocated(By.id("sort_by_trigger")));
+        clickByJs(sortingParameters);
 
-        WebElement releasingDateParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'inactive_selection' and text() = 'дате выхода']")));
-        jsExecutor.executeScript("arguments[0].click()", releasingDateParameter);
+        WebElement releasingDateParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'inactive_selection' and text() = 'дате выхода']")));
+        clickByJs(releasingDateParameter);
 
-        WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
-        String resultsText = results.getText();
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        String resultsText = fieldWithSearchResults.getText();
 
-        WebElement removeFreeGamesCheckbox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
-        jsExecutor.executeScript("arguments[0].click()", removeFreeGamesCheckbox);
+        WebElement removeFreeGamesCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
+        clickByJs(removeFreeGamesCheckbox);
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
-        WebElement resultsForComparing2 = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
-            List<WebElement> allGames = webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
+            List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
             for (WebElement game : allGames) {
                 WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
                 if (currentGame.getText().startsWith("Oxygen Not Included")) {
@@ -209,36 +206,39 @@ public class TestScenarioPractice {
         }
     }
 
+    /**
+     * Тест сам по себе рабочий, но с 5 февраля не актуален в связи с тем, что специальное предложение по играм с таким названием
+     * закончилось, и все они перестали отображаться в списке при установке галочки в элементе specialOffersCheckbox
+     */
     @Test(priority = 4)
     public void checkingSortingByReleaseDateAndOtherParameter() {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://store.steampowered.com/");
         Actions actions = new Actions(driver);
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-        WebElement inputBox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
-        jsExecutor.executeScript("arguments[0].click()", inputBox);
+        WebElement inputBox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
+        clickByJs(inputBox);
         actions.sendKeys(inputBox, "The Callisto Protocol").perform();
 
-        WebElement inputBoxConfirm = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
-        jsExecutor.executeScript("arguments[0].click()", inputBoxConfirm);
+        WebElement inputBoxConfirm = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
+        clickByJs(inputBoxConfirm);
         Assert.assertEquals(driver.getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
-        WebElement sortingParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'sort_by_trigger']")));
-        jsExecutor.executeScript("arguments[0].click()", sortingParameters);
+        WebElement sortingParameters = webDriverWait.until(visibilityOfElementLocated(By.id("sort_by_trigger")));
+        clickByJs(sortingParameters);
 
-        WebElement priceIncreaseParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'Price_ASC']")));
-        jsExecutor.executeScript("arguments[0].click()", priceIncreaseParameter);
+        WebElement priceIncreaseParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'Price_ASC']")));
+        clickByJs(priceIncreaseParameter);
 
-        WebElement specialOffersCheckbox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']")));
-        jsExecutor.executeScript("arguments[0].click()", specialOffersCheckbox);
+        WebElement specialOffersCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']")));
+        clickByJs(specialOffersCheckbox);
 
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results']/div[contains(text(), 'Результатов по вашему запросу:')]")));
 
-        WebElement windowsOperatingSystemParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
-        jsExecutor.executeScript("arguments[0].click()", windowsOperatingSystemParameter);
+        WebElement windowsOperatingSystemParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
+        clickByJs(windowsOperatingSystemParameter);
 
-        List<WebElement> allGames = webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
+        List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
             if (currentGame.getText().startsWith("The Callisto Protocol")) {
@@ -250,6 +250,11 @@ public class TestScenarioPractice {
                 break;
             }
         }
+    }
+
+    public void clickByJs(WebElement webElement) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].click()", webElement);
     }
 
     @AfterTest
