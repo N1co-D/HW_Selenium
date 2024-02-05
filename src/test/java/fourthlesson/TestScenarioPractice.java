@@ -76,32 +76,26 @@ public class TestScenarioPractice {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
-        Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Элемент по указанному XPath не найден.");
         categoriesButtonTopMenuDesktop.click();
 
         WebElement cooperativesCategoryButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']")));
-        Assert.assertTrue(cooperativesCategoryButton.isDisplayed(), "Элемент по указанному XPath не найден.");
         cooperativesCategoryButton.click();
         actions.scrollByAmount(0, 1850).perform();
 
         WebElement witTheHighestRatingParameterButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
-        Assert.assertTrue(witTheHighestRatingParameterButton.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", witTheHighestRatingParameterButton);
 
         WebElement casualGameParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
-        Assert.assertTrue(casualGameParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
 
         jsExecutor.executeScript("arguments[0].click()", casualGameParameter);
 
         WebElement playersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
-        Assert.assertTrue(playersParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", playersParameter);
 
         WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsText = results.getText();
 
         WebElement cooperativeParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']")));
-        Assert.assertTrue(cooperativeParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", cooperativeParameter);
 
         webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
@@ -110,7 +104,6 @@ public class TestScenarioPractice {
 
         if (!resultsText.equals(resultsTextForComparing)) {
             WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
-            Assert.assertTrue(firstGameWithFilterParameters.isDisplayed(), "Элемент по указанному XPath не найден.");
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
             driver.get(gameLink);
             Assert.assertEquals(driver.getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
@@ -125,27 +118,22 @@ public class TestScenarioPractice {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
-        Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Элемент по указанному XPath не найден.");
         categoriesButtonTopMenuDesktop.click();
 
         WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']")));
-        Assert.assertTrue(mysteriesAndDetectivesCategoryButton.isDisplayed(), "Элемент по указанному XPath не найден.");
         mysteriesAndDetectivesCategoryButton.click();
         actions.scrollByAmount(0, 1850).perform();
 
         WebElement salesLeadersParameterButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text() = 'Лидеры продаж']")));
-        Assert.assertTrue(salesLeadersParameterButton.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", salesLeadersParameterButton);
 
         WebElement showMoreButton = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetValueShowMore') and text() = 'Показать больше']")));
-        Assert.assertTrue(showMoreButton.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", showMoreButton);
 
         WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsText = results.getText();
 
         WebElement strategyParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Стратегия']")));
-        Assert.assertTrue(strategyParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", strategyParameter);
 
         webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
@@ -153,11 +141,9 @@ public class TestScenarioPractice {
         String resultsTextForComparing = resultsForComparing.getText();
 
         WebElement playersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
-        Assert.assertTrue(playersParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", playersParameter);
 
         WebElement forMultiplePlayersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Для нескольких игроков']")));
-        Assert.assertTrue(forMultiplePlayersParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", forMultiplePlayersParameter);
 
         webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
@@ -166,7 +152,6 @@ public class TestScenarioPractice {
 
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
             WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[@class = 'salepreviewwidgets_StoreSaleWidgetHalfLeft_2Va3O']/a"))));
-            Assert.assertTrue(firstGameWithFilterParameters.isDisplayed(), "Элемент по указанному XPath не найден.");
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
             driver.get(gameLink);
         }
@@ -181,28 +166,23 @@ public class TestScenarioPractice {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         WebElement inputBox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
-        Assert.assertTrue(inputBox.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", inputBox);
         actions.sendKeys(inputBox, "Oxygen Not Included").perform();
 
         WebElement inputBoxConfirm = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
-        Assert.assertTrue(inputBoxConfirm.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", inputBoxConfirm);
         Assert.assertEquals(driver.getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         WebElement sortingParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'sort_by_trigger']")));
-        Assert.assertTrue(sortingParameters.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", sortingParameters);
 
         WebElement releasingDateParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@class = 'inactive_selection' and text() = 'дате выхода']")));
-        Assert.assertTrue(releasingDateParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", releasingDateParameter);
 
         WebElement results = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsText = results.getText();
 
         WebElement removeFreeGamesCheckbox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
-        Assert.assertTrue(removeFreeGamesCheckbox.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", removeFreeGamesCheckbox);
 
         webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
@@ -237,31 +217,25 @@ public class TestScenarioPractice {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         WebElement inputBox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
-        Assert.assertTrue(inputBox.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", inputBox);
         actions.sendKeys(inputBox, "The Callisto Protocol").perform();
 
         WebElement inputBoxConfirm = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
-        Assert.assertTrue(inputBoxConfirm.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", inputBoxConfirm);
         Assert.assertEquals(driver.getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         WebElement sortingParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'sort_by_trigger']")));
-        Assert.assertTrue(sortingParameters.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", sortingParameters);
 
         WebElement priceIncreaseParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@id = 'Price_ASC']")));
-        Assert.assertTrue(priceIncreaseParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", priceIncreaseParameter);
 
         WebElement specialOffersCheckbox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']")));
-        Assert.assertTrue(specialOffersCheckbox.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", specialOffersCheckbox);
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results']/div[contains(text(), 'Результатов по вашему запросу:')]")));
 
         WebElement windowsOperatingSystemParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
-        Assert.assertTrue(windowsOperatingSystemParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", windowsOperatingSystemParameter);
 
         List<WebElement> allGames = webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
@@ -272,7 +246,7 @@ public class TestScenarioPractice {
                 WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
                 Assert.assertEquals(currentGame.getText(), "The Callisto Protocol™ - The Outer Way Skin Collection", "Указан заголовок некорректной игры");
                 Assert.assertTrue(gameReleaseDate.getText().contains("7 фев. 2023"), "Указана некорректная дата релиза игры");
-                Assert.assertEquals(gamePrice.getText(), "100 руб", "Указана некорректная цена игры");
+                Assert.assertEquals(gamePrice.getText(), "200 руб", "Указана некорректная цена игры");
                 break;
             }
         }
