@@ -18,6 +18,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -86,7 +87,6 @@ public class TestScenarioPractice {
         jsExecutor.executeScript("arguments[0].click()", witTheHighestRatingParameterButton);
 
         WebElement casualGameParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
-
         jsExecutor.executeScript("arguments[0].click()", casualGameParameter);
 
         WebElement playersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
@@ -98,7 +98,7 @@ public class TestScenarioPractice {
         WebElement cooperativeParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']")));
         jsExecutor.executeScript("arguments[0].click()", cooperativeParameter);
 
-        webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
         WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
@@ -136,7 +136,7 @@ public class TestScenarioPractice {
         WebElement strategyParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Стратегия']")));
         jsExecutor.executeScript("arguments[0].click()", strategyParameter);
 
-        webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
         WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
@@ -146,16 +146,16 @@ public class TestScenarioPractice {
         WebElement forMultiplePlayersParameter = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Для нескольких игроков']")));
         jsExecutor.executeScript("arguments[0].click()", forMultiplePlayersParameter);
 
-        webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
         WebElement resultsForComparing2 = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
-            WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[@class = 'salepreviewwidgets_StoreSaleWidgetHalfLeft_2Va3O']/a"))));
+            WebElement firstGameWithFilterParameters = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
             driver.get(gameLink);
+            Assert.assertEquals(driver.getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
         }
-        Assert.assertEquals(driver.getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
     }
 
     @Test(priority = 3)
@@ -185,11 +185,11 @@ public class TestScenarioPractice {
         WebElement removeFreeGamesCheckbox = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
         jsExecutor.executeScript("arguments[0].click()", removeFreeGamesCheckbox);
 
-        webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
         WebElement resultsForComparing = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        webDriverWait.until(ExpectedConditions.refreshed(ExpectedConditions.not(ExpectedConditions.textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
         WebElement resultsForComparing2 = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
