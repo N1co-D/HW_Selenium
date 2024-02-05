@@ -213,20 +213,20 @@ public class TestScenarioPractice {
         WebElement resultsForComparing2 = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
-        String gameLink;
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
             List<WebElement> allGames = webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
             for (WebElement game : allGames) {
                 WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
                 if (currentGame.getText().startsWith("Oxygen Not Included")) {
-                    gameLink = game.getAttribute("href");
-                    driver.navigate().to(gameLink);
+                    WebElement gameReleaseDate = game.findElement(By.xpath(".//div[contains(@class, 'search_released')]"));
+                    WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
+                    Assert.assertEquals(currentGame.getText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
+                    Assert.assertEquals(gameReleaseDate.getText(), "16 дек. 2021", "Указана некорректная дата релиза игры");
+                    Assert.assertEquals(gamePrice.getText(), "299 руб", "Указана некорректная цена игры");
                     break;
                 }
             }
         }
-
-        Assert.assertEquals(driver.getTitle(), "Oxygen Not Included - Spaced Out! в Steam", "Указан заголовок некорректной игры");
     }
 
     @Test(priority = 4)
@@ -264,18 +264,18 @@ public class TestScenarioPractice {
         Assert.assertTrue(windowsOperatingSystemParameter.isDisplayed(), "Элемент по указанному XPath не найден.");
         jsExecutor.executeScript("arguments[0].click()", windowsOperatingSystemParameter);
 
-        String gameLink;
         List<WebElement> allGames = webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
             if (currentGame.getText().startsWith("The Callisto Protocol")) {
-                gameLink = game.getAttribute("href");
-                driver.navigate().to(gameLink);
+                WebElement gameReleaseDate = game.findElement(By.xpath(".//div[contains(@class, 'search_released')]"));
+                WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
+                Assert.assertEquals(currentGame.getText(), "The Callisto Protocol™ - The Outer Way Skin Collection", "Указан заголовок некорректной игры");
+                Assert.assertTrue(gameReleaseDate.getText().contains("7 фев. 2023"), "Указана некорректная дата релиза игры");
+                Assert.assertEquals(gamePrice.getText(), "100 руб", "Указана некорректная цена игры");
                 break;
             }
         }
-
-        Assert.assertTrue(driver.getTitle().contains("The Callisto Protocol™ - The Outer Way Skin"), "Указан заголовок некорректной игры");
     }
 
     @AfterTest
