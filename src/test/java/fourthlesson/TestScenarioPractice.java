@@ -1,10 +1,7 @@
 package fourthlesson;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -72,7 +69,7 @@ public class TestScenarioPractice {
     }
 
     @Test(priority = 1)
-    public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
+    public void checkingCorrectProductDisplayWithFilterParametersCooperative() throws InterruptedException {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         driver.get("https://store.steampowered.com/");
         Actions actions = new Actions(driver);
@@ -104,10 +101,11 @@ public class TestScenarioPractice {
         String resultsTextForComparing = resultsForComparing.getText();
 
         WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]"))));
-//        if (!resultsText.equals(resultsTextForComparing)) {
-//            webDriverWait.until(elementToBeClickable(By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]")));
-//            clickByJs(firstGameWithFilterParameters);
-//        }
+        if (!resultsText.equals(resultsTextForComparing)) {
+            webDriverWait.until(elementToBeClickable(By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]")));
+            clickByJs(firstGameWithFilterParameters);
+        }
+//        actions.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).keyUp(Keys.CONTROL).perform();
         Assert.assertEquals(driver.getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
     }
 
