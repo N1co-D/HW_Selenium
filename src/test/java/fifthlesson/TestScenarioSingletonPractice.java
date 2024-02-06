@@ -10,22 +10,27 @@ import pageobject.CooperativesPage;
 import pageobject.FilterPage;
 import pageobject.MainPage;
 import pageobject.MysteriesAndDetectivesPage;
-import utils.Driver;
+import utils.DriverSingleton;
 
 import java.time.Duration;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static utils.DriverSingleton.*;
+
 
 public class TestScenarioSingletonPractice {
     private WebDriverWait webDriverWait;
 
     @Test(priority = 1)
     public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
-        webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30));
-        Driver.getDriver().manage().window().maximize();
+//        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
+        webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+        DriverSingleton.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Actions actions = new Actions(Driver.getDriver());
+        Actions actions = new Actions(DriverSingleton.getDriver());
+
+        MainPage mainPage = new MainPage();
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getCategoriesButtonTopMenuDesktop())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getCategoriesButtonTopMenuDesktop()));
@@ -58,17 +63,17 @@ public class TestScenarioSingletonPractice {
         if (!resultsText.equals(resultsTextForComparing)) {
             WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((CooperativesPage.getFirstGameWithFilterParameters())));
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
-            Driver.getDriver().get(gameLink);
-            Assert.assertEquals(Driver.getDriver().getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
+            DriverSingleton.getDriver().get(gameLink);
+            Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
         }
     }
 
     @Test(priority = 2)
     public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
-        webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30));
-        Driver.getDriver().manage().window().maximize();
+        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
+        DriverSingleton.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Actions actions = new Actions(Driver.getDriver());
+        Actions actions = new Actions(DriverSingleton.getDriver());
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getCategoriesButtonTopMenuDesktop())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getCategoriesButtonTopMenuDesktop()));
@@ -110,17 +115,17 @@ public class TestScenarioSingletonPractice {
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
             WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((MysteriesAndDetectivesPage.getFirstGameWithFilterParameters())));
             String gameLink = firstGameWithFilterParameters.getAttribute("href");
-            Driver.getDriver().get(gameLink);
-            Assert.assertEquals(Driver.getDriver().getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
+            DriverSingleton.getDriver().get(gameLink);
+            Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
         }
     }
 
     @Test(priority = 3)
     public void checkingSortingByReleaseDateOfGame() {
-        webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30));
-        Driver.getDriver().manage().window().maximize();
+        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
+        DriverSingleton.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Actions actions = new Actions(Driver.getDriver());
+        Actions actions = new Actions(DriverSingleton.getDriver());
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBox())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBox()));
@@ -128,7 +133,7 @@ public class TestScenarioSingletonPractice {
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBoxConfirm())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBoxConfirm()));
-        Assert.assertEquals(Driver.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         webDriverWait.until((visibilityOfElementLocated(FilterPage.getSortingParameters())));
         FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getSortingParameters()));
@@ -173,10 +178,10 @@ public class TestScenarioSingletonPractice {
      */
     @Test(priority = 4)
     public void checkingSortingByReleaseDateAndOtherParameter() {
-        webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30));
-        Driver.getDriver().manage().window().maximize();
+        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
+        DriverSingleton.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Actions actions = new Actions(Driver.getDriver());
+        Actions actions = new Actions(DriverSingleton.getDriver());
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBox())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBox()));
@@ -184,7 +189,7 @@ public class TestScenarioSingletonPractice {
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBoxConfirm())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBoxConfirm()));
-        Assert.assertEquals(Driver.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         webDriverWait.until((visibilityOfElementLocated(FilterPage.getSortingParameters())));
         FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getSortingParameters()));
@@ -216,6 +221,6 @@ public class TestScenarioSingletonPractice {
 
     @AfterTest
     public void afterTests() {
-        Driver.getDriver().quit();
+        DriverSingleton.getDriver().quit();
     }
 }

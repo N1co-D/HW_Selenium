@@ -3,7 +3,7 @@ package pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import utils.Driver;
+import utils.DriverSingleton;
 
 /**
  * Страница "Тайны и детективы" в Steam
@@ -48,11 +48,11 @@ public class MysteriesAndDetectivesPage {
     }
 
     public static WebElement getWebElement(By xpath) {
-        return Driver.getDriver().findElement(xpath);
+        return DriverSingleton.getDriver().findElement(xpath);
     }
 
     public static void clickByJs(WebElement webElement) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) Driver.getDriver();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DriverSingleton.getDriver();
         jsExecutor.executeScript("arguments[0].click()", webElement);
     }
 }
