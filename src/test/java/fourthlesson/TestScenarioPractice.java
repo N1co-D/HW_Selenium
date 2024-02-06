@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -19,6 +20,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -101,12 +103,12 @@ public class TestScenarioPractice {
         WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        if (!resultsText.equals(resultsTextForComparing)) {
-            WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
-            String gameLink = firstGameWithFilterParameters.getAttribute("href");
-            driver.get(gameLink);
-            Assert.assertEquals(driver.getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
-        }
+        WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]"))));
+//        if (!resultsText.equals(resultsTextForComparing)) {
+//            webDriverWait.until(elementToBeClickable(By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]")));
+//            clickByJs(firstGameWithFilterParameters);
+//        }
+        Assert.assertEquals(driver.getTitle(), "Garry's Mod в Steam", "Указан заголовок некорректной игры");
     }
 
     @Test(priority = 2)
