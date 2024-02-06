@@ -76,10 +76,10 @@ public class TestScenarioPractice {
         Actions actions = new Actions(driver);
 
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
-        categoriesButtonTopMenuDesktop.click();
+        clickByJs(categoriesButtonTopMenuDesktop);
 
         WebElement cooperativesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']")));
-        cooperativesCategoryButton.click();
+        clickByJs(cooperativesCategoryButton);
         actions.scrollByAmount(0, 1850).perform();
 
         WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
@@ -116,10 +116,10 @@ public class TestScenarioPractice {
         Actions actions = new Actions(driver);
 
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
-        categoriesButtonTopMenuDesktop.click();
+        clickByJs(categoriesButtonTopMenuDesktop);
 
         WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']")));
-        mysteriesAndDetectivesCategoryButton.click();
+        clickByJs(mysteriesAndDetectivesCategoryButton);
         actions.scrollByAmount(0, 1850).perform();
 
         WebElement salesLeadersParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'Лидеры продаж']")));
