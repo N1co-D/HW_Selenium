@@ -31,9 +31,10 @@ public class TestScenarioSingletonPractice {
         Actions actions = new Actions(DriverSingleton.getDriver());
 
         MainPage mainPage = new MainPage();
+        mainPage.categoriesButtonTopMenuDesktopClick();
 
-        webDriverWait.until((visibilityOfElementLocated(MainPage.getCategoriesButtonTopMenuDesktop())));
-        MainPage.clickByJs(MainPage.getWebElement(MainPage.getCategoriesButtonTopMenuDesktop()));
+//        webDriverWait.until((visibilityOfElementLocated(MainPage.getCategoriesButtonTopMenuDesktop())));
+//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getCategoriesButtonTopMenuDesktop()));
 
         webDriverWait.until((visibilityOfElementLocated(MainPage.getCooperativesCategoryButton())));
         MainPage.clickByJs(MainPage.getWebElement(MainPage.getCooperativesCategoryButton()));

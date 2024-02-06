@@ -10,7 +10,7 @@ import static utils.DriverSingleton.*;
  * Главная страница Steam
  */
 public class MainPage {
-    private By categoriesButtonTopMenuDesktop = By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']");
+    private By categoriesButtonTopMenuDesktop = new By.ByXPath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']");
     private static By cooperativesCategoryButton = By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']");
     private static By mysteriesAndDetectivesCategoryButton = By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
     private static By inputBox = By.xpath("//input[@id = 'store_nav_search_term']");
@@ -47,8 +47,8 @@ public class MainPage {
     }
 
     public void categoriesButtonTopMenuDesktopClick(){
-        WebElement categoriesButtonTopMenuDesktop = DRIVER.getDriver().findElement(By.xpath(""));
-        categoriesButtonTopMenuDesktop.click();
+        // Ожидание
+        DRIVER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
     }
 
     public static void clickByJs(WebElement webElement) {
