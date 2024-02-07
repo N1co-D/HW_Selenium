@@ -118,6 +118,7 @@ public class TestScenarioPractice {
             String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
             driver.switchTo().window(windowToSwitch);
         }
+
         WebElement gameTitle = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[@id = 'appHubAppName']"))));
         String gameTitleText = gameTitle.getText();
         Assert.assertEquals(gameTitleText, "Garry's Mod", "Указан заголовок некорректной игры");
@@ -178,6 +179,7 @@ public class TestScenarioPractice {
             String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
             driver.switchTo().window(windowToSwitch);
         }
+
         WebElement gameTitle = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[@id = 'appHubAppName']"))));
         String gameTitleText = gameTitle.getText();
         Assert.assertEquals(gameTitleText, "West Hunt", "Указан заголовок некорректной игры");
