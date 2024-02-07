@@ -80,7 +80,7 @@ public class TestScenarioPractice {
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
         clickByJs(categoriesButtonTopMenuDesktop);
 
-        WebElement cooperativesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']")));
+        WebElement cooperativesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[text() = 'Кооперативы']")));
         clickByJs(cooperativesCategoryButton);
 
         WebElement filterSection = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'SaleSection_13268']")));
@@ -99,7 +99,7 @@ public class TestScenarioPractice {
         WebElement playersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
         clickByJs(playersParameter);
 
-        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsText = fieldWithSearchResults.getText();
 
         WebElement cooperativeParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']")));
@@ -107,11 +107,11 @@ public class TestScenarioPractice {
         WebElement cooperativeParameterTag = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Кооператив']")));
         Assert.assertTrue(cooperativeParameterTag.isDisplayed(),"Тэг \"Кооператив игра\" не отображается");
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Совпадений:')]"), resultsText))));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'facetedbrowse_FacetedBrowseItems_NO-IP')]/div[1]//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle_3jI46 StoreSaleWidgetTitle')]"))));
+        WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]"))));
         if (!resultsText.equals(resultsTextForComparing)) {
             clickByJs(firstGameWithFilterParameters);
             List<String> allWindowHandles = new ArrayList<>(driver.getWindowHandles());
@@ -133,7 +133,7 @@ public class TestScenarioPractice {
         WebElement categoriesButtonTopMenuDesktop = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']")));
         clickByJs(categoriesButtonTopMenuDesktop);
 
-        WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']")));
+        WebElement mysteriesAndDetectivesCategoryButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[text() = 'Тайны и детективы']")));
         clickByJs(mysteriesAndDetectivesCategoryButton);
 
         WebElement filterSection = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'SaleSection_13268']")));
@@ -144,22 +144,22 @@ public class TestScenarioPractice {
         WebElement salesLeadersParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'Лидеры продаж']")));
         Assert.assertTrue(salesLeadersParameterButtonActiveStatus.isDisplayed(), "Раздел \"Лидеры продаж\" не выбран");
 
-        WebElement showMoreButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetValueShowMore') and text() = 'Показать больше']")));
+        WebElement showMoreButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'Показать больше']")));
         clickByJs(showMoreButton);
 
-        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsText = fieldWithSearchResults.getText();
 
-        WebElement strategyParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Стратегия']")));
+        WebElement strategyParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[text() = 'Стратегия']")));
         clickByJs(strategyParameter);
         WebElement strategyParameterTag = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Стратегия']")));
         Assert.assertTrue(strategyParameterTag.isDisplayed(),"Тэг \"Стратегия\" не отображается");
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Совпадений:')]"), resultsText))));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        WebElement playersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']")));
+        WebElement playersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'Игроки']")));
         clickByJs(playersParameter);
 
         WebElement forMultiplePlayersParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Для нескольких игроков']")));
@@ -167,11 +167,11 @@ public class TestScenarioPractice {
         WebElement forMultiplePlayersParameterTag = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Для нескольких игроков']")));
         Assert.assertTrue(forMultiplePlayersParameterTag.isDisplayed(),"Тэг \"Для нескольких игроков\" не отображается");
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
-        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Совпадений:')]"), resultsTextForComparing))));
+        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
-        WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a"))));
+        WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]"))));
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
             clickByJs(firstGameWithFilterParameters);
             List<String> allWindowHandles = new ArrayList<>(driver.getWindowHandles());
@@ -201,12 +201,12 @@ public class TestScenarioPractice {
         WebElement sortingParameters = webDriverWait.until(visibilityOfElementLocated(By.id("sort_by_trigger")));
         clickByJs(sortingParameters);
 
-        WebElement releasingDateParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@class = 'inactive_selection' and text() = 'дате выхода']")));
+        WebElement releasingDateParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[text() = 'дате выхода']")));
         clickByJs(releasingDateParameter);
         WebElement releasingDateParameterChecking = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'sort_by_dselect_container']/a[text() = 'дате выхода']")));
         Assert.assertTrue(releasingDateParameterChecking.isDisplayed(), "Установлен неверный параметр сортировки");
 
-        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsText = fieldWithSearchResults.getText();
 
         WebElement removeFreeGamesCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
@@ -214,12 +214,12 @@ public class TestScenarioPractice {
         WebElement removeFreeGamesCheckboxActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']")));
         Assert.assertTrue(removeFreeGamesCheckboxActiveStatus.isDisplayed(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
-        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
+        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing2 = resultsForComparing2.getText();
 
         if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
@@ -258,11 +258,10 @@ public class TestScenarioPractice {
 
         WebElement priceIncreaseParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'Price_ASC']")));
         clickByJs(priceIncreaseParameter);
-
         WebElement priceIncreaseParameterChecking = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'sort_by_dselect_container']/a[text() = 'возрастанию цены']")));
         Assert.assertTrue(priceIncreaseParameterChecking.isDisplayed(), "Установлен неверный параметр сортировки");
 
-        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsText = fieldWithSearchResults.getText();
 
         WebElement specialOffersCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']")));
@@ -270,8 +269,8 @@ public class TestScenarioPractice {
         WebElement specialOffersCheckboxActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']")));
         Assert.assertTrue(specialOffersCheckboxActiveStatus.isDisplayed(), "Checkbox \"Специальные предложения\" не активирован");
 
-        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
-        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
+        webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
+        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
         WebElement windowsOperatingSystemCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
