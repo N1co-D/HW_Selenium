@@ -88,7 +88,8 @@ public class TestScenarioPractice {
 
         WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
         clickByJs(witTheHighestRatingParameterButton);
-        Assert.assertEquals(witTheHighestRatingParameterButton.getCssValue("color"),"rgba(255, 255, 255, 1)","Раздел \"С наивысшим рейтингом\" не установлен");
+        WebElement witTheHighestRatingParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']")));
+        Assert.assertTrue(witTheHighestRatingParameterButtonActiveStatus.isDisplayed(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
         WebElement casualGameParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
         clickByJs(casualGameParameter);
@@ -140,7 +141,8 @@ public class TestScenarioPractice {
 
         WebElement salesLeadersParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'Лидеры продаж']")));
         clickByJs(salesLeadersParameterButton);
-        Assert.assertEquals(salesLeadersParameterButton.getCssValue("color"),"rgba(255, 255, 255, 1)","Раздел \"Лидеры продаж\" не установлен");
+        WebElement salesLeadersParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'Лидеры продаж']")));
+        Assert.assertTrue(salesLeadersParameterButtonActiveStatus.isDisplayed(), "Раздел \"Лидеры продаж\" не выбран");
 
         WebElement showMoreButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetValueShowMore') and text() = 'Показать больше']")));
         clickByJs(showMoreButton);
@@ -209,7 +211,8 @@ public class TestScenarioPractice {
 
         WebElement removeFreeGamesCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']")));
         clickByJs(removeFreeGamesCheckbox);
-//        Assert.assertTrue(removeFreeGamesCheckbox.isSelected(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
+        WebElement removeFreeGamesCheckboxActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']")));
+        Assert.assertTrue(removeFreeGamesCheckboxActiveStatus.isDisplayed(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
         WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
@@ -264,15 +267,17 @@ public class TestScenarioPractice {
 
         WebElement specialOffersCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']")));
         clickByJs(specialOffersCheckbox);
-//        Assert.assertTrue(specialOffersCheckbox.isSelected(), "Checkbox \"Специальные предложения\" не активирован");
+        WebElement specialOffersCheckboxActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']")));
+        Assert.assertTrue(specialOffersCheckboxActiveStatus.isDisplayed(), "Checkbox \"Специальные предложения\" не активирован");
 
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]"), resultsText))));
         WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]")));
         String resultsTextForComparing = resultsForComparing.getText();
 
-        WebElement windowsOperatingSystemParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
-        clickByJs(windowsOperatingSystemParameter);
-//        Assert.assertTrue(windowsOperatingSystemParameter.isSelected(), "Checkbox \"Windows\" не активирован");
+        WebElement windowsOperatingSystemCheckbox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']")));
+        clickByJs(windowsOperatingSystemCheckbox);
+        WebElement windowsOperatingSystemCheckboxActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'checked') and @data-loc = 'Windows']")));
+        Assert.assertTrue(windowsOperatingSystemCheckboxActiveStatus.isDisplayed(), "Checkbox \"Windows\" не активирован");
 
         if (!resultsText.equals(resultsTextForComparing)) {
             List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
