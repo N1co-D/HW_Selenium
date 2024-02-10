@@ -2,8 +2,15 @@ package pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.DriverSingleton;
+
+import java.time.Duration;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.*;
 
 /**
@@ -11,48 +18,46 @@ import static utils.DriverSingleton.*;
  */
 public class MainPage {
     private By categoriesButtonTopMenuDesktop = new By.ByXPath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']");
-    private static By cooperativesCategoryButton = By.xpath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']");
-    private static By mysteriesAndDetectivesCategoryButton = By.xpath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
-    private static By inputBox = By.xpath("//input[@id = 'store_nav_search_term']");
-    private static By inputBoxConfirm = By.xpath("//a[@id = 'store_search_link']/img");
-
-
-
-//    public static By getCategoriesButtonTopMenuDesktop() {
-//        return categoriesButtonTopMenuDesktop;
-//    }
-
-    public static By getCooperativesCategoryButton() {
-        return cooperativesCategoryButton;
-    }
-
-    public static By getMysteriesAndDetectivesCategoryButton() {
-        return mysteriesAndDetectivesCategoryButton;
-    }
-
-    public static By getInputBox() {
-        return inputBox;
-    }
-
-    public static By getInputBoxConfirm() {
-        return inputBoxConfirm;
-    }
+    private By cooperativesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']");
+    private By mysteriesAndDetectivesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
+    private By inputBox = new By.ByXPath("//input[@id = 'store_nav_search_term']");
+    private By inputBoxConfirm = new By.ByXPath("//a[@id = 'store_search_link']/img");
+    private Actions actions = new Actions(DRIVER.getDriver());
 
     public static void getToMainPage() {
-        DriverSingleton.getDriver().get("https://store.steampowered.com/");
+        DRIVER.getDriver().get("https://store.steampowered.com/");
     }
 
-    public static WebElement getWebElement(By xpath) {
-        return DriverSingleton.getDriver().findElement(xpath);
-    }
-
-    public void categoriesButtonTopMenuDesktopClick(){
-        // Ожидание
+    public void categoriesButtonTopMenuDesktopClick(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop));
         DRIVER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
     }
 
-    public static void clickByJs(WebElement webElement) {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DriverSingleton.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", webElement);
+    public void cooperativesCategoryButtonClick(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton));
+        DRIVER.getDriver().findElement(cooperativesCategoryButton).click();
     }
+
+    public void mysteriesAndDetectivesCategoryButtonClick(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton));
+        DRIVER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
+    }
+
+    public void inputBoxWriteText(WebDriverWait webDriverWait, String string) {
+        webDriverWait.until(visibilityOfElementLocated(inputBox));
+        DRIVER.getDriver().findElement(inputBox).click();
+        actions.sendKeys(string);
+    }
+
+    public void inputBoxConfirmClick(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
+        DRIVER.getDriver().findElement(inputBoxConfirm).click();
+    }
+
+
+//    public static void clickByJs(WebElement webElement) {
+//        JavascriptExecutor jsExecutor = (JavascriptExecutor) DriverSingleton.getDriver();
+//        jsExecutor.executeScript("arguments[0].click()", webElement);
+//    }
+
 }
