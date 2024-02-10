@@ -1,10 +1,12 @@
 package fifthlesson;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import pageobject.CooperativesPage;
+import pageobject.FilterPage;
 import pageobject.MainPage;
 import pageobject.MysteriesAndDetectivesPage;
 
@@ -27,37 +29,37 @@ public class TestScenarioSingletonPractice {
         Assert.assertEquals(DRIVER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
-        mainPage.categoriesButtonTopMenuDesktopClick(webDriverWait);
-        mainPage.cooperativesCategoryButtonClick(webDriverWait);
+        mainPage.categoriesButtonTopMenuDesktopClick();
+        mainPage.cooperativesCategoryButtonClick();
 
         CooperativesPage cooperativesPage = new CooperativesPage();
-        cooperativesPage.filterSectionScrolling(webDriverWait);
+        cooperativesPage.filterSectionScrolling();
 
-        cooperativesPage.witTheHighestRatingParameterButtonClickByJs(webDriverWait);
-        Assert.assertTrue(cooperativesPage.witTheHighestRatingParameterButtonActiveStatusChecking(webDriverWait), "Раздел \"С наивысшим рейтингом\" не выбран");
+        cooperativesPage.witTheHighestRatingParameterButtonClickByJs();
+        Assert.assertTrue(cooperativesPage.witTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
-        cooperativesPage.casualGameParameterClickByJs(webDriverWait);
-        Assert.assertTrue(cooperativesPage.casualGameParameterTagChecking(webDriverWait), "Тэг \"Казуальная игра\" не отображается");
+        cooperativesPage.casualGameParameterClickByJs();
+        Assert.assertTrue(cooperativesPage.casualGameParameterTagChecking(), "Тэг \"Казуальная игра\" не отображается");
 
-        cooperativesPage.playersParameterClickByJs(webDriverWait);
+        cooperativesPage.playersParameterClickByJs();
 
-        String resultsText = cooperativesPage.fieldWithSearchResultsGetText(webDriverWait);
+        String resultsText = cooperativesPage.fieldWithSearchResultsGetText();
 
-        cooperativesPage.cooperativeParameterClickByJs(webDriverWait);
-        Assert.assertTrue(cooperativesPage.cooperativeParameterTagChecking(webDriverWait), "Тэг \"Кооператив игра\" не отображается");
+        cooperativesPage.cooperativeParameterClickByJs();
+        Assert.assertTrue(cooperativesPage.cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
-        webDriverWait.until(refreshed(not(textToBe(cooperativesPage.fieldWithSearchResultsPath(webDriverWait), resultsText))));
+        webDriverWait.until(refreshed(not(textToBe(cooperativesPage.fieldWithSearchResultsPath(), resultsText))));
 
-        String resultsTextForComparing = cooperativesPage.fieldWithSearchResultsGetText(webDriverWait);
+        String resultsTextForComparing = cooperativesPage.fieldWithSearchResultsGetText();
 
         if (!resultsText.equals(resultsTextForComparing)) {
-            cooperativesPage.firstGameWithFilterParametersClickByJs(webDriverWait);
+            cooperativesPage.firstGameWithFilterParametersClickByJs();
             List<String> allWindowHandles = new ArrayList<>(DRIVER.getDriver().getWindowHandles());
             String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
             DRIVER.getDriver().switchTo().window(windowToSwitch);
         }
 
-        Assert.assertEquals(cooperativesPage.gameTitleGetText(webDriverWait), "Garry's Mod", "Указан заголовок некорректной игры");
+        Assert.assertEquals(cooperativesPage.gameTitleGetText(), "Garry's Mod", "Указан заголовок некорректной игры");
     }
 
     @Test(priority = 2)
@@ -68,92 +70,83 @@ public class TestScenarioSingletonPractice {
         Assert.assertEquals(DRIVER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
-        mainPage.categoriesButtonTopMenuDesktopClick(webDriverWait);
-        mainPage.mysteriesAndDetectivesCategoryButtonClick(webDriverWait);
+        mainPage.categoriesButtonTopMenuDesktopClick();
+        mainPage.mysteriesAndDetectivesCategoryButtonClick();
 
         MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
-        mysteriesAndDetectivesPage.filterSectionScrolling(webDriverWait);
+        mysteriesAndDetectivesPage.filterSectionScrolling();
 
-        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs(webDriverWait);
-        Assert.assertTrue(mysteriesAndDetectivesPage.salesLeadersParameterButtonActiveStatusChecking(webDriverWait), "Раздел \"Лидеры продаж\" не выбран");
+        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
+        Assert.assertTrue(mysteriesAndDetectivesPage.salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 
-        mysteriesAndDetectivesPage.showMoreButtonClickByJs(webDriverWait);
+        mysteriesAndDetectivesPage.showMoreButtonClickByJs();
 
-        mysteriesAndDetectivesPage.strategyParameterClickByJs(webDriverWait);
-        Assert.assertTrue(mysteriesAndDetectivesPage.strategyParameterTagChecking(webDriverWait), "Тэг \"Стратегия\" не отображается");
+        mysteriesAndDetectivesPage.strategyParameterClickByJs();
+        Assert.assertTrue(mysteriesAndDetectivesPage.strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
 
-        mysteriesAndDetectivesPage.playersParameterClickByJs(webDriverWait);
+        mysteriesAndDetectivesPage.playersParameterClickByJs();
 
-        String resultsText = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText(webDriverWait);
+        String resultsText = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText();
 
-        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs(webDriverWait);
-        Assert.assertTrue(mysteriesAndDetectivesPage.forMultiplePlayersParameterTagChecking(webDriverWait), "Тэг \"Для нескольких игроков\" не отображается");
+        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
+        Assert.assertTrue(mysteriesAndDetectivesPage.forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
-        webDriverWait.until(refreshed(not(textToBe(mysteriesAndDetectivesPage.fieldWithSearchResultsPath(webDriverWait), resultsText))));
+        webDriverWait.until(refreshed(not(textToBe(mysteriesAndDetectivesPage.fieldWithSearchResultsPath(), resultsText))));
 
-        String resultsTextForComparing = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText(webDriverWait);
+        String resultsTextForComparing = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText();
 
         if (!resultsText.equals(resultsTextForComparing)) {
-            mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs(webDriverWait);
+            mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
             List<String> allWindowHandles = new ArrayList<>(DRIVER.getDriver().getWindowHandles());
             String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
             DRIVER.getDriver().switchTo().window(windowToSwitch);
         }
 
-        Assert.assertEquals(mysteriesAndDetectivesPage.gameTitleGetText(webDriverWait), "West Hunt", "Указан заголовок некорректной игры");
+        Assert.assertEquals(mysteriesAndDetectivesPage.gameTitleGetText(), "West Hunt", "Указан заголовок некорректной игры");
     }
 
-//    @Test(priority = 3)
-//    public void checkingSortingByReleaseDateOfGame() {
-//        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
-//        DriverSingleton.getDriver().manage().window().maximize();
-//        MainPage.getToMainPage();
-//        Actions actions = new Actions(DriverSingleton.getDriver());
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBox())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBox()));
-//        actions.sendKeys(MainPage.getWebElement(MainPage.getInputBox()), "Oxygen Not Included").perform();
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBoxConfirm())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBoxConfirm()));
-//        Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getSortingParameters())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getSortingParameters()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getReleasingDateParameter())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getReleasingDateParameter()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getFieldWithSearchResults())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getFieldWithSearchResults()));
-//        String resultsText = FilterPage.getWebElement(FilterPage.getFieldWithSearchResults()).getText();
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getRemoveFreeGamesCheckbox())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getRemoveFreeGamesCheckbox()));
-//
-//        webDriverWait.until(refreshed(not(textToBe(FilterPage.getFieldWithSearchResults(), resultsText))));
-//        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(FilterPage.getFieldWithSearchResults()));
-//        String resultsTextForComparing = resultsForComparing.getText();
-//
-//        webDriverWait.until(refreshed(not(textToBe(FilterPage.getFieldWithSearchResults(), resultsTextForComparing))));
-//        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(FilterPage.getFieldWithSearchResults()));
-//        String resultsTextForComparing2 = resultsForComparing2.getText();
-//
-//        if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
-//            List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(FilterPage.getAllGames()));
-//            for (WebElement game : allGames) {
-//                WebElement currentGame = game.findElement(FilterPage.getCurrentGame());
-//                if (currentGame.getText().startsWith("Oxygen Not Included")) {
-//                    WebElement gameReleaseDate = game.findElement(FilterPage.getReleasingDateParameter());
-//                    WebElement gamePrice = game.findElement(FilterPage.getGamePrice());
-//                    Assert.assertEquals(currentGame.getText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
-//                    Assert.assertEquals(gameReleaseDate.getText(), "16 дек. 2021", "Указана некорректная дата релиза игры");
-//                    Assert.assertEquals(gamePrice.getText(), "299 руб", "Указана некорректная цена игры");
-//                    break;
-//                }
-//            }
-//        }
-//    }
+    @Test(priority = 3)
+    public void checkingSortingByReleaseDateOfGame() {
+        webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+        DRIVER.getDriver().manage().window().maximize();
+        MainPage.getToMainPage();
+        Assert.assertEquals(DRIVER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+
+        MainPage mainPage = new MainPage();
+        mainPage.inputBoxWriteText("Oxygen Not Included");
+        mainPage.inputBoxConfirmClick();
+        Assert.assertEquals(DRIVER.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+
+        FilterPage filterPage = new FilterPage();
+        filterPage.sortingParametersClickByJs();
+
+        filterPage.releasingDateParameterClickByJs();
+
+        filterPage.fieldWithSearchResultsClickByJs();
+        String resultsText = filterPage.fieldWithSearchResultsGetText();
+
+        filterPage.removeFreeGamesCheckboxClickByJs();
+
+        webDriverWait.until(refreshed(not(textToBe(filterPage.fieldWithSearchResultsPath(), resultsText))));
+        String resultsTextForComparing = filterPage.fieldWithSearchResultsGetText();
+        webDriverWait.until(refreshed(not(textToBe(filterPage.fieldWithSearchResultsPath(), resultsTextForComparing))));
+        String resultsTextForComparing2 = filterPage.fieldWithSearchResultsGetText();
+
+        if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
+            List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
+            for (WebElement game : allGames) {
+                WebElement currentGame = game.findElement(filterPage.getCurrentGame());
+                if (currentGame.getText().startsWith("Oxygen Not Included")) {
+                    WebElement gameReleaseDate = game.findElement(filterPage.getGameReleaseDate());
+                    WebElement gamePrice = game.findElement(filterPage.getGamePrice());
+                    Assert.assertEquals(currentGame.getText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
+                    Assert.assertEquals(gameReleaseDate.getText(), "16 дек. 2021", "Указана некорректная дата релиза игры");
+                    Assert.assertEquals(gamePrice.getText(), "299 руб", "Указана некорректная цена игры");
+                    break;
+                }
+            }
+        }
+    }
 //
 //    /**
 //     * Тест сам по себе рабочий, но с 5 февраля не актуален в связи с тем, что специальное предложение по играм с таким названием
