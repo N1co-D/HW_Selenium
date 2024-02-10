@@ -6,6 +6,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import pageobject.CooperativesPage;
 import pageobject.MainPage;
+import pageobject.MysteriesAndDetectivesPage;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class TestScenarioSingletonPractice {
     private WebDriverWait webDriverWait;
 
     @Test(priority = 1)
-    public void checkingCorrectProductDisplayWithFilterParametersCooperative() throws InterruptedException {
+    public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
         webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
         DRIVER.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
@@ -35,14 +36,14 @@ public class TestScenarioSingletonPractice {
         cooperativesPage.witTheHighestRatingParameterButtonClickByJs(webDriverWait);
         Assert.assertTrue(cooperativesPage.witTheHighestRatingParameterButtonActiveStatusChecking(webDriverWait), "Раздел \"С наивысшим рейтингом\" не выбран");
 
-        cooperativesPage.casualGameParameterClick(webDriverWait);
+        cooperativesPage.casualGameParameterClickByJs(webDriverWait);
         Assert.assertTrue(cooperativesPage.casualGameParameterTagChecking(webDriverWait), "Тэг \"Казуальная игра\" не отображается");
 
-        cooperativesPage.playersParameterClick(webDriverWait);
+        cooperativesPage.playersParameterClickByJs(webDriverWait);
 
         String resultsText = cooperativesPage.fieldWithSearchResultsGetText(webDriverWait);
 
-        cooperativesPage.cooperativeParameterClick(webDriverWait);
+        cooperativesPage.cooperativeParameterClickByJs(webDriverWait);
         Assert.assertTrue(cooperativesPage.cooperativeParameterTagChecking(webDriverWait), "Тэг \"Кооператив игра\" не отображается");
 
         webDriverWait.until(refreshed(not(textToBe(cooperativesPage.fieldWithSearchResultsPath(webDriverWait), resultsText))));
@@ -50,7 +51,7 @@ public class TestScenarioSingletonPractice {
         String resultsTextForComparing = cooperativesPage.fieldWithSearchResultsGetText(webDriverWait);
 
         if (!resultsText.equals(resultsTextForComparing)) {
-            cooperativesPage.firstGameWithFilterParametersClick(webDriverWait);
+            cooperativesPage.firstGameWithFilterParametersClickByJs(webDriverWait);
             List<String> allWindowHandles = new ArrayList<>(DRIVER.getDriver().getWindowHandles());
             String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
             DRIVER.getDriver().switchTo().window(windowToSwitch);
@@ -59,58 +60,49 @@ public class TestScenarioSingletonPractice {
         Assert.assertEquals(cooperativesPage.gameTitleGetText(webDriverWait), "Garry's Mod", "Указан заголовок некорректной игры");
     }
 
-//    @Test(priority = 2)
-//    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
-//        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
-//        DriverSingleton.getDriver().manage().window().maximize();
-//        MainPage.getToMainPage();
-//        Actions actions = new Actions(DriverSingleton.getDriver());
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getCategoriesButtonTopMenuDesktop())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getCategoriesButtonTopMenuDesktop()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getMysteriesAndDetectivesCategoryButton())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getMysteriesAndDetectivesCategoryButton()));
-//
-//        actions.scrollByAmount(0, 1850).perform();
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getSalesLeadersParameterButton())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getSalesLeadersParameterButton()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getShowMoreButton())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getShowMoreButton()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getFieldWithSearchResults())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getFieldWithSearchResults()));
-//        String resultsText = MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getFieldWithSearchResults()).getText();
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getStrategyParameter())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getStrategyParameter()));
-//
-//        webDriverWait.until(refreshed(not(textToBe(MysteriesAndDetectivesPage.getFieldWithSearchResults(), resultsText))));
-//
-//        WebElement resultsForComparing = webDriverWait.until(visibilityOfElementLocated(MysteriesAndDetectivesPage.getFieldWithSearchResults()));
-//        String resultsTextForComparing = resultsForComparing.getText();
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getPlayersParameter())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getPlayersParameter()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(MysteriesAndDetectivesPage.getForMultiplePlayersParameter())));
-//        MysteriesAndDetectivesPage.clickByJs(MysteriesAndDetectivesPage.getWebElement(MysteriesAndDetectivesPage.getForMultiplePlayersParameter()));
-//
-//        webDriverWait.until(refreshed(not(textToBe(MysteriesAndDetectivesPage.getFieldWithSearchResults(), resultsTextForComparing))));
-//
-//        WebElement resultsForComparing2 = webDriverWait.until(visibilityOfElementLocated(MysteriesAndDetectivesPage.getFieldWithSearchResults()));
-//        String resultsTextForComparing2 = resultsForComparing2.getText();
-//
-//        if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
-//            WebElement firstGameWithFilterParameters = webDriverWait.until(visibilityOfElementLocated((MysteriesAndDetectivesPage.getFirstGameWithFilterParameters())));
-//            String gameLink = firstGameWithFilterParameters.getAttribute("href");
-//            DriverSingleton.getDriver().get(gameLink);
-//            Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "West Hunt в Steam", "Указан заголовок некорректной игры");
-//        }
-//    }
-//
+    @Test(priority = 2)
+    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
+        webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+        DRIVER.getDriver().manage().window().maximize();
+        MainPage.getToMainPage();
+        Assert.assertEquals(DRIVER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+
+        MainPage mainPage = new MainPage();
+        mainPage.categoriesButtonTopMenuDesktopClick(webDriverWait);
+        mainPage.mysteriesAndDetectivesCategoryButtonClick(webDriverWait);
+
+        MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
+        mysteriesAndDetectivesPage.filterSectionScrolling(webDriverWait);
+
+        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs(webDriverWait);
+        Assert.assertTrue(mysteriesAndDetectivesPage.salesLeadersParameterButtonActiveStatusChecking(webDriverWait), "Раздел \"Лидеры продаж\" не выбран");
+
+        mysteriesAndDetectivesPage.showMoreButtonClickByJs(webDriverWait);
+
+        mysteriesAndDetectivesPage.strategyParameterClickByJs(webDriverWait);
+        Assert.assertTrue(mysteriesAndDetectivesPage.strategyParameterTagChecking(webDriverWait), "Тэг \"Стратегия\" не отображается");
+
+        mysteriesAndDetectivesPage.playersParameterClickByJs(webDriverWait);
+
+        String resultsText = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText(webDriverWait);
+
+        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs(webDriverWait);
+        Assert.assertTrue(mysteriesAndDetectivesPage.forMultiplePlayersParameterTagChecking(webDriverWait), "Тэг \"Для нескольких игроков\" не отображается");
+
+        webDriverWait.until(refreshed(not(textToBe(mysteriesAndDetectivesPage.fieldWithSearchResultsPath(webDriverWait), resultsText))));
+
+        String resultsTextForComparing = mysteriesAndDetectivesPage.fieldWithSearchResultsGetText(webDriverWait);
+
+        if (!resultsText.equals(resultsTextForComparing)) {
+            mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs(webDriverWait);
+            List<String> allWindowHandles = new ArrayList<>(DRIVER.getDriver().getWindowHandles());
+            String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
+            DRIVER.getDriver().switchTo().window(windowToSwitch);
+        }
+
+        Assert.assertEquals(mysteriesAndDetectivesPage.gameTitleGetText(webDriverWait), "West Hunt", "Указан заголовок некорректной игры");
+    }
+
 //    @Test(priority = 3)
 //    public void checkingSortingByReleaseDateOfGame() {
 //        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));

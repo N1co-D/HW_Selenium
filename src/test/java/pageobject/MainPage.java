@@ -53,11 +53,4 @@ public class MainPage {
         webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
         DRIVER.getDriver().findElement(inputBoxConfirm).click();
     }
-
-
-//    public static void clickByJs(WebElement webElement) {
-//        JavascriptExecutor jsExecutor = (JavascriptExecutor) DriverSingleton.getDriver();
-//        jsExecutor.executeScript("arguments[0].click()", webElement);
-//    }
-
 }

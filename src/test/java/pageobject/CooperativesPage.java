@@ -25,9 +25,15 @@ public class CooperativesPage {
     private By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private Actions actions = new Actions(DRIVER.getDriver());
 
-    public void witTheHighestRatingParameterButtonClick(WebDriverWait webDriverWait) {
+    public void filterSectionScrolling(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(filterSection));
+        actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+    }
+
+    public void witTheHighestRatingParameterButtonClickByJs(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
-        DRIVER.getDriver().findElement(witTheHighestRatingParameterButton).click();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(witTheHighestRatingParameterButton));
     }
 
     public boolean witTheHighestRatingParameterButtonActiveStatusChecking(WebDriverWait webDriverWait) {
@@ -35,9 +41,10 @@ public class CooperativesPage {
         return DRIVER.getDriver().findElement(witTheHighestRatingParameterButtonActiveStatus).isDisplayed();
     }
 
-    public void casualGameParameterClick(WebDriverWait webDriverWait) {
+    public void casualGameParameterClickByJs(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(casualGameParameter));
-        DRIVER.getDriver().findElement(casualGameParameter).click();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(casualGameParameter));
     }
 
     public boolean casualGameParameterTagChecking(WebDriverWait webDriverWait) {
@@ -45,14 +52,16 @@ public class CooperativesPage {
         return DRIVER.getDriver().findElement(casualGameParameterTag).isDisplayed();
     }
 
-    public void playersParameterClick(WebDriverWait webDriverWait) {
+    public void playersParameterClickByJs(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(playersParameter));
-        DRIVER.getDriver().findElement(playersParameter).click();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(playersParameter));
     }
 
-    public void cooperativeParameterClick(WebDriverWait webDriverWait) {
+    public void cooperativeParameterClickByJs(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(cooperativeParameter));
-        DRIVER.getDriver().findElement(cooperativeParameter).click();
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(cooperativeParameter));
     }
 
     public boolean cooperativeParameterTagChecking(WebDriverWait webDriverWait) {
@@ -60,15 +69,9 @@ public class CooperativesPage {
         return DRIVER.getDriver().findElement(cooperativeParameterTag).isDisplayed();
     }
 
-    public void firstGameWithFilterParametersClick(WebDriverWait webDriverWait) {
-        webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
-        DRIVER.getDriver().findElement(firstGameWithFilterParameters).click();
-    }
-
     public String fieldWithSearchResultsGetText(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        String elementText = DRIVER.getDriver().findElement(fieldWithSearchResults).getText();
-        return elementText;
+        return DRIVER.getDriver().findElement(fieldWithSearchResults).getText();
     }
 
     public By fieldWithSearchResultsPath(WebDriverWait webDriverWait) {
@@ -76,20 +79,14 @@ public class CooperativesPage {
         return fieldWithSearchResults;
     }
 
-    public void filterSectionScrolling(WebDriverWait webDriverWait) {
-        webDriverWait.until(visibilityOfElementLocated(filterSection));
-        actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+    public void firstGameWithFilterParametersClickByJs(WebDriverWait webDriverWait) {
+        webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(firstGameWithFilterParameters));
     }
 
     public String gameTitleGetText(WebDriverWait webDriverWait) {
         webDriverWait.until(visibilityOfElementLocated(gameTitle));
-        String elementText = DRIVER.getDriver().findElement(gameTitle).getText();
-        return elementText;
-    }
-
-    public void witTheHighestRatingParameterButtonClickByJs(WebDriverWait webDriverWait) {
-        webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", witTheHighestRatingParameterButton);
+        return DRIVER.getDriver().findElement(gameTitle).getText();
     }
 }
