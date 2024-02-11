@@ -12,6 +12,7 @@ import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -86,9 +88,15 @@ public class TestScenarioPractice {
         WebElement filterSection = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'SaleSection_13268']")));
         actions.scrollToElement(filterSection).perform();
 
-        WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
+//        WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
+//        clickByJs(witTheHighestRatingParameterButton);
+//        WebElement witTheHighestRatingParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']")));
+//        Assert.assertTrue(witTheHighestRatingParameterButtonActiveStatus.isDisplayed(), "Раздел \"С наивысшим рейтингом\" не выбран");
+
+        WebElement witTheHighestRatingParameterButton = driver.findElement(By.xpath("//div[text() = 'С наивысшим рейтингом']"));
         clickByJs(witTheHighestRatingParameterButton);
-        WebElement witTheHighestRatingParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']")));
+        isElementPresent(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']"));
+        WebElement witTheHighestRatingParameterButtonActiveStatus = driver.findElement(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']"));
         Assert.assertTrue(witTheHighestRatingParameterButtonActiveStatus.isDisplayed(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
         WebElement casualGameParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
@@ -283,6 +291,16 @@ public class TestScenarioPractice {
     private void clickByJs(WebElement webElement) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].click()", webElement);
+    }
+
+    private boolean isElementPresent(By locator) {
+        try {
+            webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
+            return true;
+        } catch (NoSuchElementException noSuchElementException) {
+            return false;
+        }
     }
 
     @AfterTest
