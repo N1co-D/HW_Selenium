@@ -48,6 +48,7 @@ public enum DriverSingleton {
             }
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         }
+
         return driver;
     }
 }

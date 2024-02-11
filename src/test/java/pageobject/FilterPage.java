@@ -115,11 +115,6 @@ public class FilterPage {
         return DRIVER.getDriver().findElements(allGames);
     }
 
-    public By getCurrentGame() {
-        webDriverWait.until(visibilityOfElementLocated(currentGame));
-        return currentGame;
-    }
-
     public String getCurrentGameText() {
         webDriverWait.until(visibilityOfElementLocated(currentGame));
         return DRIVER.getDriver().findElement(currentGame).getText();
