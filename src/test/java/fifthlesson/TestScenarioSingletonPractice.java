@@ -15,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
-import static utils.DriverSingleton.*;
-
+import static utils.DriverSingleton.DRIVER;
 
 public class TestScenarioSingletonPractice {
     private WebDriverWait webDriverWait;
@@ -121,79 +120,72 @@ public class TestScenarioSingletonPractice {
         filterPage.sortingParametersClickByJs();
 
         filterPage.releasingDateParameterClickByJs();
+        Assert.assertTrue(filterPage.releasingDateParameterSortingChecking(), "Установлен неверный параметр сортировки");
 
         filterPage.fieldWithSearchResultsClickByJs();
         String resultsText = filterPage.fieldWithSearchResultsGetText();
 
         filterPage.removeFreeGamesCheckboxClickByJs();
+        Assert.assertTrue(filterPage.removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
         webDriverWait.until(refreshed(not(textToBe(filterPage.fieldWithSearchResultsPath(), resultsText))));
         String resultsTextForComparing = filterPage.fieldWithSearchResultsGetText();
-        webDriverWait.until(refreshed(not(textToBe(filterPage.fieldWithSearchResultsPath(), resultsTextForComparing))));
-        String resultsTextForComparing2 = filterPage.fieldWithSearchResultsGetText();
 
-        if (!resultsTextForComparing.equals(resultsTextForComparing2)) {
+        if (!resultsText.equals(resultsTextForComparing)) {
             List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
             for (WebElement game : allGames) {
-                WebElement currentGame = game.findElement(filterPage.getCurrentGame());
-                if (currentGame.getText().startsWith("Oxygen Not Included")) {
-                    WebElement gameReleaseDate = game.findElement(filterPage.getGameReleaseDate());
-                    WebElement gamePrice = game.findElement(filterPage.getGamePrice());
-                    Assert.assertEquals(currentGame.getText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
-                    Assert.assertEquals(gameReleaseDate.getText(), "16 дек. 2021", "Указана некорректная дата релиза игры");
-                    Assert.assertEquals(gamePrice.getText(), "299 руб", "Указана некорректная цена игры");
+                if (filterPage.getCurrentGameText().startsWith("Oxygen Not Included")) {
+                    Assert.assertEquals(filterPage.getCurrentGameText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
+                    Assert.assertEquals(filterPage.getGameReleaseDate(), "16 дек. 2021", "Указана некорректная дата релиза игры");
+                    Assert.assertEquals(filterPage.getGamePrice(), "299 руб", "Указана некорректная цена игры");
                     break;
                 }
             }
         }
     }
-//
-//    /**
-//     * Тест сам по себе рабочий, но с 5 февраля не актуален в связи с тем, что специальное предложение по играм с таким названием
-//     * закончилось, и все они перестали отображаться в списке при установке галочки в элементе specialOffersCheckbox
-//     */
-//    @Test(priority = 4)
-//    public void checkingSortingByReleaseDateAndOtherParameter() {
-//        webDriverWait = new WebDriverWait(DriverSingleton.getDriver(), Duration.ofSeconds(30));
-//        DriverSingleton.getDriver().manage().window().maximize();
-//        MainPage.getToMainPage();
-//        Actions actions = new Actions(DriverSingleton.getDriver());
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBox())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBox()));
-//        actions.sendKeys(MainPage.getWebElement(MainPage.getInputBox()), "The Callisto Protocol").perform();
-//
-//        webDriverWait.until((visibilityOfElementLocated(MainPage.getInputBoxConfirm())));
-//        MainPage.clickByJs(MainPage.getWebElement(MainPage.getInputBoxConfirm()));
-//        Assert.assertEquals(DriverSingleton.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getSortingParameters())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getSortingParameters()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getPriceIncreaseParameter())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getPriceIncreaseParameter()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getSpecialOffersCheckbox())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getSpecialOffersCheckbox()));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getFieldWithSearchResultsWhereCountIsNull())));
-//
-//        webDriverWait.until((visibilityOfElementLocated(FilterPage.getWindowsOperatingSystemParameter())));
-//        FilterPage.clickByJs(FilterPage.getWebElement(FilterPage.getWindowsOperatingSystemParameter()));
-//
-//        List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(FilterPage.getAllGames()));
-//        for (WebElement game : allGames) {
-//            WebElement currentGame = game.findElement(FilterPage.getCurrentGame());
-//            if (currentGame.getText().startsWith("The Callisto Protocol")) {
-//                WebElement gameReleaseDate = game.findElement(FilterPage.getGameReleaseDate());
-//                WebElement gamePrice = game.findElement(FilterPage.getGamePrice());
-//                Assert.assertEquals(currentGame.getText(), "The Callisto Protocol™ - The Outer Way Skin Collection", "Указан заголовок некорректной игры");
-//                Assert.assertTrue(gameReleaseDate.getText().contains("7 фев. 2023"), "Указана некорректная дата релиза игры");
-//                Assert.assertEquals(gamePrice.getText(), "200 руб", "Указана некорректная цена игры");
-//                break;
-//            }
-//        }
-//    }
+
+    @Test(priority = 4)
+    public void checkingSortingByReleaseDateAndOtherParameter() {
+        webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+        DRIVER.getDriver().manage().window().maximize();
+        MainPage.getToMainPage();
+        Assert.assertEquals(DRIVER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+
+        MainPage mainPage = new MainPage();
+        mainPage.inputBoxWriteText("HITMAN");
+        mainPage.inputBoxConfirmClick();
+        Assert.assertEquals(DRIVER.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+
+        FilterPage filterPage = new FilterPage();
+        filterPage.sortingParametersClickByJs();
+
+        filterPage.priceIncreaseParameterClickByJs();
+        Assert.assertTrue(filterPage.priceIncreaseParameterSortingChecking(), "Установлен неверный параметр сортировки");
+
+        filterPage.fieldWithSearchResultsClickByJs();
+        String resultsText = filterPage.fieldWithSearchResultsGetText();
+
+        filterPage.specialOffersCheckboxClickByJs();
+        Assert.assertTrue(filterPage.specialOffersCheckboxActiveStatusChecking(), "Checkbox \"Специальные предложения\" не активирован");
+
+        webDriverWait.until(refreshed(not(textToBe(filterPage.fieldWithSearchResultsPath(), resultsText))));
+        String resultsTextForComparing = filterPage.fieldWithSearchResultsGetText();
+
+        filterPage.windowsOperatingSystemParameterClickByJs();
+        Assert.assertTrue(filterPage.windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
+
+        if (!resultsText.equals(resultsTextForComparing)) {
+            List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
+            for (WebElement game : allGames) {
+                if (filterPage.getCurrentGameText().startsWith("HITMAN")) {
+                    Assert.assertEquals(filterPage.getCurrentGameText(), "HITMAN 3", "Указан заголовок некорректной игры");
+                    Assert.assertTrue(filterPage.getGameReleaseDate().contains("20 янв. 2022"), "Указана некорректная дата релиза игры");
+                    Assert.assertEquals(filterPage.getGamePrice(), "440 руб", "Указана некорректная цена игры");
+                    break;
+                }
+            }
+        }
+    }
 
     @AfterTest
     public void afterTests() {

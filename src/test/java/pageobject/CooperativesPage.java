@@ -28,7 +28,6 @@ public class CooperativesPage {
     private Actions actions = new Actions(DRIVER.getDriver());
     private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
 
-
     public void filterSectionScrolling() {
         webDriverWait.until(visibilityOfElementLocated(filterSection));
         actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
