@@ -1,4 +1,5 @@
 package thirdlesson;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,13 +15,16 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
+
 public class MakingTestByTestCase {
     private WebDriver driver;
+
     @BeforeClass
     public WebDriver browserDefinition() {
         File file = new File("src/main/resources/config.properties");
@@ -54,6 +58,7 @@ public class MakingTestByTestCase {
         }
         return driver;
     }
+
     @Test
     public void checkingCorrectnessOfPriceAndCurrencyTest() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
