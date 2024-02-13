@@ -149,7 +149,7 @@ public class TestScenarioPractice {
         WebElement fieldWithSearchResults = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Совпадений:')]")));
         String resultsText = fieldWithSearchResults.getText();
 
-        WebElement strategyParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[text() = 'Стратегия']")));
+        WebElement strategyParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'FacetedBrowseControls')]//a[text() = 'Стратегия']")));
         clickByJs(strategyParameter);
         WebElement strategyParameterTag = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Стратегия']")));
         Assert.assertTrue(strategyParameterTag.isDisplayed(), "Тэг \"Стратегия\" не отображается");
@@ -219,9 +219,11 @@ public class TestScenarioPractice {
         webDriverWait.until(refreshed(not(textToBe(By.xpath("//div[contains(text(), 'Результатов по вашему запросу:')]"), resultsTextForComparing))));
 
         List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
+        boolean gameIsFound = false;
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
             if (currentGame.getText().startsWith(observedGame)) {
+                gameIsFound = true;
                 WebElement gameReleaseDate = game.findElement(By.xpath(".//div[contains(@class, 'search_released')]"));
                 WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
                 String expectedGameTitle = "Oxygen Not Included - Spaced Out!";
@@ -235,6 +237,9 @@ public class TestScenarioPractice {
                 checkingGameParameters.assertAll();
                 break;
             }
+        }
+        if (!gameIsFound) {
+            Assert.fail("Игра с названием " + observedGame + " не найдена");
         }
     }
 
@@ -278,9 +283,11 @@ public class TestScenarioPractice {
         Assert.assertTrue(windowsOperatingSystemCheckboxActiveStatus.isDisplayed(), "Checkbox \"Windows\" не активирован");
 
         List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
+        boolean gameIsFound = false;
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
             if (currentGame.getText().startsWith(observedGame)) {
+                gameIsFound = true;
                 WebElement gamePrice = game.findElement(By.xpath(".//div[contains(@class, 'discount_final_price')]/div[contains(text(), 'pуб.')]"));
                 String expectedGameTitle = "HITMAN™ Essential Collection";
                 String expectedCurrentGamePrice = "548,80 pуб.";
@@ -291,6 +298,9 @@ public class TestScenarioPractice {
                 checkingGameParameters.assertAll();
                 break;
             }
+        }
+        if (!gameIsFound) {
+            Assert.fail("Игра с названием " + observedGame + " не найдена");
         }
     }
 
