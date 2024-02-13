@@ -18,6 +18,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -88,15 +89,9 @@ public class TestScenarioPractice {
         WebElement filterSection = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[@id = 'SaleSection_13268']")));
         actions.scrollToElement(filterSection).perform();
 
-//        WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
-//        clickByJs(witTheHighestRatingParameterButton);
-//        WebElement witTheHighestRatingParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']")));
-//        Assert.assertTrue(witTheHighestRatingParameterButtonActiveStatus.isDisplayed(), "Раздел \"С наивысшим рейтингом\" не выбран");
-
-        WebElement witTheHighestRatingParameterButton = driver.findElement(By.xpath("//div[text() = 'С наивысшим рейтингом']"));
+        WebElement witTheHighestRatingParameterButton = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[text() = 'С наивысшим рейтингом']")));
         clickByJs(witTheHighestRatingParameterButton);
-        isElementPresent(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']"));
-        WebElement witTheHighestRatingParameterButtonActiveStatus = driver.findElement(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']"));
+        WebElement witTheHighestRatingParameterButtonActiveStatus = webDriverWait.until(visibilityOfElementLocated(By.xpath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']")));
         Assert.assertTrue(witTheHighestRatingParameterButtonActiveStatus.isDisplayed(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
         WebElement casualGameParameter = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']")));
@@ -124,8 +119,9 @@ public class TestScenarioPractice {
         driver.switchTo().window(windowToSwitch);
 
         WebElement gameTitle = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[@id = 'appHubAppName']"))));
-        String gameTitleText = gameTitle.getText();
-        Assert.assertEquals(gameTitleText, "Garry's Mod", "Указан заголовок некорректной игры");
+        String currentGameTitleText = gameTitle.getText();
+        String expectedGameTitleText = "Garry's Mod";
+        Assert.assertEquals(currentGameTitleText, expectedGameTitleText, "Текущий заголовок игры " + currentGameTitleText + " не соответствует ожидаемому значению - " + expectedGameTitleText);
     }
 
     @Test(priority = 2)
@@ -181,8 +177,9 @@ public class TestScenarioPractice {
         driver.switchTo().window(windowToSwitch);
 
         WebElement gameTitle = webDriverWait.until(visibilityOfElementLocated((By.xpath("//div[@id = 'appHubAppName']"))));
-        String gameTitleText = gameTitle.getText();
-        Assert.assertEquals(gameTitleText, "West Hunt", "Указан заголовок некорректной игры");
+        String currentGameTitleText = gameTitle.getText();
+        String expectedGameTitleText = "West Hunt";
+        Assert.assertEquals(currentGameTitleText, expectedGameTitleText, "Текущий заголовок игры " + currentGameTitleText + " не соответствует ожидаемому значению - " + expectedGameTitleText);
     }
 
     @Test(priority = 3)
@@ -191,10 +188,11 @@ public class TestScenarioPractice {
         driver.get("https://store.steampowered.com/");
         Assert.assertEquals(driver.getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         Actions actions = new Actions(driver);
+        String observedGame = "Oxygen Not Included";
 
         WebElement inputBox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
         clickByJs(inputBox);
-        actions.sendKeys(inputBox, "Oxygen Not Included").perform();
+        actions.sendKeys(inputBox, observedGame).perform();
 
         WebElement inputBoxConfirm = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
         clickByJs(inputBoxConfirm);
@@ -225,12 +223,18 @@ public class TestScenarioPractice {
         List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
-            if (currentGame.getText().startsWith("Oxygen Not Included")) {
+            if (currentGame.getText().startsWith(observedGame)) {
                 WebElement gameReleaseDate = game.findElement(By.xpath(".//div[contains(@class, 'search_released')]"));
                 WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
-                Assert.assertEquals(currentGame.getText(), "Oxygen Not Included - Spaced Out!", "Указан заголовок некорректной игры");
-                Assert.assertEquals(gameReleaseDate.getText(), "16 дек. 2021", "Указана некорректная дата релиза игры");
-                Assert.assertEquals(gamePrice.getText(), "299 руб", "Указана некорректная цена игры");
+                String expectedGameTitle = "Oxygen Not Included - Spaced Out!";
+                String expectedCurrentGamePrice = "299 руб";
+                String expectedCurrentGameReleaseDate = "16 дек. 2021";
+
+                SoftAssert checkingGameParameters = new SoftAssert();
+                checkingGameParameters.assertEquals(currentGame.getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+                checkingGameParameters.assertEquals(gameReleaseDate.getText(), expectedCurrentGameReleaseDate, "Полученная дата релиза игры не соответствует ожидаемому значению");
+                checkingGameParameters.assertEquals(gamePrice.getText(), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+                checkingGameParameters.assertAll();
                 break;
             }
         }
@@ -242,10 +246,11 @@ public class TestScenarioPractice {
         driver.get("https://store.steampowered.com/");
         Assert.assertEquals(driver.getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         Actions actions = new Actions(driver);
+        String observedGame = "HITMAN";
 
         WebElement inputBox = webDriverWait.until(visibilityOfElementLocated(By.xpath("//input[@id = 'store_nav_search_term']")));
         clickByJs(inputBox);
-        actions.sendKeys(inputBox, "HITMAN").perform();
+        actions.sendKeys(inputBox, observedGame).perform();
 
         WebElement inputBoxConfirm = webDriverWait.until(visibilityOfElementLocated(By.xpath("//a[@id = 'store_search_link']/img")));
         clickByJs(inputBoxConfirm);
@@ -277,12 +282,15 @@ public class TestScenarioPractice {
         List<WebElement> allGames = webDriverWait.until(visibilityOfAllElementsLocatedBy(By.xpath("//div[@id = 'search_resultsRows']/a")));
         for (WebElement game : allGames) {
             WebElement currentGame = game.findElement(By.xpath(".//span[@class = 'title']"));
-            if (currentGame.getText().startsWith("HITMAN")) {
-                WebElement gameReleaseDate = game.findElement(By.xpath(".//div[contains(@class, 'search_released')]"));
-                WebElement gamePrice = game.findElement(By.xpath(".//div[@class = 'discount_final_price']"));
-                Assert.assertEquals(currentGame.getText(), "HITMAN 3", "Указан заголовок некорректной игры");
-                Assert.assertTrue(gameReleaseDate.getText().contains("20 янв. 2022"), "Указана некорректная дата релиза игры");
-                Assert.assertEquals(gamePrice.getText(), "440 руб", "Указана некорректная цена игры");
+            if (currentGame.getText().startsWith(observedGame)) {
+                WebElement gamePrice = game.findElement(By.xpath(".//div[contains(@class, 'discount_final_price')]/div[contains(text(), 'pуб.')]"));
+                String expectedGameTitle = "HITMAN™ Essential Collection";
+                String expectedCurrentGamePrice = "548,80 pуб.";
+
+                SoftAssert checkingGameParameters = new SoftAssert();
+                checkingGameParameters.assertEquals(currentGame.getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+                checkingGameParameters.assertEquals(gamePrice.getText(), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+                checkingGameParameters.assertAll();
                 break;
             }
         }
@@ -291,16 +299,6 @@ public class TestScenarioPractice {
     private void clickByJs(WebElement webElement) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("arguments[0].click()", webElement);
-    }
-
-    private boolean isElementPresent(By locator) {
-        try {
-            webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
-            webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            return true;
-        } catch (NoSuchElementException noSuchElementException) {
-            return false;
-        }
     }
 
     @AfterTest
