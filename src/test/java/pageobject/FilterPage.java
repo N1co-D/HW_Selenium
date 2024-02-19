@@ -16,22 +16,22 @@ import static utils.DriverSingleton.DRIVER;
  * Страница с фильтром в Steam
  */
 public class FilterPage {
-    private By sortingParameters = new By.ById("sort_by_trigger");
-    private By releasingDateParameter = new By.ByXPath("//a[text() = 'дате выхода']");
-    private By releasingDateParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'дате выхода']");
-    private By removeFreeGamesCheckbox = new By.ByXPath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']");
-    private By removeFreeGamesCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']");
-    private By priceIncreaseParameter = new By.ByXPath("//a[@id = 'Price_ASC']");
-    private By priceIncreaseParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'возрастанию цены']");
-    private By specialOffersCheckbox = new By.ByXPath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']");
-    private By specialOffersCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']");
-    private By windowsOperatingSystemCheckbox = new By.ByXPath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']");
-    private By windowsOperatingSystemCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Windows']");
-    private By allGames = new By.ByXPath("//div[@id = 'search_resultsRows']/a");
-    private By currentGame = new By.ByXPath(".//span[@class = 'title']");
-    private By gameReleaseDate = new By.ByXPath(".//div[contains(@class, 'search_released')]");
-    private By gamePrice = new By.ByXPath(".//div[@class = 'discount_final_price']");
-    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
+    private final By sortingParameters = new By.ById("sort_by_trigger");
+    private final By releasingDateParameter = new By.ByXPath("//a[text() = 'дате выхода']");
+    private final By releasingDateParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'дате выхода']");
+    private final By removeFreeGamesCheckbox = new By.ByXPath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']");
+    private final By removeFreeGamesCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']");
+    private final By priceIncreaseParameter = new By.ByXPath("//a[@id = 'Price_ASC']");
+    private final By priceIncreaseParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'возрастанию цены']");
+    private final By specialOffersCheckbox = new By.ByXPath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']");
+    private final By specialOffersCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']");
+    private final By windowsOperatingSystemCheckbox = new By.ByXPath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']");
+    private final By windowsOperatingSystemCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Windows']");
+    private final By allGames = new By.ByXPath("//div[@id = 'search_resultsRows']/a");
+    private final By currentGame = new By.ByXPath(".//span[@class = 'title']");
+    private final By gameReleaseDate = new By.ByXPath(".//div[contains(@class, 'search_released')]");
+    private final By gamePrice = new By.ByXPath(".//div[@class = 'discount_final_price']");
+    private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void sortingParametersClickByJs() {
         webDriverWait.until(visibilityOfElementLocated(sortingParameters));

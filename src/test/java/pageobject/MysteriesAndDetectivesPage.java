@@ -14,18 +14,18 @@ import static utils.DriverSingleton.DRIVER;
  * Страница "Тайны и детективы" в Steam
  */
 public class MysteriesAndDetectivesPage {
-    private By filterSection = new By.ByXPath("//div[@id = 'SaleSection_13268']");
-    private By salesLeadersParameterButton = new By.ByXPath("//div[text() = 'Лидеры продаж']");
-    private By salesLeadersParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'Лидеры продаж']");
-    private By showMoreButton = new By.ByXPath("//div[text() = 'Показать больше']");
-    private By strategyParameter = new By.ByXPath("//div[contains(@class, 'Qu-ZCE2EM66oWdyl74Lzy')]//a[text() = 'Стратегия']");
-    private By strategyParameterTag = new By.ByXPath("//span[text() = 'Стратегия']");
-    private By playersParameter = new By.ByXPath("//div[text() = 'Игроки']");
-    private By forMultiplePlayersParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Для нескольких игроков']");
-    private By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
-    private By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
-    private Actions actions = new Actions(DRIVER.getDriver());
-    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
+    private final By filterSection = new By.ByXPath("//div[@id = 'SaleSection_13268']");
+    private final By salesLeadersParameterButton = new By.ByXPath("//div[text() = 'Лидеры продаж']");
+    private final By salesLeadersParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'Лидеры продаж']");
+    private final By showMoreButton = new By.ByXPath("//div[text() = 'Показать больше']");
+    private final By strategyParameter = new By.ByXPath("//div[contains(@class, 'Qu-ZCE2EM66oWdyl74Lzy')]//a[text() = 'Стратегия']");
+    private final By strategyParameterTag = new By.ByXPath("//span[text() = 'Стратегия']");
+    private final By playersParameter = new By.ByXPath("//div[text() = 'Игроки']");
+    private final By forMultiplePlayersParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Для нескольких игроков']");
+    private final By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
+    private final By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
+    private final Actions actions = new Actions(DRIVER.getDriver());
+    private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void filterSectionScrolling() {
         webDriverWait.until(visibilityOfElementLocated(filterSection));
