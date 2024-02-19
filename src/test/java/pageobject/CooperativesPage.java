@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.DRIVER;
@@ -25,60 +26,106 @@ public class CooperativesPage {
     private final By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
     private final By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private final Actions actions = new Actions(DRIVER.getDriver());
+    private final JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
     private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void filterSectionScrolling() {
-        webDriverWait.until(visibilityOfElementLocated(filterSection));
-        actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(filterSection));
+            actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел с фильтром не был найден");
+        }
     }
 
     public void witTheHighestRatingParameterButtonClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(witTheHighestRatingParameterButton));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(witTheHighestRatingParameterButton));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел фильтра 'С наивысшим рейтингом' не был найден");
+        }
     }
 
     public boolean witTheHighestRatingParameterButtonActiveStatusChecking() {
-        webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButtonActiveStatus));
-        return DRIVER.getDriver().findElement(witTheHighestRatingParameterButtonActiveStatus).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButtonActiveStatus));
+            return DRIVER.getDriver().findElement(witTheHighestRatingParameterButtonActiveStatus)
+                    .isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел фильтра 'С наивысшим рейтингом' не был найден");
+        }
+        return false;
     }
 
     public void casualGameParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(casualGameParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(casualGameParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(casualGameParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(casualGameParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Казуальная игра' не был найден");
+        }
     }
 
     public boolean casualGameParameterTagChecking() {
-        webDriverWait.until(visibilityOfElementLocated(casualGameParameterTag));
-        return DRIVER.getDriver().findElement(casualGameParameterTag).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(casualGameParameterTag));
+            return DRIVER.getDriver().findElement(casualGameParameterTag).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Тэг параметра 'Казуальная игра' не был найден");
+        }
+        return false;
     }
 
     public void playersParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(playersParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(playersParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(playersParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(playersParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Игроки' не был найден");
+        }
     }
 
     public void cooperativeParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(cooperativeParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(cooperativeParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(cooperativeParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(cooperativeParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Кооператив' не был найден");
+        }
     }
 
     public boolean cooperativeParameterTagChecking() {
-        webDriverWait.until(visibilityOfElementLocated(cooperativeParameterTag));
-        return DRIVER.getDriver().findElement(cooperativeParameterTag).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(cooperativeParameterTag));
+            return DRIVER.getDriver().findElement(cooperativeParameterTag).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Тэг параметра 'Кооператив' не был найден");
+        }
+        return false;
     }
 
     public void firstGameWithFilterParametersClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(firstGameWithFilterParameters));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(firstGameWithFilterParameters));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Игра не была найдена");
+        }
     }
 
     public String gameTitleGetText() {
-        webDriverWait.until(visibilityOfElementLocated(gameTitle));
-        return DRIVER.getDriver().findElement(gameTitle).getText();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(gameTitle));
+            return DRIVER.getDriver().findElement(gameTitle).getText();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Заголовок игры не был найден");
+        }
+        return "Заголовок игры не был найден";
     }
 }

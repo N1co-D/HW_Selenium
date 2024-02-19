@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.DRIVER;
@@ -13,41 +14,61 @@ import static utils.DriverSingleton.DRIVER;
  * Главная страница Steam
  */
 public class MainPage {
-    private By categoriesButtonTopMenuDesktop = new By.ByXPath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']");
-    private By cooperativesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']");
-    private By mysteriesAndDetectivesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
-    private By inputBox = new By.ByXPath("//input[@id = 'store_nav_search_term']");
-    private By inputBoxConfirm = new By.ByXPath("//a[@id = 'store_search_link']/img");
-    private Actions actions = new Actions(DRIVER.getDriver());
-    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+    private final By categoriesButtonTopMenuDesktop = new By.ByXPath("//div//span//a[@class = 'pulldown_desktop' and text() = 'Категории']");
+    private final By cooperativesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Кооперативы']");
+    private final By mysteriesAndDetectivesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
+    private final By inputBox = new By.ByXPath("//input[@id = 'store_nav_search_term']");
+    private final By inputBoxConfirm = new By.ByXPath("//a[@id = 'store_search_link']/img");
+    private final Actions actions = new Actions(DRIVER.getDriver());
+    private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public static void getToMainPage() {
         DRIVER.getDriver().get("https://store.steampowered.com/");
     }
 
     public void categoriesButtonTopMenuDesktopClick() {
-        webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop));
-        DRIVER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop));
+            DRIVER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Кнопка 'Категории' в верхнем меню не найдена");
+        }
     }
 
     public void cooperativesCategoryButtonClick() {
-        webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton));
-        DRIVER.getDriver().findElement(cooperativesCategoryButton).click();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton));
+            DRIVER.getDriver().findElement(cooperativesCategoryButton).click();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Кнопка с категорией 'Кооперативы' не найдена");
+        }
     }
 
     public void mysteriesAndDetectivesCategoryButtonClick() {
-        webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton));
-        DRIVER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton));
+            DRIVER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Кнопка с категорией 'Тайны и детективы' не найдена");
+        }
     }
 
     public void inputBoxWriteText(String text) {
-        webDriverWait.until(visibilityOfElementLocated(inputBox));
-        DRIVER.getDriver().findElement(inputBox).click();
-        actions.sendKeys(text).perform();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(inputBox));
+            DRIVER.getDriver().findElement(inputBox).click();
+            actions.sendKeys(text).perform();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Текстовое поле для ввода не найдено");
+        }
     }
 
     public void inputBoxConfirmClick() {
-        webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
-        DRIVER.getDriver().findElement(inputBoxConfirm).click();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
+            DRIVER.getDriver().findElement(inputBoxConfirm).click();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Кнопка для подтверждения запроса в текстовом поле не найдена");
+        }
     }
 }

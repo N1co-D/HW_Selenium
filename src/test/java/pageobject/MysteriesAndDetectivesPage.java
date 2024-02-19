@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.DRIVER;
@@ -25,66 +26,116 @@ public class MysteriesAndDetectivesPage {
     private final By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
     private final By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private final Actions actions = new Actions(DRIVER.getDriver());
+    private final JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
     private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void filterSectionScrolling() {
-        webDriverWait.until(visibilityOfElementLocated(filterSection));
-        actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(filterSection));
+            actions.scrollToElement(DRIVER.getDriver().findElement(filterSection)).perform();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел с фильтром не был найден");
+        }
     }
 
     public void salesLeadersParameterButtonClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButton));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(salesLeadersParameterButton));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButton));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(salesLeadersParameterButton));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел фильтра 'Лидеры продаж' не был найден");
+        }
     }
 
     public boolean salesLeadersParameterButtonActiveStatusChecking() {
-        webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButtonActiveStatus));
-        return DRIVER.getDriver().findElement(salesLeadersParameterButtonActiveStatus).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButtonActiveStatus));
+            return DRIVER.getDriver().findElement(salesLeadersParameterButtonActiveStatus)
+                    .isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел фильтра 'Лидеры продаж' не был найден");
+        }
+        return false;
     }
 
     public void showMoreButtonClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(showMoreButton));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(showMoreButton));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(showMoreButton));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(showMoreButton));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Кнопка 'Показать больше' не была найдена");
+        }
     }
 
     public void strategyParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(strategyParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(strategyParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(strategyParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(strategyParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Стратегия' не был найден");
+        }
     }
 
     public boolean strategyParameterTagChecking() {
-        webDriverWait.until(visibilityOfElementLocated(strategyParameterTag));
-        return DRIVER.getDriver().findElement(strategyParameterTag).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(strategyParameterTag));
+            return DRIVER.getDriver().findElement(strategyParameterTag).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Тэг параметра 'Стратегия' не был найден");
+        }
+        return false;
     }
 
     public void playersParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(playersParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(playersParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(playersParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(playersParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Игроки' не был найден");
+        }
     }
 
     public void forMultiplePlayersParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(forMultiplePlayersParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(forMultiplePlayersParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр фильтра 'Для нескольких игроков' не был найден");
+        }
     }
 
     public boolean forMultiplePlayersParameterTagChecking() {
-        webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
-        return DRIVER.getDriver().findElement(forMultiplePlayersParameter).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
+            return DRIVER.getDriver().findElement(forMultiplePlayersParameter).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Тэг параметра 'Для нескольких игроков' не был найден");
+        }
+        return false;
     }
 
     public void firstGameWithFilterParametersClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(firstGameWithFilterParameters));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(firstGameWithFilterParameters));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(firstGameWithFilterParameters));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Игра не была найдена");
+        }
     }
 
     public String gameTitleGetText() {
-        webDriverWait.until(visibilityOfElementLocated(gameTitle));
-        return DRIVER.getDriver().findElement(gameTitle).getText();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(gameTitle));
+            return DRIVER.getDriver().findElement(gameTitle).getText();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Заголовок игры не был найден");
+        }
+        return "Заголовок игры не был найден";
     }
 }

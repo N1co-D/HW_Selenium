@@ -6,14 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.DRIVER;
 
 /**
- * Страница с фильтром в Steam
+ * Страница с фильтром игр в Steam
  */
 public class FilterPage {
     private final By sortingParameters = new By.ById("sort_by_trigger");
@@ -31,85 +33,149 @@ public class FilterPage {
     private final By currentGame = new By.ByXPath(".//span[@class = 'title']");
     private final By gameReleaseDate = new By.ByXPath(".//div[contains(@class, 'search_released')]");
     private final By gamePrice = new By.ByXPath(".//div[@class = 'discount_final_price']");
+    JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
     private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void sortingParametersClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(sortingParameters));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(sortingParameters));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(sortingParameters));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(sortingParameters));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Раздел сортировки не найден");
+        }
     }
 
     public void releasingDateParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(releasingDateParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(releasingDateParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(releasingDateParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(releasingDateParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр сортировки 'дате выхода' не найден");
+        }
     }
 
     public boolean releasingDateParameterSortingChecking() {
-        webDriverWait.until(visibilityOfElementLocated(releasingDateParameterChecking));
-        return DRIVER.getDriver().findElement(releasingDateParameterChecking).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(releasingDateParameterChecking));
+            return DRIVER.getDriver().findElement(releasingDateParameterChecking).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр сортировки 'дате выхода' не найден");
+        }
+        return false;
     }
 
     public void priceIncreaseParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameter));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(priceIncreaseParameter));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(priceIncreaseParameter));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр сортировки 'возрастанию цены' не найден");
+        }
     }
 
     public boolean priceIncreaseParameterSortingChecking() {
-        webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameterChecking));
-        return DRIVER.getDriver().findElement(priceIncreaseParameterChecking).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameterChecking));
+            return DRIVER.getDriver().findElement(priceIncreaseParameterChecking).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Параметр сортировки 'возрастанию цены' не найден");
+        }
+        return false;
     }
 
     public void removeFreeGamesCheckboxClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckbox));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(removeFreeGamesCheckbox));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(removeFreeGamesCheckbox));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Скрыть бесплатные игры' не найден");
+        }
     }
 
     public boolean removeFreeGamesCheckboxActiveStatusChecking() {
-        webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckboxActiveStatus));
-        return DRIVER.getDriver().findElement(removeFreeGamesCheckboxActiveStatus).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckboxActiveStatus));
+            return DRIVER.getDriver().findElement(removeFreeGamesCheckboxActiveStatus).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Скрыть бесплатные игры' не найден");
+        }
+        return false;
     }
 
     public void specialOffersCheckboxClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(specialOffersCheckbox));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(specialOffersCheckbox));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(specialOffersCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(specialOffersCheckbox));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Специальные предложения' не найден");
+        }
     }
 
     public boolean specialOffersCheckboxActiveStatusChecking() {
-        webDriverWait.until(visibilityOfElementLocated(specialOffersCheckboxActiveStatus));
-        return DRIVER.getDriver().findElement(specialOffersCheckboxActiveStatus).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(specialOffersCheckboxActiveStatus));
+            return DRIVER.getDriver().findElement(specialOffersCheckboxActiveStatus).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Специальные предложения' не найден");
+        }
+        return false;
     }
 
     public void windowsOperatingSystemParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckbox));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(windowsOperatingSystemCheckbox));
+        try {
+            webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(windowsOperatingSystemCheckbox));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Windows' не найден");
+        }
     }
 
     public boolean windowsOperatingSystemParameterActiveStatusChecking() {
-        webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckboxActiveStatus));
-        return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus).isDisplayed();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckboxActiveStatus));
+            return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus).isDisplayed();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Чекбокс 'Windows' не найден");
+        }
+        return false;
     }
 
     public List<WebElement> getAllGamesWithFilterParameters() {
-        return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGames));
+        try {
+            return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGames));
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Игры по заданным параметрам фильтра не найдены");
+        }
+        return Collections.emptyList();
     }
 
     public WebElement getCurrentGame(WebElement game) {
-        webDriverWait.until(visibilityOfElementLocated(currentGame));
-        return game.findElement(currentGame);
+        try {
+            webDriverWait.until(visibilityOfElementLocated(currentGame));
+            return game.findElement(currentGame);
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Игра не найдена");
+        }
+        return game;
     }
 
     public String getGameReleaseDate(WebElement game) {
-        webDriverWait.until(visibilityOfElementLocated(gameReleaseDate));
-        return game.findElement(gameReleaseDate).getText();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(gameReleaseDate));
+            return game.findElement(gameReleaseDate).getText();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Дата выхода игры  не найдена");
+        }
+        return "Дата выхода игры  не найдена";
     }
 
     public String getGamePrice(WebElement game) {
-        webDriverWait.until(visibilityOfElementLocated(gamePrice));
-        return game.findElement(gamePrice).getText();
+        try {
+            webDriverWait.until(visibilityOfElementLocated(gamePrice));
+            return game.findElement(gamePrice).getText();
+        } catch (NoSuchElementException noSuchElementException) {
+            System.err.println("Цена игры  не найдена");
+        }
+        return "Цена игры  не найдена";
     }
 }

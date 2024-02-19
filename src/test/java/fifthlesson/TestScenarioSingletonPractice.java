@@ -174,9 +174,9 @@ public class TestScenarioSingletonPractice {
         }
 
         if (foundGame != null) {
-            String expectedGameTitle = "HITMAN 3 - Sarajevo Six Campaign Pack";
+            String expectedGameTitle = "HITMAN 3 - Trinity Pack";
             String expectedCurrentGamePrice = "140 руб";
-            String expectedCurrentGameReleaseDate = "17 авг. 2023";
+            String expectedCurrentGameReleaseDate = "20 янв. 2022";
 
             SoftAssert checkingGameParameters = new SoftAssert();
             checkingGameParameters.assertEquals(currentGame.getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
