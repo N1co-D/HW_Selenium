@@ -8,7 +8,7 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static utils.DriverSingleton.DRIVER;
+import static utils.DriverSingleton.MANAGER;
 
 /**
  * Главная страница Steam
@@ -19,56 +19,61 @@ public class MainPage {
     private final By mysteriesAndDetectivesCategoryButton = new By.ByXPath("//a[@class = 'popup_menu_item' and text() = 'Тайны и детективы']");
     private final By inputBox = new By.ByXPath("//input[@id = 'store_nav_search_term']");
     private final By inputBoxConfirm = new By.ByXPath("//a[@id = 'store_search_link']/img");
-    private final Actions actions = new Actions(DRIVER.getDriver());
-    private final WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
+    private final Actions actions = new Actions(MANAGER.getDriver());
+    private final WebDriverWait webDriverWait = new WebDriverWait(MANAGER.getDriver(), Duration.ofSeconds(10));
 
     public static void getToMainPage() {
-        DRIVER.getDriver().get("https://store.steampowered.com/");
+        MANAGER.getDriver().get("https://store.steampowered.com/");
     }
 
     public void categoriesButtonTopMenuDesktopClick() {
         try {
             webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop));
-            DRIVER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
+            MANAGER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка 'Категории' в верхнем меню не найдена");
+            throw noSuchElementException;
         }
     }
 
     public void cooperativesCategoryButtonClick() {
         try {
             webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton));
-            DRIVER.getDriver().findElement(cooperativesCategoryButton).click();
+            MANAGER.getDriver().findElement(cooperativesCategoryButton).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка с категорией 'Кооперативы' не найдена");
+            throw noSuchElementException;
         }
     }
 
     public void mysteriesAndDetectivesCategoryButtonClick() {
         try {
             webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton));
-            DRIVER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
+            MANAGER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка с категорией 'Тайны и детективы' не найдена");
+            throw noSuchElementException;
         }
     }
 
     public void inputBoxWriteText(String text) {
         try {
             webDriverWait.until(visibilityOfElementLocated(inputBox));
-            DRIVER.getDriver().findElement(inputBox).click();
+            MANAGER.getDriver().findElement(inputBox).click();
             actions.sendKeys(text).perform();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Текстовое поле для ввода не найдено");
+            throw noSuchElementException;
         }
     }
 
     public void inputBoxConfirmClick() {
         try {
             webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
-            DRIVER.getDriver().findElement(inputBoxConfirm).click();
+            MANAGER.getDriver().findElement(inputBoxConfirm).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка для подтверждения запроса в текстовом поле не найдена");
+            throw noSuchElementException;
         }
     }
 }
