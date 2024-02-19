@@ -21,7 +21,8 @@ public class TestScenarioSingletonPractice {
     public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
         MANAGER.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Assert.assertEquals(MANAGER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
         mainPage.categoriesButtonTopMenuDesktopClick();
@@ -31,15 +32,18 @@ public class TestScenarioSingletonPractice {
         cooperativesPage.filterSectionScrolling();
 
         cooperativesPage.witTheHighestRatingParameterButtonClickByJs();
-        Assert.assertTrue(cooperativesPage.witTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
+        Assert.assertTrue(cooperativesPage
+                .witTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
         cooperativesPage.casualGameParameterClickByJs();
-        Assert.assertTrue(cooperativesPage.casualGameParameterTagChecking(), "Тэг \"Казуальная игра\" не отображается");
+        Assert.assertTrue(cooperativesPage
+                .casualGameParameterTagChecking(), "Тэг \"Казуальная игра\" не отображается");
 
         cooperativesPage.playersParameterClickByJs();
 
         cooperativesPage.cooperativeParameterClickByJs();
-        Assert.assertTrue(cooperativesPage.cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
+        Assert.assertTrue(cooperativesPage
+                .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
         cooperativesPage.firstGameWithFilterParametersClickByJs();
         List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
@@ -55,7 +59,8 @@ public class TestScenarioSingletonPractice {
     public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
         MANAGER.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Assert.assertEquals(MANAGER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
         mainPage.categoriesButtonTopMenuDesktopClick();
@@ -65,17 +70,20 @@ public class TestScenarioSingletonPractice {
         mysteriesAndDetectivesPage.filterSectionScrolling();
 
         mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage.salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
+        Assert.assertTrue(mysteriesAndDetectivesPage
+                .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 
         mysteriesAndDetectivesPage.showMoreButtonClickByJs();
 
         mysteriesAndDetectivesPage.strategyParameterClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage.strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
+        Assert.assertTrue(mysteriesAndDetectivesPage
+                .strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
 
         mysteriesAndDetectivesPage.playersParameterClickByJs();
 
         mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage.forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
+        Assert.assertTrue(mysteriesAndDetectivesPage
+                .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
         mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
         List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
@@ -91,22 +99,26 @@ public class TestScenarioSingletonPractice {
     public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Assert.assertEquals(MANAGER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "Oxygen Not Included";
 
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(MANAGER.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
 
         filterPage.releasingDateParameterClickByJs();
-        Assert.assertTrue(filterPage.releasingDateParameterSortingChecking(), "Установлен неверный параметр сортировки");
+        Assert.assertTrue(filterPage
+                .releasingDateParameterSortingChecking(), "Установлен неверный параметр сортировки");
 
         filterPage.removeFreeGamesCheckboxClickByJs();
-        Assert.assertTrue(filterPage.removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
+        Assert.assertTrue(filterPage
+                .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
         addingWaitingTime();
         List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
@@ -127,9 +139,12 @@ public class TestScenarioSingletonPractice {
             String expectedCurrentGameReleaseDate = "16 дек. 2021";
 
             SoftAssert checkingGameParameters = new SoftAssert();
-            checkingGameParameters.assertEquals(currentGameTitle.getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage.getGameReleaseDate(foundGame), expectedCurrentGameReleaseDate, "Полученная дата релиза игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage.getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertEquals(currentGameTitle
+                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertEquals(filterPage
+                    .getGameReleaseDate(foundGame), expectedCurrentGameReleaseDate, "Полученная дата релиза игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertEquals(filterPage
+                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
             checkingGameParameters.assertAll();
         } else {
             Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
@@ -140,25 +155,30 @@ public class TestScenarioSingletonPractice {
     public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
         MainPage.getToMainPage();
-        Assert.assertEquals(MANAGER.getDriver().getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "HITMAN";
 
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(MANAGER.getDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(MANAGER.getDriver()
+                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
 
         filterPage.priceIncreaseParameterClickByJs();
-        Assert.assertTrue(filterPage.priceIncreaseParameterSortingChecking(), "Установлен неверный параметр сортировки");
+        Assert.assertTrue(filterPage
+                .priceIncreaseParameterSortingChecking(), "Установлен неверный параметр сортировки");
 
         filterPage.specialOffersCheckboxClickByJs();
-        Assert.assertTrue(filterPage.specialOffersCheckboxActiveStatusChecking(), "Checkbox \"Специальные предложения\" не активирован");
+        Assert.assertTrue(filterPage
+                .specialOffersCheckboxActiveStatusChecking(), "Checkbox \"Специальные предложения\" не активирован");
 
         filterPage.windowsOperatingSystemParameterClickByJs();
-        Assert.assertTrue(filterPage.windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
+        Assert.assertTrue(filterPage
+                .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
 
         addingWaitingTime();
         List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
@@ -179,9 +199,12 @@ public class TestScenarioSingletonPractice {
             String expectedCurrentGameReleaseDate = "20 янв. 2022";
 
             SoftAssert checkingGameParameters = new SoftAssert();
-            checkingGameParameters.assertEquals(currentGameTitle.getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertTrue(filterPage.getGameReleaseDate(foundGame).contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage.getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertEquals(currentGameTitle
+                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertTrue(filterPage
+                    .getGameReleaseDate(foundGame).contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertEquals(filterPage
+                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
             checkingGameParameters.assertAll();
         } else {
             Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
