@@ -15,18 +15,18 @@ import static utils.DriverSingleton.DRIVER;
  */
 public class CooperativesPage {
     private By witTheHighestRatingParameterButton = new By.ByXPath("//div[text() = 'С наивысшим рейтингом']");
-    private By witTheHighestRatingParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, 'SelectedFlavor') and text() = 'С наивысшим рейтингом']");
-    private By casualGameParameter = new By.ByXPath("//a[contains(@class, 'FacetValueName') and text() = 'Казуальная игра']");
-    private By casualGameParameterTag = new By.ByXPath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Казуальная игра']");
-    private By playersParameter = new By.ByXPath("//div[contains(@class, 'FacetTitle') and text() = 'Игроки']");
-    private By cooperativeParameter = new By.ByXPath("//a[contains(@class, 'FacetValueName') and text() = 'Кооператив']");
-    private By cooperativeParameterTag = new By.ByXPath("//div[contains(@class, 'SelectedFacetValuesList')]//span[text() = 'Кооператив']");
+    private By witTheHighestRatingParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'С наивысшим рейтингом']");
+    private By casualGameParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Казуальная игра']");
+    private By casualGameParameterTag = new By.ByXPath("//span[text() = 'Казуальная игра']");
+    private By playersParameter = new By.ByXPath("//div[contains(@class, '_3L67OJmzdGjQ4fcAzZ2JvY') and text() = 'Игроки']");
+    private By cooperativeParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Кооператив']");
+    private By cooperativeParameterTag = new By.ByXPath("//span[text() = 'Кооператив']");
     private By filterSection = new By.ByXPath("//div[@id = 'SaleSection_13268']");
-    private By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'FacetedBrowseItems')]/div[1]//div[contains(@class, 'StoreSaleWidgetHalfLeft')]/a");
-    private By fieldWithSearchResults = new By.ByXPath("//div[contains(@class, 'FacetedBrowseMatchCount') and contains(text(), 'Совпадений:')]");
+    private By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
+    private By fieldWithSearchResults = new By.ByXPath("//div[contains(text(), 'Совпадений:')]");
     private By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private Actions actions = new Actions(DRIVER.getDriver());
-    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void filterSectionScrolling() {
         webDriverWait.until(visibilityOfElementLocated(filterSection));

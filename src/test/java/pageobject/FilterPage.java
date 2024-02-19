@@ -3,11 +3,13 @@ package pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static utils.DriverSingleton.DRIVER;
 
@@ -16,22 +18,22 @@ import static utils.DriverSingleton.DRIVER;
  */
 public class FilterPage {
     private By sortingParameters = new By.ById("sort_by_trigger");
-    private By releasingDateParameter = new By.ByXPath("//a[@class = 'inactive_selection' and text() = 'дате выхода']");
+    private By releasingDateParameter = new By.ByXPath("//a[text() = 'дате выхода']");
     private By releasingDateParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'дате выхода']");
-    private By fieldWithSearchResults = new By.ByXPath("//div[@id = 'search_results_filtered_warning_persistent']/div[contains(text(), 'Результатов по вашему запросу:')]");
+    private By fieldWithSearchResults = new By.ByXPath("//div[contains(text(), 'Результатов по вашему запросу:')]");
     private By removeFreeGamesCheckbox = new By.ByXPath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']");
     private By removeFreeGamesCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']");
     private By priceIncreaseParameter = new By.ByXPath("//a[@id = 'Price_ASC']");
     private By priceIncreaseParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'возрастанию цены']");
     private By specialOffersCheckbox = new By.ByXPath("//span[@data-loc = 'Специальные предложения']//span[@class = 'tab_filter_control_checkbox']");
     private By specialOffersCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']");
-    private By windowsOperatingSystemParameter = new By.ByXPath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']");
+    private By windowsOperatingSystemCheckbox = new By.ByXPath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']");
     private By windowsOperatingSystemCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Windows']");
     private By allGames = new By.ByXPath("//div[@id = 'search_resultsRows']/a");
     private By currentGame = new By.ByXPath(".//span[@class = 'title']");
-    private By gameReleaseDate = new By.ByXPath("//div[@id = 'search_resultsRows']/a//div[contains(@class, 'search_released')]");
-    private By gamePrice = new By.ByXPath("//div[@id = 'search_resultsRows']/a//div[@class = 'discount_final_price']");
-    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(30));
+    private By gameReleaseDate = new By.ByXPath(".//div[contains(@class, 'search_released')]");
+    private By gamePrice = new By.ByXPath(".//div[@class = 'discount_final_price']");
+    private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
 
     public void sortingParametersClickByJs() {
         webDriverWait.until(visibilityOfElementLocated(sortingParameters));
@@ -100,9 +102,9 @@ public class FilterPage {
     }
 
     public void windowsOperatingSystemParameterClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemParameter));
+        webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckbox));
         JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(windowsOperatingSystemParameter));
+        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(windowsOperatingSystemCheckbox));
     }
 
     public boolean windowsOperatingSystemParameterActiveStatusChecking() {
@@ -110,23 +112,33 @@ public class FilterPage {
         return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus).isDisplayed();
     }
 
+//    public List<WebElement> getAllGamesWithFilterParameters() {
+//        webDriverWait.until(visibilityOfElementLocated(allGames));
+//        return DRIVER.getDriver().findElements(allGames);
+//    }
+
     public List<WebElement> getAllGamesWithFilterParameters() {
-        webDriverWait.until(visibilityOfElementLocated(allGames));
-        return DRIVER.getDriver().findElements(allGames);
+        return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGames));
+//        return DRIVER.getDriver().findElements(allGames);
     }
 
-    public String getCurrentGameText() {
+    public WebElement getCurrentGame(WebElement game) {
         webDriverWait.until(visibilityOfElementLocated(currentGame));
-        return DRIVER.getDriver().findElement(currentGame).getText();
+        return game.findElement(currentGame);
     }
 
-    public String getGameReleaseDate() {
+    public String getCurrentGameName(WebElement game) {
+        webDriverWait.until(visibilityOfElementLocated(currentGame));
+        return game.findElement(allGames).findElement(currentGame).getText();
+    }
+
+    public String getGameReleaseDate(WebElement game) {
         webDriverWait.until(visibilityOfElementLocated(gameReleaseDate));
-        return DRIVER.getDriver().findElement(currentGame).findElement(gameReleaseDate).getText();
+        return game.findElement(gameReleaseDate).getText();
     }
 
-    public String getGamePrice() {
+    public String getGamePrice(WebElement game) {
         webDriverWait.until(visibilityOfElementLocated(gamePrice));
-        return DRIVER.getDriver().findElement(currentGame).findElement(gamePrice).getText();
+        return game.findElement(gamePrice).getText();
     }
 }
