@@ -23,7 +23,6 @@ public class CooperativesPage {
     private By cooperativeParameterTag = new By.ByXPath("//span[text() = 'Кооператив']");
     private By filterSection = new By.ByXPath("//div[@id = 'SaleSection_13268']");
     private By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
-    private By fieldWithSearchResults = new By.ByXPath("//div[contains(text(), 'Совпадений:')]");
     private By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private Actions actions = new Actions(DRIVER.getDriver());
     private WebDriverWait webDriverWait = new WebDriverWait(DRIVER.getDriver(), Duration.ofSeconds(10));
@@ -70,16 +69,6 @@ public class CooperativesPage {
     public boolean cooperativeParameterTagChecking() {
         webDriverWait.until(visibilityOfElementLocated(cooperativeParameterTag));
         return DRIVER.getDriver().findElement(cooperativeParameterTag).isDisplayed();
-    }
-
-    public String fieldWithSearchResultsGetText() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return DRIVER.getDriver().findElement(fieldWithSearchResults).getText();
-    }
-
-    public By fieldWithSearchResultsPath() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return fieldWithSearchResults;
     }
 
     public void firstGameWithFilterParametersClickByJs() {

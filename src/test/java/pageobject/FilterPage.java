@@ -3,7 +3,6 @@ package pageobject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -20,7 +19,6 @@ public class FilterPage {
     private By sortingParameters = new By.ById("sort_by_trigger");
     private By releasingDateParameter = new By.ByXPath("//a[text() = 'дате выхода']");
     private By releasingDateParameterChecking = new By.ByXPath("//div[@id = 'sort_by_dselect_container']/a[text() = 'дате выхода']");
-    private By fieldWithSearchResults = new By.ByXPath("//div[contains(text(), 'Результатов по вашему запросу:')]");
     private By removeFreeGamesCheckbox = new By.ByXPath("//div[@class = 'tab_filter_control_row']//span[@class = 'tab_filter_control_checkbox']");
     private By removeFreeGamesCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Скрыть бесплатные игры']");
     private By priceIncreaseParameter = new By.ByXPath("//a[@id = 'Price_ASC']");
@@ -63,22 +61,6 @@ public class FilterPage {
         return DRIVER.getDriver().findElement(priceIncreaseParameterChecking).isDisplayed();
     }
 
-    public void fieldWithSearchResultsClickByJs() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
-        jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(fieldWithSearchResults));
-    }
-
-    public By fieldWithSearchResultsPath() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return fieldWithSearchResults;
-    }
-
-    public String fieldWithSearchResultsGetText() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return DRIVER.getDriver().findElement(fieldWithSearchResults).getText();
-    }
-
     public void removeFreeGamesCheckboxClickByJs() {
         webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckbox));
         JavascriptExecutor jsExecutor = (JavascriptExecutor) DRIVER.getDriver();
@@ -112,24 +94,13 @@ public class FilterPage {
         return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus).isDisplayed();
     }
 
-//    public List<WebElement> getAllGamesWithFilterParameters() {
-//        webDriverWait.until(visibilityOfElementLocated(allGames));
-//        return DRIVER.getDriver().findElements(allGames);
-//    }
-
     public List<WebElement> getAllGamesWithFilterParameters() {
         return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGames));
-//        return DRIVER.getDriver().findElements(allGames);
     }
 
     public WebElement getCurrentGame(WebElement game) {
         webDriverWait.until(visibilityOfElementLocated(currentGame));
         return game.findElement(currentGame);
-    }
-
-    public String getCurrentGameName(WebElement game) {
-        webDriverWait.until(visibilityOfElementLocated(currentGame));
-        return game.findElement(allGames).findElement(currentGame).getText();
     }
 
     public String getGameReleaseDate(WebElement game) {

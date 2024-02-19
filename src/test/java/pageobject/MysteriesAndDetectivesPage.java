@@ -18,7 +18,6 @@ public class MysteriesAndDetectivesPage {
     private By salesLeadersParameterButton = new By.ByXPath("//div[text() = 'Лидеры продаж']");
     private By salesLeadersParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'Лидеры продаж']");
     private By showMoreButton = new By.ByXPath("//div[text() = 'Показать больше']");
-    private By fieldWithSearchResults = new By.ByXPath("//div[contains(text(), 'Совпадений:')]");
     private By strategyParameter = new By.ByXPath("//div[contains(@class, 'Qu-ZCE2EM66oWdyl74Lzy')]//a[text() = 'Стратегия']");
     private By strategyParameterTag = new By.ByXPath("//span[text() = 'Стратегия']");
     private By playersParameter = new By.ByXPath("//div[text() = 'Игроки']");
@@ -76,16 +75,6 @@ public class MysteriesAndDetectivesPage {
     public boolean forMultiplePlayersParameterTagChecking() {
         webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
         return DRIVER.getDriver().findElement(forMultiplePlayersParameter).isDisplayed();
-    }
-
-    public String fieldWithSearchResultsGetText() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return DRIVER.getDriver().findElement(fieldWithSearchResults).getText();
-    }
-
-    public By fieldWithSearchResultsPath() {
-        webDriverWait.until(visibilityOfElementLocated(fieldWithSearchResults));
-        return fieldWithSearchResults;
     }
 
     public void firstGameWithFilterParametersClickByJs() {
