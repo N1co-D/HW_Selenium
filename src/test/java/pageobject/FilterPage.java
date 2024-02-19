@@ -39,7 +39,8 @@ public class FilterPage {
     public void sortingParametersClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(sortingParameters));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(sortingParameters));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(sortingParameters));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Раздел сортировки не найден");
         }
@@ -48,7 +49,8 @@ public class FilterPage {
     public void releasingDateParameterClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(releasingDateParameter));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(releasingDateParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(releasingDateParameter));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Параметр сортировки 'дате выхода' не найден");
         }
@@ -67,7 +69,8 @@ public class FilterPage {
     public void priceIncreaseParameterClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameter));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(priceIncreaseParameter));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(priceIncreaseParameter));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Параметр сортировки 'возрастанию цены' не найден");
         }
@@ -86,7 +89,8 @@ public class FilterPage {
     public void removeFreeGamesCheckboxClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckbox));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(removeFreeGamesCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(removeFreeGamesCheckbox));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Скрыть бесплатные игры' не найден");
         }
@@ -105,7 +109,8 @@ public class FilterPage {
     public void specialOffersCheckboxClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(specialOffersCheckbox));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(specialOffersCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(specialOffersCheckbox));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Специальные предложения' не найден");
         }
@@ -124,7 +129,8 @@ public class FilterPage {
     public void windowsOperatingSystemParameterClickByJs() {
         try {
             webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckbox));
-            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver().findElement(windowsOperatingSystemCheckbox));
+            jsExecutor.executeScript("arguments[0].click()", DRIVER.getDriver()
+                    .findElement(windowsOperatingSystemCheckbox));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Windows' не найден");
         }
@@ -133,7 +139,8 @@ public class FilterPage {
     public boolean windowsOperatingSystemParameterActiveStatusChecking() {
         try {
             webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckboxActiveStatus));
-            return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus).isDisplayed();
+            return DRIVER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus)
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Windows' не найден");
         }

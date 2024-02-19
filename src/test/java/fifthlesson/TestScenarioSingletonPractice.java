@@ -108,7 +108,7 @@ public class TestScenarioSingletonPractice {
         filterPage.removeFreeGamesCheckboxClickByJs();
         Assert.assertTrue(filterPage.removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
         WebElement foundGame = null;
         WebElement currentGame = null;
@@ -160,7 +160,7 @@ public class TestScenarioSingletonPractice {
         filterPage.windowsOperatingSystemParameterClickByJs();
         Assert.assertTrue(filterPage.windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
 
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
         WebElement foundGame = null;
         WebElement currentGame = null;
