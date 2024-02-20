@@ -1,4 +1,4 @@
-package pageobject;
+package fifthlesson.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -8,21 +8,21 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 
+import static fifthlesson.utils.DriverSingleton.MANAGER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static utils.DriverSingleton.MANAGER;
 
 /**
- * Страница "Тайны и детективы" в Steam
+ * Страница "Кооперативы" на сайте Steam
  */
-public class MysteriesAndDetectivesPage {
+public class CooperativesPage {
+    private final By witTheHighestRatingParameterButton = new By.ByXPath("//div[text() = 'С наивысшим рейтингом']");
+    private final By witTheHighestRatingParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'С наивысшим рейтингом']");
+    private final By casualGameParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Казуальная игра']");
+    private final By casualGameParameterTag = new By.ByXPath("//span[text() = 'Казуальная игра']");
+    private final By playersParameter = new By.ByXPath("//div[contains(@class, '_3L67OJmzdGjQ4fcAzZ2JvY') and text() = 'Игроки']");
+    private final By cooperativeParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Кооператив']");
+    private final By cooperativeParameterTag = new By.ByXPath("//span[text() = 'Кооператив']");
     private final By filterSection = new By.ByXPath("//div[@id = 'SaleSection_13268']");
-    private final By salesLeadersParameterButton = new By.ByXPath("//div[text() = 'Лидеры продаж']");
-    private final By salesLeadersParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'Лидеры продаж']");
-    private final By showMoreButton = new By.ByXPath("//div[text() = 'Показать больше']");
-    private final By strategyParameter = new By.ByXPath("//div[contains(@class, 'Qu-ZCE2EM66oWdyl74Lzy')]//a[text() = 'Стратегия']");
-    private final By strategyParameterTag = new By.ByXPath("//span[text() = 'Стратегия']");
-    private final By playersParameter = new By.ByXPath("//div[text() = 'Игроки']");
-    private final By forMultiplePlayersParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Для нескольких игроков']");
     private final By firstGameWithFilterParameters = new By.ByXPath("//div[contains(@class, 'NO-IPpXzHDNjw_TLDlIo7')]/div[1]//div[contains(@class, 'StoreSaleWidgetTitle')]");
     private final By gameTitle = new By.ByXPath("//div[@id = 'appHubAppName']");
     private final Actions actions = new Actions(MANAGER.getDriver());
@@ -39,56 +39,45 @@ public class MysteriesAndDetectivesPage {
         }
     }
 
-    public void salesLeadersParameterButtonClickByJs() {
+    public void withTheHighestRatingParameterButtonClickByJs() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButton));
+            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
             jsExecutor.executeScript("arguments[0].click()", MANAGER.getDriver()
-                    .findElement(salesLeadersParameterButton));
+                    .findElement(witTheHighestRatingParameterButton));
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Раздел фильтра 'Лидеры продаж' не найден");
+            System.err.println("Раздел фильтра 'С наивысшим рейтингом' не найден");
             throw noSuchElementException;
         }
     }
 
-    public boolean salesLeadersParameterButtonActiveStatusChecking() {
+    public boolean withTheHighestRatingParameterButtonActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButtonActiveStatus));
-            return MANAGER.getDriver().findElement(salesLeadersParameterButtonActiveStatus)
+            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButtonActiveStatus));
+            return MANAGER.getDriver().findElement(witTheHighestRatingParameterButtonActiveStatus)
                     .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Раздел фильтра 'Лидеры продаж' не найден");
+            System.err.println("Раздел фильтра 'С наивысшим рейтингом' не найден");
             throw noSuchElementException;
         }
     }
 
-    public void showMoreButtonClickByJs() {
+    public void casualGameParameterClickByJs() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(showMoreButton));
+            webDriverWait.until(visibilityOfElementLocated(casualGameParameter));
             jsExecutor.executeScript("arguments[0].click()", MANAGER.getDriver()
-                    .findElement(showMoreButton));
+                    .findElement(casualGameParameter));
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Кнопка 'Показать больше' не найдена");
+            System.err.println("Параметр фильтра 'Казуальная игра' не найден");
             throw noSuchElementException;
         }
     }
 
-    public void strategyParameterClickByJs() {
+    public boolean casualGameParameterTagChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(strategyParameter));
-            jsExecutor.executeScript("arguments[0].click()", MANAGER.getDriver()
-                    .findElement(strategyParameter));
+            webDriverWait.until(visibilityOfElementLocated(casualGameParameterTag));
+            return MANAGER.getDriver().findElement(casualGameParameterTag).isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Параметр фильтра 'Стратегия' не найден");
-            throw noSuchElementException;
-        }
-    }
-
-    public boolean strategyParameterTagChecking() {
-        try {
-            webDriverWait.until(visibilityOfElementLocated(strategyParameterTag));
-            return MANAGER.getDriver().findElement(strategyParameterTag).isDisplayed();
-        } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Тэг параметра 'Стратегия' не найден");
+            System.err.println("Тэг параметра 'Казуальная игра' не найден");
             throw noSuchElementException;
         }
     }
@@ -104,23 +93,23 @@ public class MysteriesAndDetectivesPage {
         }
     }
 
-    public void forMultiplePlayersParameterClickByJs() {
+    public void cooperativeParameterClickByJs() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
+            webDriverWait.until(visibilityOfElementLocated(cooperativeParameter));
             jsExecutor.executeScript("arguments[0].click()", MANAGER.getDriver()
-                    .findElement(forMultiplePlayersParameter));
+                    .findElement(cooperativeParameter));
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Параметр фильтра 'Для нескольких игроков' не найден");
+            System.err.println("Параметр фильтра 'Кооператив' не найден");
             throw noSuchElementException;
         }
     }
 
-    public boolean forMultiplePlayersParameterTagChecking() {
+    public boolean cooperativeParameterTagChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
-            return MANAGER.getDriver().findElement(forMultiplePlayersParameter).isDisplayed();
+            webDriverWait.until(visibilityOfElementLocated(cooperativeParameterTag));
+            return MANAGER.getDriver().findElement(cooperativeParameterTag).isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
-            System.err.println("Тэг параметра 'Для нескольких игроков' не найден");
+            System.err.println("Тэг параметра 'Кооператив' не найден");
             throw noSuchElementException;
         }
     }

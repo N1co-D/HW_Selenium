@@ -1,4 +1,4 @@
-package pageobject;
+package fifthlesson.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 
+import static fifthlesson.utils.DriverSingleton.MANAGER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static utils.DriverSingleton.MANAGER;
 
 /**
  * Главная страница Steam
@@ -22,7 +22,7 @@ public class MainPage {
     private final Actions actions = new Actions(MANAGER.getDriver());
     private final WebDriverWait webDriverWait = new WebDriverWait(MANAGER.getDriver(), Duration.ofSeconds(10));
 
-    public static void getToMainPage() {
+    public static void goToMainPage() {
         MANAGER.getDriver().get("https://store.steampowered.com/");
     }
 

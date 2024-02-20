@@ -1,26 +1,28 @@
 package fifthlesson;
 
+import fifthlesson.pageobject.CooperativesPage;
+import fifthlesson.pageobject.FilterPage;
+import fifthlesson.pageobject.MainPage;
+import fifthlesson.pageobject.MysteriesAndDetectivesPage;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pageobject.CooperativesPage;
-import pageobject.FilterPage;
-import pageobject.MainPage;
-import pageobject.MysteriesAndDetectivesPage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static utils.DriverSingleton.MANAGER;
+import static fifthlesson.utils.DriverSingleton.MANAGER;
 
 public class TestScenarioSingletonPractice {
 
     @Test(priority = 1)
     public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.getToMainPage();
+        MainPage.goToMainPage();
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
@@ -31,9 +33,9 @@ public class TestScenarioSingletonPractice {
         CooperativesPage cooperativesPage = new CooperativesPage();
         cooperativesPage.filterSectionScrolling();
 
-        cooperativesPage.witTheHighestRatingParameterButtonClickByJs();
+        cooperativesPage.withTheHighestRatingParameterButtonClickByJs();
         Assert.assertTrue(cooperativesPage
-                .witTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
+                .withTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
         cooperativesPage.casualGameParameterClickByJs();
         Assert.assertTrue(cooperativesPage
@@ -58,7 +60,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 2)
     public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.getToMainPage();
+        MainPage.goToMainPage();
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
@@ -98,7 +100,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 3)
     public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.getToMainPage();
+        MainPage.goToMainPage();
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "Oxygen Not Included";
@@ -121,17 +123,10 @@ public class TestScenarioSingletonPractice {
                 .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
         addingWaitingTime();
-        List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
-        WebElement foundGame = null;
-        WebElement currentGameTitle = null;
-
-        for (WebElement game : allGames) {
-            currentGameTitle = filterPage.getCurrentGameTitle(game);
-            if (currentGameTitle.getText().startsWith(observedGameSeries)) {
-                foundGame = game;
-                break;
-            }
-        }
+        List<WebElement> allGamesFromList = filterPage.getAllGamesWithFilterParameters();
+        Map<String, WebElement> foundGameInformation = searchingForRequiredGameInList(observedGameSeries, allGamesFromList);
+        WebElement foundGame = foundGameInformation.get("gameElement");
+        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
         if (foundGame != null) {
             String expectedGameTitle = "Oxygen Not Included - Spaced Out!";
@@ -154,7 +149,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 4)
     public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.getToMainPage();
+        MainPage.goToMainPage();
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "HITMAN";
@@ -181,17 +176,10 @@ public class TestScenarioSingletonPractice {
                 .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
 
         addingWaitingTime();
-        List<WebElement> allGames = filterPage.getAllGamesWithFilterParameters();
-        WebElement foundGame = null;
-        WebElement currentGameTitle = null;
-
-        for (WebElement game : allGames) {
-            currentGameTitle = filterPage.getCurrentGameTitle(game);
-            if (currentGameTitle.getText().startsWith(observedGameSeries)) {
-                foundGame = game;
-                break;
-            }
-        }
+        List<WebElement> allGamesFromList = filterPage.getAllGamesWithFilterParameters();
+        Map<String, WebElement> foundGameInformation = searchingForRequiredGameInList(observedGameSeries, allGamesFromList);
+        WebElement foundGame = foundGameInformation.get("gameElement");
+        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
         if (foundGame != null) {
             String expectedGameTitle = "HITMAN 3 - Trinity Pack";
@@ -213,6 +201,25 @@ public class TestScenarioSingletonPractice {
 
     private void addingWaitingTime() throws InterruptedException {
         Thread.sleep(3000);
+    }
+
+    private Map<String, WebElement> searchingForRequiredGameInList(String observedGameSeries, List<WebElement> allGamesFromList) {
+        WebElement foundGame = null;
+        WebElement currentGameTitle = null;
+        FilterPage filterPage = new FilterPage();
+
+        for (WebElement game : allGamesFromList) {
+            currentGameTitle = filterPage.getCurrentGameTitle(game);
+            if (currentGameTitle.getText().startsWith(observedGameSeries)) {
+                foundGame = game;
+                break;
+            }
+        }
+
+        Map<String, WebElement> foundGameInformation = new HashMap<>();
+        foundGameInformation.put("gameElement", foundGame);
+        foundGameInformation.put("gameTitle", currentGameTitle);
+        return foundGameInformation;
     }
 
     @AfterTest

@@ -1,4 +1,4 @@
-package pageobject;
+package fifthlesson.pageobject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,9 +9,9 @@ import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import static fifthlesson.utils.DriverSingleton.MANAGER;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static utils.DriverSingleton.MANAGER;
 
 /**
  * Страница с фильтром игр в Steam
@@ -28,7 +28,7 @@ public class FilterPage {
     private final By specialOffersCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Специальные предложения']");
     private final By windowsOperatingSystemCheckbox = new By.ByXPath("//span[@data-loc = 'Windows']//span[@class = 'tab_filter_control_checkbox']");
     private final By windowsOperatingSystemCheckboxActiveStatus = new By.ByXPath("//div[contains(@class, 'checked') and @data-loc = 'Windows']");
-    private final By allGames = new By.ByXPath("//div[@id = 'search_resultsRows']/a");
+    private final By allGamesFromList = new By.ByXPath("//div[@id = 'search_resultsRows']/a");
     private final By currentGame = new By.ByXPath(".//span[@class = 'title']");
     private final By gameReleaseDate = new By.ByXPath(".//div[contains(@class, 'search_released')]");
     private final By gamePrice = new By.ByXPath(".//div[@class = 'discount_final_price']");
@@ -154,7 +154,7 @@ public class FilterPage {
 
     public List<WebElement> getAllGamesWithFilterParameters() {
         try {
-            return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGames));
+            return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGamesFromList));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Игры по заданным параметрам фильтра не найдены");
             throw noSuchElementException;

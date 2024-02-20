@@ -1,4 +1,4 @@
-package utils;
+package fifthlesson.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,9 +9,8 @@ public class ConfigPropertiesProcessing {
     private final Properties properties = new Properties();
 
     public String getBrowserFromProperty() {
-        File file = new File("src/test/java/utils/config.properties");
+        File file = new File("src/main/java/fifthlesson/utils/config.properties");
         String browser;
-
         try {
             properties.load(new FileInputStream(file));
             browser = properties.getProperty("browser");
