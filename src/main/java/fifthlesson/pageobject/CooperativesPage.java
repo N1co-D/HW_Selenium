@@ -15,8 +15,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
  * Страница "Кооперативы" на сайте Steam
  */
 public class CooperativesPage {
-    private final By witTheHighestRatingParameterButton = new By.ByXPath("//div[text() = 'С наивысшим рейтингом']");
-    private final By witTheHighestRatingParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'С наивысшим рейтингом']");
+    private final By withTheHighestRatingParameterButton = new By.ByXPath("//div[text() = 'С наивысшим рейтингом']");
+    private final By withTheHighestRatingParameterButtonActiveStatus = new By.ByXPath("//div[contains(@class, '3HhxiFyD3z9B') and text() = 'С наивысшим рейтингом']");
     private final By casualGameParameter = new By.ByXPath("//a[contains(@class, '_3WMvo5MdrS9WFngIIdcTlU') and text() = 'Казуальная игра']");
     private final By casualGameParameterTag = new By.ByXPath("//span[text() = 'Казуальная игра']");
     private final By playersParameter = new By.ByXPath("//div[contains(@class, '_3L67OJmzdGjQ4fcAzZ2JvY') and text() = 'Игроки']");
@@ -41,9 +41,9 @@ public class CooperativesPage {
 
     public void withTheHighestRatingParameterButtonClickByJs() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButton));
+            webDriverWait.until(visibilityOfElementLocated(withTheHighestRatingParameterButton));
             jsExecutor.executeScript("arguments[0].click()", MANAGER.getDriver()
-                    .findElement(witTheHighestRatingParameterButton));
+                    .findElement(withTheHighestRatingParameterButton));
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Раздел фильтра 'С наивысшим рейтингом' не найден");
             throw noSuchElementException;
@@ -52,8 +52,8 @@ public class CooperativesPage {
 
     public boolean withTheHighestRatingParameterButtonActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(witTheHighestRatingParameterButtonActiveStatus));
-            return MANAGER.getDriver().findElement(witTheHighestRatingParameterButtonActiveStatus)
+            webDriverWait.until(visibilityOfElementLocated(withTheHighestRatingParameterButtonActiveStatus));
+            return MANAGER.getDriver().findElement(withTheHighestRatingParameterButtonActiveStatus)
                     .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Раздел фильтра 'С наивысшим рейтингом' не найден");
