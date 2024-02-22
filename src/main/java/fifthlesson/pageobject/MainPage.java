@@ -22,14 +22,9 @@ public class MainPage {
     private final Actions actions = new Actions(MANAGER.getDriver());
     private final WebDriverWait webDriverWait = new WebDriverWait(MANAGER.getDriver(), Duration.ofSeconds(10));
 
-    public static void goToMainPage() {
-        MANAGER.getDriver().get("https://store.steampowered.com/");
-    }
-
     public void categoriesButtonTopMenuDesktopClick() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop));
-            MANAGER.getDriver().findElement(categoriesButtonTopMenuDesktop).click();
+            webDriverWait.until(visibilityOfElementLocated(categoriesButtonTopMenuDesktop)).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка 'Категории' в верхнем меню не найдена");
             throw noSuchElementException;
@@ -38,8 +33,7 @@ public class MainPage {
 
     public void cooperativesCategoryButtonClick() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton));
-            MANAGER.getDriver().findElement(cooperativesCategoryButton).click();
+            webDriverWait.until(visibilityOfElementLocated(cooperativesCategoryButton)).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка с категорией 'Кооперативы' не найдена");
             throw noSuchElementException;
@@ -48,8 +42,7 @@ public class MainPage {
 
     public void mysteriesAndDetectivesCategoryButtonClick() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton));
-            MANAGER.getDriver().findElement(mysteriesAndDetectivesCategoryButton).click();
+            webDriverWait.until(visibilityOfElementLocated(mysteriesAndDetectivesCategoryButton)).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка с категорией 'Тайны и детективы' не найдена");
             throw noSuchElementException;
@@ -58,8 +51,7 @@ public class MainPage {
 
     public void inputBoxWriteText(String text) {
         try {
-            webDriverWait.until(visibilityOfElementLocated(inputBox));
-            MANAGER.getDriver().findElement(inputBox).click();
+            webDriverWait.until(visibilityOfElementLocated(inputBox)).click();
             actions.sendKeys(text).perform();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Текстовое поле для ввода не найдено");
@@ -69,8 +61,7 @@ public class MainPage {
 
     public void inputBoxConfirmClick() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm));
-            MANAGER.getDriver().findElement(inputBoxConfirm).click();
+            webDriverWait.until(visibilityOfElementLocated(inputBoxConfirm)).click();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Кнопка для подтверждения запроса в текстовом поле не найдена");
             throw noSuchElementException;

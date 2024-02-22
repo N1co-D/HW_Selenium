@@ -52,8 +52,7 @@ public class MysteriesAndDetectivesPage {
 
     public boolean salesLeadersParameterButtonActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButtonActiveStatus));
-            return MANAGER.getDriver().findElement(salesLeadersParameterButtonActiveStatus)
+            return webDriverWait.until(visibilityOfElementLocated(salesLeadersParameterButtonActiveStatus))
                     .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Раздел фильтра 'Лидеры продаж' не найден");
@@ -85,8 +84,8 @@ public class MysteriesAndDetectivesPage {
 
     public boolean strategyParameterTagChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(strategyParameterTag));
-            return MANAGER.getDriver().findElement(strategyParameterTag).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(strategyParameterTag))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Тэг параметра 'Стратегия' не найден");
             throw noSuchElementException;
@@ -117,8 +116,8 @@ public class MysteriesAndDetectivesPage {
 
     public boolean forMultiplePlayersParameterTagChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter));
-            return MANAGER.getDriver().findElement(forMultiplePlayersParameter).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(forMultiplePlayersParameter))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Тэг параметра 'Для нескольких игроков' не найден");
             throw noSuchElementException;
@@ -138,8 +137,7 @@ public class MysteriesAndDetectivesPage {
 
     public String gameTitleGetText() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(gameTitle));
-            return MANAGER.getDriver().findElement(gameTitle).getText();
+            return webDriverWait.until(visibilityOfElementLocated(gameTitle)).getText();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Заголовок игры не найден");
             throw noSuchElementException;

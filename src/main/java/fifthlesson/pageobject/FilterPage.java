@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static fifthlesson.utils.DriverSingleton.MANAGER;
@@ -59,8 +61,8 @@ public class FilterPage {
 
     public boolean releasingDateParameterSortingChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(releasingDateParameterChecking));
-            return MANAGER.getDriver().findElement(releasingDateParameterChecking).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(releasingDateParameterChecking))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Параметр сортировки 'дате выхода' не найден");
             throw noSuchElementException;
@@ -80,8 +82,8 @@ public class FilterPage {
 
     public boolean priceIncreaseParameterSortingChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameterChecking));
-            return MANAGER.getDriver().findElement(priceIncreaseParameterChecking).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(priceIncreaseParameterChecking))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Параметр сортировки 'возрастанию цены' не найден");
             throw noSuchElementException;
@@ -101,8 +103,8 @@ public class FilterPage {
 
     public boolean removeFreeGamesCheckboxActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckboxActiveStatus));
-            return MANAGER.getDriver().findElement(removeFreeGamesCheckboxActiveStatus).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(removeFreeGamesCheckboxActiveStatus))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Скрыть бесплатные игры' не найден");
             throw noSuchElementException;
@@ -122,8 +124,8 @@ public class FilterPage {
 
     public boolean specialOffersCheckboxActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(specialOffersCheckboxActiveStatus));
-            return MANAGER.getDriver().findElement(specialOffersCheckboxActiveStatus).isDisplayed();
+            return webDriverWait.until(visibilityOfElementLocated(specialOffersCheckboxActiveStatus))
+                    .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Специальные предложения' не найден");
             throw noSuchElementException;
@@ -143,8 +145,7 @@ public class FilterPage {
 
     public boolean windowsOperatingSystemParameterActiveStatusChecking() {
         try {
-            webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckboxActiveStatus));
-            return MANAGER.getDriver().findElement(windowsOperatingSystemCheckboxActiveStatus)
+            return webDriverWait.until(visibilityOfElementLocated(windowsOperatingSystemCheckboxActiveStatus))
                     .isDisplayed();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Чекбокс 'Windows' не найден");
@@ -161,9 +162,28 @@ public class FilterPage {
         }
     }
 
+    public Map<String, WebElement> searchingForRequiredGameInList(String observedGameSeries) {
+        List<WebElement> allGamesFromList = getAllGamesWithFilterParameters();
+        WebElement foundGame = null;
+        WebElement currentGameTitle = null;
+        FilterPage filterPage = new FilterPage();
+
+        for (WebElement game : allGamesFromList) {
+            currentGameTitle = filterPage.getCurrentGameTitle(game);
+            if (currentGameTitle.getText().startsWith(observedGameSeries)) {
+                foundGame = game;
+                break;
+            }
+        }
+
+        Map<String, WebElement> foundGameInformation = new HashMap<>();
+        foundGameInformation.put("gameElement", foundGame);
+        foundGameInformation.put("gameTitle", currentGameTitle);
+        return foundGameInformation;
+    }
+
     public WebElement getCurrentGameTitle(WebElement game) {
         try {
-            webDriverWait.until(visibilityOfElementLocated(currentGame));
             return game.findElement(currentGame);
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Игра не найдена");
@@ -173,7 +193,7 @@ public class FilterPage {
 
     public String getGameReleaseDate(WebElement game) {
         try {
-            webDriverWait.until(visibilityOfElementLocated(gameReleaseDate));
+            webDriverWait.until(visibilityOfElementLocated(gameReleaseDate)).getText();
             return game.findElement(gameReleaseDate).getText();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Дата выхода игры не найдена");
@@ -183,7 +203,7 @@ public class FilterPage {
 
     public String getGamePrice(WebElement game) {
         try {
-            webDriverWait.until(visibilityOfElementLocated(gamePrice));
+            webDriverWait.until(visibilityOfElementLocated(gamePrice)).getText();
             return game.findElement(gamePrice).getText();
         } catch (NoSuchElementException noSuchElementException) {
             System.err.println("Цена игры не найдена");

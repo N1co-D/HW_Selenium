@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 1)
     public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.goToMainPage();
+        MANAGER.getDriver().get("https://store.steampowered.com/");
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
@@ -58,9 +57,9 @@ public class TestScenarioSingletonPractice {
     }
 
     @Test(priority = 2)
-    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
+    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.goToMainPage();
+        MANAGER.getDriver().get("https://store.steampowered.com/");
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
 
@@ -75,6 +74,7 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 
+        addingWaitingTime();
         mysteriesAndDetectivesPage.showMoreButtonClickByJs();
 
         mysteriesAndDetectivesPage.strategyParameterClickByJs();
@@ -100,7 +100,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 3)
     public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.goToMainPage();
+        MANAGER.getDriver().get("https://store.steampowered.com/");
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "Oxygen Not Included";
@@ -123,8 +123,7 @@ public class TestScenarioSingletonPractice {
                 .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
         addingWaitingTime();
-        List<WebElement> allGamesFromList = filterPage.getAllGamesWithFilterParameters();
-        Map<String, WebElement> foundGameInformation = searchingForRequiredGameInList(observedGameSeries, allGamesFromList);
+        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
         WebElement foundGame = foundGameInformation.get("gameElement");
         WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
@@ -149,7 +148,7 @@ public class TestScenarioSingletonPractice {
     @Test(priority = 4)
     public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
         MANAGER.getDriver().manage().window().maximize();
-        MainPage.goToMainPage();
+        MANAGER.getDriver().get("https://store.steampowered.com/");
         Assert.assertEquals(MANAGER.getDriver()
                 .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "HITMAN";
@@ -176,15 +175,14 @@ public class TestScenarioSingletonPractice {
                 .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
 
         addingWaitingTime();
-        List<WebElement> allGamesFromList = filterPage.getAllGamesWithFilterParameters();
-        Map<String, WebElement> foundGameInformation = searchingForRequiredGameInList(observedGameSeries, allGamesFromList);
+        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
         WebElement foundGame = foundGameInformation.get("gameElement");
         WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
         if (foundGame != null) {
-            String expectedGameTitle = "HITMAN 3 - Trinity Pack";
+            String expectedGameTitle = "HITMAN 3 - Sarajevo Six Campaign Pack";
             String expectedCurrentGamePrice = "140 руб";
-            String expectedCurrentGameReleaseDate = "20 янв. 2022";
+            String expectedCurrentGameReleaseDate = "17 авг. 2023";
 
             SoftAssert checkingGameParameters = new SoftAssert();
             checkingGameParameters.assertEquals(currentGameTitle
@@ -201,25 +199,6 @@ public class TestScenarioSingletonPractice {
 
     private void addingWaitingTime() throws InterruptedException {
         Thread.sleep(3000);
-    }
-
-    private Map<String, WebElement> searchingForRequiredGameInList(String observedGameSeries, List<WebElement> allGamesFromList) {
-        WebElement foundGame = null;
-        WebElement currentGameTitle = null;
-        FilterPage filterPage = new FilterPage();
-
-        for (WebElement game : allGamesFromList) {
-            currentGameTitle = filterPage.getCurrentGameTitle(game);
-            if (currentGameTitle.getText().startsWith(observedGameSeries)) {
-                foundGame = game;
-                break;
-            }
-        }
-
-        Map<String, WebElement> foundGameInformation = new HashMap<>();
-        foundGameInformation.put("gameElement", foundGame);
-        foundGameInformation.put("gameTitle", currentGameTitle);
-        return foundGameInformation;
     }
 
     @AfterTest
