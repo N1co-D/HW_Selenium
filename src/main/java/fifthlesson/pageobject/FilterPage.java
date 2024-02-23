@@ -153,7 +153,7 @@ public class FilterPage {
         }
     }
 
-    public List<WebElement> getAllGamesWithFilterParameters() {
+    private List<WebElement> getAllGamesWithFilterParameters() {
         try {
             return webDriverWait.until(visibilityOfAllElementsLocatedBy(allGamesFromList));
         } catch (NoSuchElementException noSuchElementException) {
@@ -182,7 +182,7 @@ public class FilterPage {
         return foundGameInformation;
     }
 
-    public WebElement getCurrentGameTitle(WebElement game) {
+    private WebElement getCurrentGameTitle(WebElement game) {
         try {
             return game.findElement(currentGame);
         } catch (NoSuchElementException noSuchElementException) {
