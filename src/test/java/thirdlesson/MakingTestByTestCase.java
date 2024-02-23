@@ -29,14 +29,12 @@ public class MakingTestByTestCase {
     public WebDriver browserDefinition() {
         File file = new File("src/main/resources/config.properties");
         Properties props = new Properties();
-
         try {
             props.load(new FileInputStream(file));
         } catch (IOException e) {
             System.err.println("Ошибка при загрузке файла!");
             throw new RuntimeException(e);
         }
-
         if (props.getProperty("browser").equals("chrome")) {
             System.out.println("Определен браузер: Google Chrome");
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -58,7 +56,6 @@ public class MakingTestByTestCase {
         } else {
             System.err.println("Браузер не определен");
         }
-
         return driver;
     }
 
@@ -80,5 +77,4 @@ public class MakingTestByTestCase {
     public void afterTests() {
         driver.quit();
     }
-
 }
