@@ -23,7 +23,7 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 public class TestScenarioSingletonPractice {
 
     @BeforeTest
-    public void driverOptions() {
+    public void setUpDriverOptions() {
         ConfigPropertiesProcessing configPropertiesProcessing = new ConfigPropertiesProcessing();
         System.out.println("Определен браузер: " + configPropertiesProcessing.getBrowserFromProperty());
         System.out.println("Размер окна: " + configPropertiesProcessing.getSizeOfBrowserFromProperty());
