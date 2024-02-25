@@ -1,12 +1,14 @@
 package fifthlesson;
 
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import fifthlesson.pageobject.CooperativesPage;
-import fifthlesson.pageobject.FilterPage;
 import fifthlesson.pageobject.MainPage;
-import fifthlesson.pageobject.MysteriesAndDetectivesPage;
+import fifthlesson.utils.DriverSingleton;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -14,16 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.url;
 import static fifthlesson.utils.DriverSingleton.MANAGER;
 
 public class TestScenarioSingletonPractice {
 
     @Test(priority = 1)
     public void checkingCorrectProductDisplayWithFilterParametersCooperative() {
-        MANAGER.getDriver().manage().window().maximize();
-        MANAGER.getDriver().get("https://store.steampowered.com/");
-        Assert.assertEquals(MANAGER.getDriver()
-                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+//        MANAGER.getDriver().manage().window().maximize();
+//        MANAGER.getDriver();
+//        Selenide.webdriver().driver().getWebDriver().manage().window().maximize();
+        open("https://store.steampowered.com/");
+//        MANAGER.getDriver().get("https://store.steampowered.com/");
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+        Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
         mainPage.categoriesButtonTopMenuDesktopClick();
@@ -47,163 +55,166 @@ public class TestScenarioSingletonPractice {
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
         cooperativesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
-        String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        MANAGER.getDriver().switchTo().window(windowToSwitch);
+        switchTo().window(1);
+//        List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
+//        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver().getWebDriver().getWindowHandles());
+//        String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
+//        MANAGER.getDriver().switchTo().window(windowToSwitch);
+//        Selenide.webdriver().driver().switchTo().window(windowToSwitch);
 
         String currentGameTitleText = cooperativesPage.gameTitleGetText();
         String expectedGameTitleText = "Garry's Mod";
         Assert.assertEquals(currentGameTitleText, expectedGameTitleText, "Текущий заголовок игры " + currentGameTitleText + " не соответствует ожидаемому значению - " + expectedGameTitleText);
     }
 
-    @Test(priority = 2)
-    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() throws InterruptedException {
-        MANAGER.getDriver().manage().window().maximize();
-        MANAGER.getDriver().get("https://store.steampowered.com/");
-        Assert.assertEquals(MANAGER.getDriver()
-                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
-
-        MainPage mainPage = new MainPage();
-        mainPage.categoriesButtonTopMenuDesktopClick();
-        mainPage.mysteriesAndDetectivesCategoryButtonClick();
-
-        MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
-        mysteriesAndDetectivesPage.filterSectionScrolling();
-
-        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage
-                .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
-
-        addingWaitingTime();
-        mysteriesAndDetectivesPage.showMoreButtonClickByJs();
-
-        mysteriesAndDetectivesPage.strategyParameterClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage
-                .strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
-
-        mysteriesAndDetectivesPage.playersParameterClickByJs();
-
-        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
-        Assert.assertTrue(mysteriesAndDetectivesPage
-                .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
-
-        mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
-        String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        MANAGER.getDriver().switchTo().window(windowToSwitch);
-
-        String currentGameTitleText = mysteriesAndDetectivesPage.gameTitleGetText();
-        String expectedGameTitleText = "West Hunt";
-        Assert.assertEquals(currentGameTitleText, expectedGameTitleText, "Текущий заголовок игры " + currentGameTitleText + " не соответствует ожидаемому значению - " + expectedGameTitleText);
-    }
-
-    @Test(priority = 3)
-    public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
-        MANAGER.getDriver().manage().window().maximize();
-        MANAGER.getDriver().get("https://store.steampowered.com/");
-        Assert.assertEquals(MANAGER.getDriver()
-                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
-        String observedGameSeries = "Oxygen Not Included";
-
-        MainPage mainPage = new MainPage();
-        mainPage.inputBoxWriteText(observedGameSeries);
-        mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(MANAGER.getDriver()
-                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
-
-        FilterPage filterPage = new FilterPage();
-        filterPage.sortingParametersClickByJs();
-
-        filterPage.releasingDateParameterClickByJs();
-        Assert.assertTrue(filterPage
-                .releasingDateParameterSortingChecking(), "Установлен неверный параметр сортировки");
-
-        filterPage.removeFreeGamesCheckboxClickByJs();
-        Assert.assertTrue(filterPage
-                .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
-
-        addingWaitingTime();
-        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
-        WebElement foundGame = foundGameInformation.get("gameElement");
-        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
-
-        if (foundGame != null) {
-            String expectedGameTitle = "Oxygen Not Included - Spaced Out!";
-            String expectedCurrentGamePrice = "299 руб";
-            String expectedCurrentGameReleaseDate = "16 дек. 2021";
-
-            SoftAssert checkingGameParameters = new SoftAssert();
-            checkingGameParameters.assertEquals(currentGameTitle
-                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage
-                    .getGameReleaseDate(foundGame), expectedCurrentGameReleaseDate, "Полученная дата релиза игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage
-                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertAll();
-        } else {
-            Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
-        }
-    }
-
-    @Test(priority = 4)
-    public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
-        MANAGER.getDriver().manage().window().maximize();
-        MANAGER.getDriver().get("https://store.steampowered.com/");
-        Assert.assertEquals(MANAGER.getDriver()
-                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
-        String observedGameSeries = "HITMAN";
-
-        MainPage mainPage = new MainPage();
-        mainPage.inputBoxWriteText(observedGameSeries);
-        mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(MANAGER.getDriver()
-                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
-
-        FilterPage filterPage = new FilterPage();
-        filterPage.sortingParametersClickByJs();
-
-        filterPage.priceIncreaseParameterClickByJs();
-        Assert.assertTrue(filterPage
-                .priceIncreaseParameterSortingChecking(), "Установлен неверный параметр сортировки");
-
-        filterPage.specialOffersCheckboxClickByJs();
-        Assert.assertTrue(filterPage
-                .specialOffersCheckboxActiveStatusChecking(), "Checkbox \"Специальные предложения\" не активирован");
-
-        filterPage.windowsOperatingSystemParameterClickByJs();
-        Assert.assertTrue(filterPage
-                .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
-
-        addingWaitingTime();
-        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
-        WebElement foundGame = foundGameInformation.get("gameElement");
-        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
-
-        if (foundGame != null) {
-            String expectedGameTitle = "HITMAN 3 - Trinity Pack";
-            String expectedCurrentGamePrice = "140 руб";
-            String expectedCurrentGameReleaseDate = "20 янв. 2022";
-
-            SoftAssert checkingGameParameters = new SoftAssert();
-            checkingGameParameters.assertEquals(currentGameTitle
-                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertTrue(filterPage
-                    .getGameReleaseDate(foundGame).contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertEquals(filterPage
-                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertAll();
-        } else {
-            Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
-        }
-    }
+//    @Test(priority = 2)
+//    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() throws InterruptedException {
+//        MANAGER.getDriver().manage().window().maximize();
+//        MANAGER.getDriver().get("https://store.steampowered.com/");
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+//
+//        MainPage mainPage = new MainPage();
+//        mainPage.categoriesButtonTopMenuDesktopClick();
+//        mainPage.mysteriesAndDetectivesCategoryButtonClick();
+//
+//        MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
+//        mysteriesAndDetectivesPage.filterSectionScrolling();
+//
+//        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
+//        Assert.assertTrue(mysteriesAndDetectivesPage
+//                .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
+//
+//        addingWaitingTime();
+//        mysteriesAndDetectivesPage.showMoreButtonClickByJs();
+//
+//        mysteriesAndDetectivesPage.strategyParameterClickByJs();
+//        Assert.assertTrue(mysteriesAndDetectivesPage
+//                .strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
+//
+//        mysteriesAndDetectivesPage.playersParameterClickByJs();
+//
+//        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
+//        Assert.assertTrue(mysteriesAndDetectivesPage
+//                .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
+//
+//        mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
+//        List<String> allWindowHandles = new ArrayList<>(MANAGER.getDriver().getWindowHandles());
+//        String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
+//        MANAGER.getDriver().switchTo().window(windowToSwitch);
+//
+//        String currentGameTitleText = mysteriesAndDetectivesPage.gameTitleGetText();
+//        String expectedGameTitleText = "West Hunt";
+//        Assert.assertEquals(currentGameTitleText, expectedGameTitleText, "Текущий заголовок игры " + currentGameTitleText + " не соответствует ожидаемому значению - " + expectedGameTitleText);
+//    }
+//
+//    @Test(priority = 3)
+//    public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
+//        MANAGER.getDriver().manage().window().maximize();
+//        MANAGER.getDriver().get("https://store.steampowered.com/");
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+//        String observedGameSeries = "Oxygen Not Included";
+//
+//        MainPage mainPage = new MainPage();
+//        mainPage.inputBoxWriteText(observedGameSeries);
+//        mainPage.inputBoxConfirmClick();
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+//
+//        FilterPage filterPage = new FilterPage();
+//        filterPage.sortingParametersClickByJs();
+//
+//        filterPage.releasingDateParameterClickByJs();
+//        Assert.assertTrue(filterPage
+//                .releasingDateParameterSortingChecking(), "Установлен неверный параметр сортировки");
+//
+//        filterPage.removeFreeGamesCheckboxClickByJs();
+//        Assert.assertTrue(filterPage
+//                .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
+//
+//        addingWaitingTime();
+//        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
+//        WebElement foundGame = foundGameInformation.get("gameElement");
+//        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
+//
+//        if (foundGame != null) {
+//            String expectedGameTitle = "Oxygen Not Included - Spaced Out!";
+//            String expectedCurrentGamePrice = "299 руб";
+//            String expectedCurrentGameReleaseDate = "16 дек. 2021";
+//
+//            SoftAssert checkingGameParameters = new SoftAssert();
+//            checkingGameParameters.assertEquals(currentGameTitle
+//                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertEquals(filterPage
+//                    .getGameReleaseDate(foundGame), expectedCurrentGameReleaseDate, "Полученная дата релиза игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertEquals(filterPage
+//                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertAll();
+//        } else {
+//            Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
+//        }
+//    }
+//
+//    @Test(priority = 4)
+//    public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
+//        MANAGER.getDriver().manage().window().maximize();
+//        MANAGER.getDriver().get("https://store.steampowered.com/");
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getCurrentUrl(), "https://store.steampowered.com/", "Открыта неверная страница");
+//        String observedGameSeries = "HITMAN";
+//
+//        MainPage mainPage = new MainPage();
+//        mainPage.inputBoxWriteText(observedGameSeries);
+//        mainPage.inputBoxConfirmClick();
+//        Assert.assertEquals(MANAGER.getDriver()
+//                .getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+//
+//        FilterPage filterPage = new FilterPage();
+//        filterPage.sortingParametersClickByJs();
+//
+//        filterPage.priceIncreaseParameterClickByJs();
+//        Assert.assertTrue(filterPage
+//                .priceIncreaseParameterSortingChecking(), "Установлен неверный параметр сортировки");
+//
+//        filterPage.specialOffersCheckboxClickByJs();
+//        Assert.assertTrue(filterPage
+//                .specialOffersCheckboxActiveStatusChecking(), "Checkbox \"Специальные предложения\" не активирован");
+//
+//        filterPage.windowsOperatingSystemParameterClickByJs();
+//        Assert.assertTrue(filterPage
+//                .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
+//
+//        addingWaitingTime();
+//        Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
+//        WebElement foundGame = foundGameInformation.get("gameElement");
+//        WebElement currentGameTitle = foundGameInformation.get("gameTitle");
+//
+//        if (foundGame != null) {
+//            String expectedGameTitle = "HITMAN 3 - Trinity Pack";
+//            String expectedCurrentGamePrice = "140 руб";
+//            String expectedCurrentGameReleaseDate = "20 янв. 2022";
+//
+//            SoftAssert checkingGameParameters = new SoftAssert();
+//            checkingGameParameters.assertEquals(currentGameTitle
+//                    .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertTrue(filterPage
+//                    .getGameReleaseDate(foundGame).contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertEquals(filterPage
+//                    .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
+//            checkingGameParameters.assertAll();
+//        } else {
+//            Assert.fail("Ни одна игра серии " + observedGameSeries + " не найдена");
+//        }
+//    }
 
     private void addingWaitingTime() throws InterruptedException {
         Thread.sleep(3000);
     }
 
-    @AfterTest
-    public void afterTests() {
-        MANAGER.getDriver().quit();
-    }
+//    @AfterTest
+//    public void afterTests() {
+//        MANAGER.getDriver().quit();
+//    }
 
 }

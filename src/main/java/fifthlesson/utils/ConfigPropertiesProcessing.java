@@ -20,4 +20,17 @@ public class ConfigPropertiesProcessing {
         }
         return browser;
     }
+
+    public String getSizeOfBrowserFromProperty() {
+        File file = new File("src/main/resources/config.properties");
+        String size;
+        try {
+            properties.load(new FileInputStream(file));
+            size = properties.getProperty("browser-size");
+        } catch (IOException e) {
+            System.err.println("Ошибка при загрузке файла!");
+            throw new RuntimeException(e);
+        }
+        return size;
+    }
 }
