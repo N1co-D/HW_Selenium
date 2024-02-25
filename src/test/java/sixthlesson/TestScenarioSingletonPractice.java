@@ -1,7 +1,6 @@
 package sixthlesson;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -18,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class TestScenarioSingletonPractice {
@@ -59,10 +59,10 @@ public class TestScenarioSingletonPractice {
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
         cooperativesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver()
+        List<String> allWindowHandles = new ArrayList<>(webdriver().driver()
                 .getWebDriver().getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        Selenide.webdriver().driver().switchTo().window(windowToSwitch);
+        webdriver().driver().switchTo().window(windowToSwitch);
 
         String currentGameTitleText = cooperativesPage.gameTitleGetText();
         String expectedGameTitleText = "Garry's Mod";
@@ -100,10 +100,10 @@ public class TestScenarioSingletonPractice {
                 .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
         mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver()
+        List<String> allWindowHandles = new ArrayList<>(webdriver().driver()
                 .getWebDriver().getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        Selenide.webdriver().driver().switchTo().window(windowToSwitch);
+        webdriver().driver().switchTo().window(windowToSwitch);
 
         String currentGameTitleText = mysteriesAndDetectivesPage.gameTitleGetText();
         String expectedGameTitleText = "West Hunt";
@@ -119,7 +119,7 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(Selenide.webdriver().driver()
+        Assert.assertEquals(webdriver().driver()
                 .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
@@ -165,7 +165,7 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(Selenide.webdriver().driver()
+        Assert.assertEquals(webdriver().driver()
                 .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
