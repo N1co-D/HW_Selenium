@@ -1,4 +1,4 @@
-package fifthlesson.utils;
+package sixthlesson.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

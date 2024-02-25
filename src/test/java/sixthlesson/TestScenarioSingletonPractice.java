@@ -1,17 +1,17 @@
-package fifthlesson;
+package sixthlesson;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
-import fifthlesson.pageobject.CooperativesPage;
-import fifthlesson.pageobject.FilterPage;
-import fifthlesson.pageobject.MainPage;
-import fifthlesson.pageobject.MysteriesAndDetectivesPage;
-import fifthlesson.utils.ConfigPropertiesProcessing;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import sixthlesson.pageobject.CooperativesPage;
+import sixthlesson.pageobject.FilterPage;
+import sixthlesson.pageobject.MainPage;
+import sixthlesson.pageobject.MysteriesAndDetectivesPage;
+import sixthlesson.utils.ConfigPropertiesProcessing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,8 @@ public class TestScenarioSingletonPractice {
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
         cooperativesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver().getWebDriver().getWindowHandles());
+        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver()
+                .getWebDriver().getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
         Selenide.webdriver().driver().switchTo().window(windowToSwitch);
 
@@ -99,7 +100,8 @@ public class TestScenarioSingletonPractice {
                 .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
         mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver().getWebDriver().getWindowHandles());
+        List<String> allWindowHandles = new ArrayList<>(Selenide.webdriver().driver()
+                .getWebDriver().getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
         Selenide.webdriver().driver().switchTo().window(windowToSwitch);
 
@@ -117,7 +119,8 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(Selenide.webdriver().driver().getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(Selenide.webdriver().driver()
+                .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
@@ -162,7 +165,8 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(Selenide.webdriver().driver().getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(Selenide.webdriver().driver()
+                .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
@@ -192,8 +196,8 @@ public class TestScenarioSingletonPractice {
             SoftAssert checkingGameParameters = new SoftAssert();
             checkingGameParameters.assertEquals(currentGameTitle
                     .getText(), expectedGameTitle, "Текущий заголовок игры не соответствует ожидаемому значению");
-            checkingGameParameters.assertTrue(filterPage
-                    .getGameReleaseDate(foundGame).contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
+            checkingGameParameters.assertTrue(filterPage.getGameReleaseDate(foundGame)
+                    .contains(expectedCurrentGameReleaseDate), "Полученная дата релиза игры не соответствует ожидаемому значению");
             checkingGameParameters.assertEquals(filterPage
                     .getGamePrice(foundGame), expectedCurrentGamePrice, "Полученная цена игры не соответствует ожидаемому значению");
             checkingGameParameters.assertAll();

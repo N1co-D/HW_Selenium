@@ -1,11 +1,11 @@
-package fifthlesson.pageobject;
+package sixthlesson.pageobject;
 
 import com.codeborne.selenide.Selenide;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$x;
 
 /**
  * Страница "Тайны и детективы" в Steam
@@ -33,7 +33,8 @@ public class MysteriesAndDetectivesPage {
     }
 
     public boolean salesLeadersParameterButtonActiveStatusChecking() {
-        return $x(salesLeadersParameterButtonActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(salesLeadersParameterButtonActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void showMoreButtonClickByJs() {
@@ -47,7 +48,8 @@ public class MysteriesAndDetectivesPage {
     }
 
     public boolean strategyParameterTagChecking() {
-        return $x(strategyParameterTag).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(strategyParameterTag).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void playersParameterClickByJs() {
@@ -61,7 +63,8 @@ public class MysteriesAndDetectivesPage {
     }
 
     public boolean forMultiplePlayersParameterTagChecking() {
-        return $x(forMultiplePlayersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(forMultiplePlayersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void firstGameWithFilterParametersClickByJs() {

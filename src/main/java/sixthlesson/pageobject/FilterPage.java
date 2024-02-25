@@ -1,15 +1,16 @@
-package fifthlesson.pageobject;
+package sixthlesson.pageobject;
 
-import com.codeborne.selenide.*;
+import com.codeborne.selenide.CollectionCondition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 
 /**
@@ -33,9 +34,6 @@ public class FilterPage {
     private final String gamePrice = ".//div[@class = 'discount_final_price']";
     private final int secondsOfWaiting = 10;
 
-//    JavascriptExecutor jsExecutor = (JavascriptExecutor) MANAGER.getDriver();
-//    private final WebDriverWait webDriverWait = new WebDriverWait(MANAGER.getDriver(), Duration.ofSeconds(10));
-
     public void sortingParametersClickByJs() {
         $x(sortingParameters).should(visible, Duration.ofSeconds(secondsOfWaiting));
         Selenide.executeJavaScript("arguments[0].click()", $x(sortingParameters));
@@ -47,7 +45,8 @@ public class FilterPage {
     }
 
     public boolean releasingDateParameterSortingChecking() {
-        return $x(releasingDateParameterChecking).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(releasingDateParameterChecking).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void priceIncreaseParameterClickByJs() {
@@ -56,7 +55,8 @@ public class FilterPage {
     }
 
     public boolean priceIncreaseParameterSortingChecking() {
-        return $x(priceIncreaseParameterChecking).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(priceIncreaseParameterChecking).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void removeFreeGamesCheckboxClickByJs() {
@@ -65,7 +65,8 @@ public class FilterPage {
     }
 
     public boolean removeFreeGamesCheckboxActiveStatusChecking() {
-        return $x(removeFreeGamesCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(removeFreeGamesCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void specialOffersCheckboxClickByJs() {
@@ -74,7 +75,8 @@ public class FilterPage {
     }
 
     public boolean specialOffersCheckboxActiveStatusChecking() {
-        return $x(specialOffersCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(specialOffersCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
     public void windowsOperatingSystemParameterClickByJs() {
@@ -83,17 +85,16 @@ public class FilterPage {
     }
 
     public boolean windowsOperatingSystemParameterActiveStatusChecking() {
-        return $x(windowsOperatingSystemCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting)).isDisplayed();
+        return $x(windowsOperatingSystemCheckboxActiveStatus).should(visible, Duration.ofSeconds(secondsOfWaiting))
+                .isDisplayed();
     }
 
-    //    private List<WebElement> getAllGamesWithFilterParameters() {
     private ElementsCollection getAllGamesWithFilterParameters() {
         return $$x(allGamesFromList).should(CollectionCondition.sizeGreaterThan(0));
 
     }
 
     public Map<String, WebElement> searchingForRequiredGameInList(String observedGameSeries) {
-//        List<WebElement> allGamesFromList = getAllGamesWithFilterParameters();
         ElementsCollection allGamesFromList = getAllGamesWithFilterParameters();
         WebElement foundGame = null;
         WebElement currentGameTitle = null;
