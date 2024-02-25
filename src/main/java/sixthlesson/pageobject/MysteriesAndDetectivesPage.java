@@ -1,11 +1,10 @@
 package sixthlesson.pageobject;
 
-import com.codeborne.selenide.Selenide;
-
 import java.time.Duration;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 /**
  * Страница "Тайны и детективы" в Steam
@@ -29,7 +28,7 @@ public class MysteriesAndDetectivesPage {
 
     public void salesLeadersParameterButtonClickByJs() {
         $x(salesLeadersParameterButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click();", $x(salesLeadersParameterButton));
+        executeJavaScript("arguments[0].click();", $x(salesLeadersParameterButton));
     }
 
     public boolean salesLeadersParameterButtonActiveStatusChecking() {
@@ -39,12 +38,12 @@ public class MysteriesAndDetectivesPage {
 
     public void showMoreButtonClickByJs() {
         $x(showMoreButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(showMoreButton));
+        executeJavaScript("arguments[0].click()", $x(showMoreButton));
     }
 
     public void strategyParameterClickByJs() {
         $x(strategyParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(strategyParameter));
+        executeJavaScript("arguments[0].click()", $x(strategyParameter));
     }
 
     public boolean strategyParameterTagChecking() {
@@ -54,12 +53,12 @@ public class MysteriesAndDetectivesPage {
 
     public void playersParameterClickByJs() {
         $x(playersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(playersParameter));
+        executeJavaScript("arguments[0].click()", $x(playersParameter));
     }
 
     public void forMultiplePlayersParameterClickByJs() {
         $x(forMultiplePlayersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(forMultiplePlayersParameter));
+        executeJavaScript("arguments[0].click()", $x(forMultiplePlayersParameter));
     }
 
     public boolean forMultiplePlayersParameterTagChecking() {
@@ -69,7 +68,7 @@ public class MysteriesAndDetectivesPage {
 
     public void firstGameWithFilterParametersClickByJs() {
         $x(firstGameWithFilterParameters).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(firstGameWithFilterParameters));
+        executeJavaScript("arguments[0].click()", $x(firstGameWithFilterParameters));
     }
 
     public String gameTitleGetText() {

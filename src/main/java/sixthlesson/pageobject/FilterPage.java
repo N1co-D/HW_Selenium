@@ -2,7 +2,6 @@ package sixthlesson.pageobject;
 
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -36,12 +35,12 @@ public class FilterPage {
 
     public void sortingParametersClickByJs() {
         $x(sortingParameters).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(sortingParameters));
+        executeJavaScript("arguments[0].click()", $x(sortingParameters));
     }
 
     public void releasingDateParameterClickByJs() {
         $x(releasingDateParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(releasingDateParameter));
+        executeJavaScript("arguments[0].click()", $x(releasingDateParameter));
     }
 
     public boolean releasingDateParameterSortingChecking() {
@@ -51,7 +50,7 @@ public class FilterPage {
 
     public void priceIncreaseParameterClickByJs() {
         $x(priceIncreaseParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(priceIncreaseParameter));
+        executeJavaScript("arguments[0].click()", $x(priceIncreaseParameter));
     }
 
     public boolean priceIncreaseParameterSortingChecking() {
@@ -61,7 +60,7 @@ public class FilterPage {
 
     public void removeFreeGamesCheckboxClickByJs() {
         $x(removeFreeGamesCheckbox).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(removeFreeGamesCheckbox));
+        executeJavaScript("arguments[0].click()", $x(removeFreeGamesCheckbox));
     }
 
     public boolean removeFreeGamesCheckboxActiveStatusChecking() {
@@ -71,7 +70,7 @@ public class FilterPage {
 
     public void specialOffersCheckboxClickByJs() {
         $x(specialOffersCheckbox).should(visible, Duration.ofSeconds(secondsOfWaiting));
-        Selenide.executeJavaScript("arguments[0].click()", $x(specialOffersCheckbox));
+        executeJavaScript("arguments[0].click()", $x(specialOffersCheckbox));
     }
 
     public boolean specialOffersCheckboxActiveStatusChecking() {
