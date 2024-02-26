@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.webdriver;
+import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class TestScenarioSingletonPractice {
@@ -58,11 +57,11 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(cooperativesPage
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
+        addingWaitingTime();
         cooperativesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(webdriver().driver()
-                .getWebDriver().getWindowHandles());
+        List<String> allWindowHandles = new ArrayList<>(switchTo().window(0).getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        webdriver().driver().switchTo().window(windowToSwitch);
+        switchTo().window(windowToSwitch);
 
         String currentGameTitleText = cooperativesPage.gameTitleGetText();
         String expectedGameTitleText = "Garry's Mod";
@@ -70,7 +69,7 @@ public class TestScenarioSingletonPractice {
     }
 
     @Test(priority = 2)
-    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() throws InterruptedException {
+    public void checkingCorrectProductDisplayWithFilterParametersMysteriesAndDetectives() {
         open("https://store.steampowered.com/");
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
 
@@ -99,11 +98,11 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
+        addingWaitingTime();
         mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
-        List<String> allWindowHandles = new ArrayList<>(webdriver().driver()
-                .getWebDriver().getWindowHandles());
+        List<String> allWindowHandles = new ArrayList<>(switchTo().window(0).getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
-        webdriver().driver().switchTo().window(windowToSwitch);
+        switchTo().window(windowToSwitch);
 
         String currentGameTitleText = mysteriesAndDetectivesPage.gameTitleGetText();
         String expectedGameTitleText = "West Hunt";
@@ -111,7 +110,7 @@ public class TestScenarioSingletonPractice {
     }
 
     @Test(priority = 3)
-    public void checkingSortingByReleaseDateOfGame() throws InterruptedException {
+    public void checkingSortingByReleaseDateOfGame() {
         open("https://store.steampowered.com/");
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "Oxygen Not Included";
@@ -119,8 +118,7 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(webdriver().driver()
-                .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(title(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
@@ -157,7 +155,7 @@ public class TestScenarioSingletonPractice {
     }
 
     @Test(priority = 4)
-    public void checkingSortingByReleaseDateAndOtherParameter() throws InterruptedException {
+    public void checkingSortingByReleaseDateAndOtherParameter() {
         open("https://store.steampowered.com/");
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
         String observedGameSeries = "HITMAN";
@@ -165,8 +163,7 @@ public class TestScenarioSingletonPractice {
         MainPage mainPage = new MainPage();
         mainPage.inputBoxWriteText(observedGameSeries);
         mainPage.inputBoxConfirmClick();
-        Assert.assertEquals(webdriver().driver()
-                .getWebDriver().getTitle(), "Поиск Steam", "Указан заголовок некорректной страницы");
+        Assert.assertEquals(title(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
         filterPage.sortingParametersClickByJs();
@@ -206,8 +203,8 @@ public class TestScenarioSingletonPractice {
         }
     }
 
-    private void addingWaitingTime() throws InterruptedException {
-        Thread.sleep(3000);
+    private void addingWaitingTime() {
+        sleep(2000);
     }
 
 }
