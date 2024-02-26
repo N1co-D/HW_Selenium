@@ -33,12 +33,13 @@ public class FilterPage {
     private final String gamePrice = ".//div[@class = 'discount_final_price']";
     private final int secondsOfWaiting = 10;
 
-    public void sortingParametersClickByJs() {
+    private void sortingParametersClickByJs() {
         $x(sortingParameters).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(sortingParameters));
     }
 
     public void releasingDateParameterClickByJs() {
+        sortingParametersClickByJs();
         $x(releasingDateParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(releasingDateParameter));
     }
@@ -49,6 +50,7 @@ public class FilterPage {
     }
 
     public void priceIncreaseParameterClickByJs() {
+        sortingParametersClickByJs();
         $x(priceIncreaseParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(priceIncreaseParameter));
     }

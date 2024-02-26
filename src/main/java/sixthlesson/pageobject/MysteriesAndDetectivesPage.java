@@ -22,11 +22,12 @@ public class MysteriesAndDetectivesPage {
     private final String gameTitle = "//div[@id = 'appHubAppName']";
     private final int secondsOfWaiting = 10;
 
-    public void filterSectionScrolling() {
+    private void filterSectionScrolling() {
         $x(filterSection).should(visible, Duration.ofSeconds(secondsOfWaiting)).scrollTo();
     }
 
     public void salesLeadersParameterButtonClickByJs() {
+        filterSectionScrolling();
         $x(salesLeadersParameterButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(salesLeadersParameterButton));
     }
@@ -36,12 +37,13 @@ public class MysteriesAndDetectivesPage {
                 .isDisplayed();
     }
 
-    public void showMoreButtonClickByJs() {
+    private void showMoreButtonClickByJs() {
         $x(showMoreButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(showMoreButton));
     }
 
     public void strategyParameterClickByJs() {
+        showMoreButtonClickByJs();
         $x(strategyParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(strategyParameter));
     }
@@ -51,12 +53,13 @@ public class MysteriesAndDetectivesPage {
                 .isDisplayed();
     }
 
-    public void playersParameterClickByJs() {
+    private void playersParameterClickByJs() {
         $x(playersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(playersParameter));
     }
 
     public void forMultiplePlayersParameterClickByJs() {
+        playersParameterClickByJs();
         $x(forMultiplePlayersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(forMultiplePlayersParameter));
     }

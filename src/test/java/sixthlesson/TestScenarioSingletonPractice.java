@@ -20,7 +20,6 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 public class TestScenarioSingletonPractice {
-
     @BeforeTest
     public void setUpDriverOptions() {
         ConfigPropertiesProcessing configPropertiesProcessing = new ConfigPropertiesProcessing();
@@ -36,12 +35,11 @@ public class TestScenarioSingletonPractice {
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
-        mainPage.categoriesButtonTopMenuDesktopClick();
+
         mainPage.cooperativesCategoryButtonClick();
         Assert.assertEquals(url(), "https://store.steampowered.com/category/multiplayer_coop/", "Открыта неверная страница");
 
         CooperativesPage cooperativesPage = new CooperativesPage();
-        cooperativesPage.filterSectionScrolling();
 
         cooperativesPage.withTheHighestRatingParameterButtonClickByJs();
         Assert.assertTrue(cooperativesPage
@@ -51,13 +49,11 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(cooperativesPage
                 .casualGameParameterTagChecking(), "Тэг \"Казуальная игра\" не отображается");
 
-        cooperativesPage.playersParameterClickByJs();
-
         cooperativesPage.cooperativeParameterClickByJs();
         Assert.assertTrue(cooperativesPage
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
-        addingWaitingTime();
+        addWaitingTime();
         cooperativesPage.firstGameWithFilterParametersClickByJs();
         List<String> allWindowHandles = new ArrayList<>(switchTo().window(0).getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
@@ -74,31 +70,26 @@ public class TestScenarioSingletonPractice {
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
 
         MainPage mainPage = new MainPage();
-        mainPage.categoriesButtonTopMenuDesktopClick();
+
         mainPage.mysteriesAndDetectivesCategoryButtonClick();
         Assert.assertEquals(url(), "https://store.steampowered.com/category/mystery_detective/", "Открыта неверная страница");
 
         MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
-        mysteriesAndDetectivesPage.filterSectionScrolling();
 
         mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 
-        addingWaitingTime();
-        mysteriesAndDetectivesPage.showMoreButtonClickByJs();
-
+        addWaitingTime();
         mysteriesAndDetectivesPage.strategyParameterClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
-
-        mysteriesAndDetectivesPage.playersParameterClickByJs();
 
         mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
-        addingWaitingTime();
+        addWaitingTime();
         mysteriesAndDetectivesPage.firstGameWithFilterParametersClickByJs();
         List<String> allWindowHandles = new ArrayList<>(switchTo().window(0).getWindowHandles());
         String windowToSwitch = allWindowHandles.get(allWindowHandles.size() - 1);
@@ -116,12 +107,11 @@ public class TestScenarioSingletonPractice {
         String observedGameSeries = "Oxygen Not Included";
 
         MainPage mainPage = new MainPage();
-        mainPage.inputBoxWriteText(observedGameSeries);
-        mainPage.inputBoxConfirmClick();
+
+        mainPage.SearchGameByInputBox(observedGameSeries);
         Assert.assertEquals(title(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
-        filterPage.sortingParametersClickByJs();
 
         filterPage.releasingDateParameterClickByJs();
         Assert.assertTrue(filterPage
@@ -131,7 +121,7 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(filterPage
                 .removeFreeGamesCheckboxActiveStatusChecking(), "Checkbox \"Скрыть бесплатные игры\" не активирован");
 
-        addingWaitingTime();
+        addWaitingTime();
         Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
         WebElement foundGame = foundGameInformation.get("gameElement");
         WebElement currentGameTitle = foundGameInformation.get("gameTitle");
@@ -158,15 +148,14 @@ public class TestScenarioSingletonPractice {
     public void checkingSortingByReleaseDateAndOtherParameter() {
         open("https://store.steampowered.com/");
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
-        String observedGameSeries = "HITMAN";
+        String observedGameSeries = "Farming Simulator";
 
         MainPage mainPage = new MainPage();
-        mainPage.inputBoxWriteText(observedGameSeries);
-        mainPage.inputBoxConfirmClick();
+
+        mainPage.SearchGameByInputBox(observedGameSeries);
         Assert.assertEquals(title(), "Поиск Steam", "Указан заголовок некорректной страницы");
 
         FilterPage filterPage = new FilterPage();
-        filterPage.sortingParametersClickByJs();
 
         filterPage.priceIncreaseParameterClickByJs();
         Assert.assertTrue(filterPage
@@ -180,15 +169,15 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(filterPage
                 .windowsOperatingSystemParameterActiveStatusChecking(), "Checkbox \"Windows\" не активирован");
 
-        addingWaitingTime();
+        addWaitingTime();
         Map<String, WebElement> foundGameInformation = filterPage.searchingForRequiredGameInList(observedGameSeries);
         WebElement foundGame = foundGameInformation.get("gameElement");
         WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
         if (foundGame != null) {
-            String expectedGameTitle = "HITMAN 3 - Trinity Pack";
-            String expectedCurrentGamePrice = "140 руб";
-            String expectedCurrentGameReleaseDate = "20 янв. 2022";
+            String expectedGameTitle = "Farming Simulator 22";
+            String expectedCurrentGamePrice = "1749 руб";
+            String expectedCurrentGameReleaseDate = "22 ноя. 2021";
 
             SoftAssert checkingGameParameters = new SoftAssert();
             checkingGameParameters.assertEquals(currentGameTitle
@@ -203,8 +192,7 @@ public class TestScenarioSingletonPractice {
         }
     }
 
-    private void addingWaitingTime() {
+    private void addWaitingTime() {
         sleep(2000);
     }
-
 }

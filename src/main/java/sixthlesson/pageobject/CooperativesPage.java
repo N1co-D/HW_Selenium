@@ -22,11 +22,12 @@ public class CooperativesPage {
     private final String gameTitle = "//div[@id = 'appHubAppName']";
     private final int secondsOfWaiting = 10;
 
-    public void filterSectionScrolling() {
+    private void filterSectionScrolling() {
         $x(filterSection).should(visible, Duration.ofSeconds(secondsOfWaiting)).scrollTo();
     }
 
     public void withTheHighestRatingParameterButtonClickByJs() {
+        filterSectionScrolling();
         $x(withTheHighestRatingParameterButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(withTheHighestRatingParameterButton));
     }
@@ -46,12 +47,13 @@ public class CooperativesPage {
                 .isDisplayed();
     }
 
-    public void playersParameterClickByJs() {
+    private void playersParameterClickByJs() {
         $x(playersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(playersParameter));
     }
 
     public void cooperativeParameterClickByJs() {
+        playersParameterClickByJs();
         $x(cooperativeParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(cooperativeParameter));
     }

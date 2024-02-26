@@ -16,24 +16,31 @@ public class MainPage {
     private final String inputBoxConfirm = "//a[@id = 'store_search_link']/img";
     private final int secondsOfWaiting = 10;
 
-    public void categoriesButtonTopMenuDesktopClick() {
+    private void categoriesButtonTopMenuDesktopClick() {
         $x(categoriesButtonTopMenuDesktop).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
     }
 
     public void cooperativesCategoryButtonClick() {
+        categoriesButtonTopMenuDesktopClick();
         $x(cooperativesCategoryButton).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
     }
 
     public void mysteriesAndDetectivesCategoryButtonClick() {
+        categoriesButtonTopMenuDesktopClick();
         $x(mysteriesAndDetectivesCategoryButton).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
     }
 
-    public void inputBoxWriteText(String text) {
+    private void inputBoxWriteText(String text) {
         $x(inputBox).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
         $x(inputBox).sendKeys(text);
     }
 
-    public void inputBoxConfirmClick() {
+    private void inputBoxConfirmClick() {
         $x(inputBoxConfirm).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
+    }
+
+    public void SearchGameByInputBox(String text) {
+        inputBoxWriteText(text);
+        inputBoxConfirmClick();
     }
 }
