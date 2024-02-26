@@ -31,6 +31,8 @@ public class HW1 {
 //      driver1.manage().getCookies() // Получение всех куки из текущего сеанса браузера
 //      driver1.manage().logs() // Получение логов браузера
 //      driver1.manage().timeouts() // Установление таймауты для различных операций (например, ожидание загрузки страницы)
+//      driver1.manage().window().getSize();
+//      driver1.manage().window().getPosition();
 
         System.out.println();
         System.out.println("driver2.findElement(By.id(\"language_pulldown\")) = " + driver2.findElement(By.id("language_pulldown"))); // Получение одного элемента (по идентификатору)
