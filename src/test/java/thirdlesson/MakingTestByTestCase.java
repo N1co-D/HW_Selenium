@@ -29,14 +29,12 @@ public class MakingTestByTestCase {
     public WebDriver browserDefinition() {
         File file = new File("src/main/resources/config.properties");
         Properties props = new Properties();
-
         try {
             props.load(new FileInputStream(file));
         } catch (IOException e) {
             System.err.println("Ошибка при загрузке файла!");
             throw new RuntimeException(e);
         }
-
         if (props.getProperty("browser").equals("chrome")) {
             System.out.println("Определен браузер: Google Chrome");
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -58,7 +56,6 @@ public class MakingTestByTestCase {
         } else {
             System.err.println("Браузер не определен");
         }
-
         return driver;
     }
 
@@ -68,11 +65,11 @@ public class MakingTestByTestCase {
         driver.get("https://store.steampowered.com/");
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
         jsExecutor.executeScript("window.scrollBy(0, " + 2250 + ");");
-        WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//img[@alt = 'TEKKEN 8']/ancestor::a[contains(@class,'app_impression_tracked')]//div[@class = 'discount_final_price']"));
+        WebElement categoriesButtonTopMenuDesktop = driver.findElement(By.xpath("//img[@alt = 'Симулятор Чушпана']/ancestor::a[contains(@class,'app_impression_tracked')]//div[@class = 'discount_final_price']"));
         Assert.assertTrue(categoriesButtonTopMenuDesktop.isDisplayed(), "Игра по указанному XPath не найдена.");
         String priceText = categoriesButtonTopMenuDesktop.getText();
         String[] parts = priceText.split(" ");
-        Assert.assertEquals(parts[0], "4199", "Указана некорректная цена товара");
+        Assert.assertEquals(parts[0], "48", "Указана некорректная цена товара");
         Assert.assertEquals(parts[1], "pуб.", "Указана некорректная валюта в стоимости");
     }
 
@@ -80,5 +77,4 @@ public class MakingTestByTestCase {
     public void afterTests() {
         driver.quit();
     }
-
 }
