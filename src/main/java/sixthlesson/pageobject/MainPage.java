@@ -16,17 +16,16 @@ public class MainPage {
     private final String inputBoxConfirm = "//a[@id = 'store_search_link']/img";
     private final int secondsOfWaiting = 10;
 
-    private void categoriesButtonTopMenuDesktopClick() {
+    public MainPage categoriesButtonTopMenuDesktopClick() {
         $x(categoriesButtonTopMenuDesktop).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
+        return this;
     }
 
     public void cooperativesCategoryButtonClick() {
-        categoriesButtonTopMenuDesktopClick();
         $x(cooperativesCategoryButton).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
     }
 
     public void mysteriesAndDetectivesCategoryButtonClick() {
-        categoriesButtonTopMenuDesktopClick();
         $x(mysteriesAndDetectivesCategoryButton).should(visible, Duration.ofSeconds(secondsOfWaiting)).click();
     }
 

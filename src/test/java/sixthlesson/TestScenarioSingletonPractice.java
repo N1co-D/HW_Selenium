@@ -36,7 +36,7 @@ public class TestScenarioSingletonPractice {
 
         MainPage mainPage = new MainPage();
 
-        mainPage.cooperativesCategoryButtonClick();
+        mainPage.categoriesButtonTopMenuDesktopClick().cooperativesCategoryButtonClick();
         Assert.assertEquals(url(), "https://store.steampowered.com/category/multiplayer_coop/", "Открыта неверная страница");
 
         CooperativesPage cooperativesPage = new CooperativesPage();
@@ -49,7 +49,7 @@ public class TestScenarioSingletonPractice {
         Assert.assertTrue(cooperativesPage
                 .casualGameParameterTagChecking(), "Тэг \"Казуальная игра\" не отображается");
 
-        cooperativesPage.cooperativeParameterClickByJs();
+        cooperativesPage.playersParameterClickByJs().cooperativeParameterClickByJs();
         Assert.assertTrue(cooperativesPage
                 .cooperativeParameterTagChecking(), "Тэг \"Кооператив игра\" не отображается");
 
@@ -71,7 +71,7 @@ public class TestScenarioSingletonPractice {
 
         MainPage mainPage = new MainPage();
 
-        mainPage.mysteriesAndDetectivesCategoryButtonClick();
+        mainPage.categoriesButtonTopMenuDesktopClick().mysteriesAndDetectivesCategoryButtonClick();
         Assert.assertEquals(url(), "https://store.steampowered.com/category/mystery_detective/", "Открыта неверная страница");
 
         MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
@@ -81,11 +81,11 @@ public class TestScenarioSingletonPractice {
                 .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 
         addWaitingTime();
-        mysteriesAndDetectivesPage.strategyParameterClickByJs();
+        mysteriesAndDetectivesPage.showMoreButtonClickByJs().strategyParameterClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .strategyParameterTagChecking(), "Тэг \"Стратегия\" не отображается");
 
-        mysteriesAndDetectivesPage.forMultiplePlayersParameterClickByJs();
+        mysteriesAndDetectivesPage.playersParameterClickByJs().forMultiplePlayersParameterClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .forMultiplePlayersParameterTagChecking(), "Тэг \"Для нескольких игроков\" не отображается");
 
@@ -148,7 +148,7 @@ public class TestScenarioSingletonPractice {
     public void checkingSortingByReleaseDateAndOtherParameter() {
         open("https://store.steampowered.com/");
         Assert.assertEquals(url(), "https://store.steampowered.com/", "Открыта неверная страница");
-        String observedGameSeries = "Farming Simulator";
+        String observedGameSeries = "PUZZLE";
 
         MainPage mainPage = new MainPage();
 
@@ -175,9 +175,9 @@ public class TestScenarioSingletonPractice {
         WebElement currentGameTitle = foundGameInformation.get("gameTitle");
 
         if (foundGame != null) {
-            String expectedGameTitle = "Farming Simulator 22";
-            String expectedCurrentGamePrice = "1749 руб";
-            String expectedCurrentGameReleaseDate = "22 ноя. 2021";
+            String expectedGameTitle = "PUZZLE: LANDSCAPES";
+            String expectedCurrentGamePrice = "21 руб";
+            String expectedCurrentGameReleaseDate = "8 авг. 2018";
 
             SoftAssert checkingGameParameters = new SoftAssert();
             checkingGameParameters.assertEquals(currentGameTitle

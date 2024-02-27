@@ -37,13 +37,13 @@ public class MysteriesAndDetectivesPage {
                 .isDisplayed();
     }
 
-    private void showMoreButtonClickByJs() {
+    public MysteriesAndDetectivesPage showMoreButtonClickByJs() {
         $x(showMoreButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(showMoreButton));
+        return this;
     }
 
     public void strategyParameterClickByJs() {
-        showMoreButtonClickByJs();
         $x(strategyParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(strategyParameter));
     }
@@ -53,13 +53,13 @@ public class MysteriesAndDetectivesPage {
                 .isDisplayed();
     }
 
-    private void playersParameterClickByJs() {
+    public MysteriesAndDetectivesPage playersParameterClickByJs() {
         $x(playersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(playersParameter));
+        return this;
     }
 
     public void forMultiplePlayersParameterClickByJs() {
-        playersParameterClickByJs();
         $x(forMultiplePlayersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click()", $x(forMultiplePlayersParameter));
     }

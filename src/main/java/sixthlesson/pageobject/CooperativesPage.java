@@ -47,13 +47,13 @@ public class CooperativesPage {
                 .isDisplayed();
     }
 
-    private void playersParameterClickByJs() {
+    public CooperativesPage playersParameterClickByJs() {
         $x(playersParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(playersParameter));
+        return this;
     }
 
     public void cooperativeParameterClickByJs() {
-        playersParameterClickByJs();
         $x(cooperativeParameter).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(cooperativeParameter));
     }
