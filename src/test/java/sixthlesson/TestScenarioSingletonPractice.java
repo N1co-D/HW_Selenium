@@ -41,7 +41,7 @@ public class TestScenarioSingletonPractice {
 
         CooperativesPage cooperativesPage = new CooperativesPage();
 
-        cooperativesPage.withTheHighestRatingParameterButtonClickByJs();
+        cooperativesPage.filterSectionScrolling().withTheHighestRatingParameterButtonClickByJs();
         Assert.assertTrue(cooperativesPage
                 .withTheHighestRatingParameterButtonActiveStatusChecking(), "Раздел \"С наивысшим рейтингом\" не выбран");
 
@@ -76,7 +76,7 @@ public class TestScenarioSingletonPractice {
 
         MysteriesAndDetectivesPage mysteriesAndDetectivesPage = new MysteriesAndDetectivesPage();
 
-        mysteriesAndDetectivesPage.salesLeadersParameterButtonClickByJs();
+        mysteriesAndDetectivesPage.filterSectionScrolling().salesLeadersParameterButtonClickByJs();
         Assert.assertTrue(mysteriesAndDetectivesPage
                 .salesLeadersParameterButtonActiveStatusChecking(), "Раздел \"Лидеры продаж\" не выбран");
 

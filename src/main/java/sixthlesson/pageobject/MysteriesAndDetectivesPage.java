@@ -22,12 +22,12 @@ public class MysteriesAndDetectivesPage {
     private final String gameTitle = "//div[@id = 'appHubAppName']";
     private final int secondsOfWaiting = 10;
 
-    private void filterSectionScrolling() {
+    public MysteriesAndDetectivesPage filterSectionScrolling() {
         $x(filterSection).should(visible, Duration.ofSeconds(secondsOfWaiting)).scrollTo();
+        return this;
     }
 
     public void salesLeadersParameterButtonClickByJs() {
-        filterSectionScrolling();
         $x(salesLeadersParameterButton).should(visible, Duration.ofSeconds(secondsOfWaiting));
         executeJavaScript("arguments[0].click();", $x(salesLeadersParameterButton));
     }
